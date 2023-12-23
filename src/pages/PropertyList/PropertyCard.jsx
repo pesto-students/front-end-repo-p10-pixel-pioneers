@@ -28,11 +28,11 @@ const useStyles = makeStyles((theme) => ({
   //     margin: theme.spacing(0.5),
   //   },
 }));
-// images.data[1].attributes.url
+
 const PropertyCard = ({ property }) => {
   const navigate = useNavigate();
   const classes = useStyles();
-  console.log(property);
+  //console.log(property);
 
   let baseurl = "http://localhost:1337".concat(
     property.images.data[0].attributes.url
