@@ -33,8 +33,26 @@ export async function propertyList(filters) {
       }
     );
     console.log("Property.js Response-->", response);
-    return response.data;
+
+    let properties =
+      response.data.length != 0
+        ? response.data.data.map((property) => {
+            return {
+              id: property.id,
+              ...property.attributes,
+            };
+          })
+        : [];
+
+    return {
+      success: true,
+      data: properties,
+    };
   } catch (error) {
     console.log(error);
+    return {
+      success: false,
+      message: error.message,
+    };
   }
 }

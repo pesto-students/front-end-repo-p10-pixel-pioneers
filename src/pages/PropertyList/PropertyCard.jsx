@@ -8,10 +8,11 @@ import {
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    maxWidth: 400,
+    maxWidth: 500,
     margin: "auto",
     boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
     transition: "transform 0.3s ease-in-out",
@@ -21,20 +22,26 @@ const useStyles = makeStyles((theme) => ({
   },
   media: {
     height: 200,
+    width: 400,
   },
   //   chip: {
   //     margin: theme.spacing(0.5),
   //   },
 }));
-
+// images.data[1].attributes.url
 const PropertyCard = ({ property }) => {
+  const navigate = useNavigate();
   const classes = useStyles();
-  //console.log(property);
+  console.log(property);
+
+  let baseurl = "http://localhost:1337".concat(
+    property.images.data[0].attributes.url
+  );
   return (
     <Card className={classes.card}>
       <CardMedia
         className={classes.media}
-        image={property.photo}
+        image={baseurl}
         title={property.name}
       />
       <CardContent>
@@ -42,7 +49,7 @@ const PropertyCard = ({ property }) => {
           {property.name}
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
-          Location: {property.location}
+          Location:{property.pincode},{property.city}
         </Typography>
         <Grid
           container
@@ -60,19 +67,29 @@ const PropertyCard = ({ property }) => {
               Facilities:
             </Typography>
           </Grid>
-          {property.facilities.map((facility, index) => (
+          {/* {property.amenities.map((facility, index) => (
             <Grid item key={index}>
               <Chip label={facility} className={classes.chip} />
             </Grid>
-          ))}
+          ))} */}
         </Grid>
+        <Typography component="p" color="textSecondary">
+          starting from
+        </Typography>
+        <Typography variant="h5" component="h6">
+          {property.cost}
+          <Typography component="p" color="textSecondary">
+            /desk/month
+          </Typography>
+        </Typography>
         <Button
           type="submit"
           fullWidth
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
+          onClick={() => navigate("/property-details")}
         >
-          Enquire
+          View Details
         </Button>
       </CardContent>
     </Card>
