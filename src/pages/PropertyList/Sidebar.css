@@ -1,0 +1,30 @@
+.homepage {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
+
+.sidebar {
+  background-color: aquamarine;
+}
+
+.propertyCard {
+  background-color: antiquewhite;
+  flex: 1;
+}
+
+.custom-sidebar {
+  height: 600px;
+  width: 400px;
+  /* flex: 1; */
+}
+
+.css-1nrlq1o-MuiFormControl-root {
+  flex-direction: row;
+}
+
+.card-section {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+}
