@@ -73,14 +73,17 @@ const PropertyCard = ({ property }) => {
             </Grid>
           ))} */}
         </Grid>
-        <Typography component="p" color="textSecondary">
+        <Typography
+          component="p"
+          color="textSecondary"
+          style={{ fontSize: "smaller" }}
+        >
           starting from
         </Typography>
-        <Typography variant="h5" component="h6">
-          {property.cost}
-          <Typography component="p" color="textSecondary">
-            /desk/month
-          </Typography>
+
+        <Typography variant="body1">
+          <span style={{ fontWeight: "bold" }}>{property.cost} </span>
+          <span style={{ fontSize: "smaller" }}>/desk/month</span>{" "}
         </Typography>
         <Button
           type="submit"
