@@ -56,3 +56,24 @@ export async function propertyList(filters) {
     };
   }
 }
+
+export async function getProperty(id) {
+  try {
+    const response = await axios.get(`http://localhost:1337/api/properties/${id}?populate=*`);
+    console.log(`Get Property By ID:-`, response);
+
+    let {data} = response.data
+    return {
+      success: true,
+      data: {
+        id: data.id,
+        ...data.attributes
+      }
+    }
+  } catch (error) {
+    return {
+      success: false,
+      message: error.message
+    }
+  }
+}
