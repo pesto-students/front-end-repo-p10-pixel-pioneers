@@ -7,7 +7,6 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
-// import { Icon } from '@mui/material';
 import * as Muicon from "@mui/icons-material";
 
 // ICONS
@@ -20,6 +19,8 @@ import PrintRoundedIcon from '@mui/icons-material/PrintRounded';
 import AdminPanelSettingsRoundedIcon from '@mui/icons-material/AdminPanelSettingsRounded';
 
 import { Carousel } from "../../components/Carousel";
+import EnquiryForm from "../../components/EnquiryForm";
+import BookingForm from "../../components/BookingForm";
 
 let data = [
     {
@@ -66,17 +67,35 @@ function PropertyDetails() {
     const [propertyDetails, setPropertyDetails] = useState({});
     const [error, setError] = useState("");
     const [hasError, setHasError] = useState(false);
-    // const Icon = Muicon["LocalParking"];
+    const [openEnquiryModal, setOpenEnquiryModal] = useState(false);
+    
+
     const fetchData = async () => {
         let res = await getProperty(propertyID);
         console.log(`Property Details:-`, res.data.name);
         if (res.success) {
+            console.log(`IMAGE:-`, res.data.images)
             setPropertyDetails(res.data);
         } else {
             setHasError(prev => true);
             setError(res.message);
         }
     };
+
+    const handleOpen = (e) => {
+        if (e.target.id === "enquiry") {
+            setOpenEnquiryModal(prev => true);
+        } else if (e.target.id === "booking") {
+            setOpenBookingModal(prev => true)
+        }
+    };
+    const handleClose = (e) => {
+        if (e.target.id === "enquiryModal") {
+            setOpenEnquiryModal(prev => true);
+        } else if (e.target.id === "bookingModal") {
+            setOpenBookingModal(prev => true)
+        }
+    }
 
     useEffect(() => {
         (async () => {
@@ -126,12 +145,12 @@ function PropertyDetails() {
                             return (
                                 <Grid key={amenityName} item xs={6}>
                                     <Stack direction="row" spacing={2} alignItems="center" alignContent="center">
-                                    <Box marginTop={2} display="flex" alignItems={"center"} justifyContent={"center"} style={{ backgroundColor: "#f3f6f9", width: "60px", height: "60px", borderRadius: "30px" }}>
-                                        <Icon />
-                                    </Box>
-                                    <Typography component="h4" variant="h5" color="text.primary">
-                                        {amenity.title}
-                                    </Typography>
+                                        <Box marginTop={2} display="flex" alignItems={"center"} justifyContent={"center"} style={{ backgroundColor: "#f3f6f9", width: "60px", height: "60px", borderRadius: "30px" }}>
+                                            <Icon />
+                                        </Box>
+                                        <Typography component="h4" variant="h5" color="text.primary">
+                                            {amenity.title}
+                                        </Typography>
                                     </Stack>
                                 </Grid>
 
@@ -139,6 +158,7 @@ function PropertyDetails() {
                         })
                     }
                 </Grid>
+                <EnquiryForm property={propertyDetails}/>
             </>
         ) : (
             <>
