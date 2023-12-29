@@ -106,7 +106,7 @@ function PropertyDetails() {
     return (
         (hasError === false) ? (
             <>
-                <Typography sx={{ mb: 1 }} style={{ fontSize: "3rem" }} component="h1" variant="h4" color="text.primary">
+                <Typography marginTop={8} marginBottom={1} style={{ fontSize: "3rem" }} component="h1" variant="h4" color="text.primary">
                     {propertyDetails.name}
                 </Typography>
                 <Typography sx={{ mb: .1 }} component="h2" variant="h5" color="text.secondary">

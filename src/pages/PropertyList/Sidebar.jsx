@@ -36,12 +36,10 @@ function Sidebar({ handleFilterChange }) {
       default:
         priceObject = { min: 0, max: 10000 };
     }
-    console.log(priceObject);
     return priceObject;
   };
 
   const handleChangeDropDown = (event) => {
-    console.log(event.target.value);
     setLocation(event.target.value);
     handleFilterChange({
       city: event.target.value,
@@ -86,6 +84,7 @@ function Sidebar({ handleFilterChange }) {
               onChange={handleChangeDropDown}
               sx={{ width: 200 }}
             >
+              <MenuItem value={""}>ALL</MenuItem>
               <MenuItem value={"Pune"}>Pune</MenuItem>
               <MenuItem value={"Mumbai"}>Mumbai</MenuItem>
               <MenuItem value={"Banglore"}>Banglore</MenuItem>
