@@ -90,7 +90,7 @@ const PropertyCard = ({ property }) => {
           fullWidth
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
-          onClick={() => navigate("/property-details")}
+          onClick={() => navigate(`/property-details/${property.id}`)}
         >
           View Details
         </Button>

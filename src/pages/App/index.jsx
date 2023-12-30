@@ -12,6 +12,8 @@ import User from "../User";
 import PropertyList from "../PropertyList";
 import PropertyDetails from "../PropertyDetails";
 import AddPropertyDetails from "../AddPropertyDetails";
+import About from "../About";
+import Contact from "../Contact";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,8 +24,10 @@ const router = createBrowserRouter(
       <Route path="register" element={<SignUp />} />
       <Route path="user" element={<User />} />
       <Route path="properties" element={<PropertyList />} />
-      <Route path="property-details" element={<PropertyDetails />} />
-      <Route path="add-propertyDetails" element={<AddPropertyDetails />} />
+      <Route path="property-details/:propertyID" element={<PropertyDetails />} />
+      <Route path="contact" element={<Contact />} />
+      <Route path="about" element={<About />} />
+      
     </Route>
   )
 );
