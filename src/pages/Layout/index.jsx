@@ -16,6 +16,8 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
+import Footer from '../../components/Footer';
+
 const drawerWidth = 240;
 const navItems = ['Home', 'About', 'Locations', 'Contact'];
 
@@ -67,7 +69,7 @@ function DrawerAppBar(props) {
     const container = window !== undefined ? () => window().document.body : undefined;
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex' }} marginBottom={8}>
             <CssBaseline />
             <AppBar component="nav">
                 <Toolbar>
@@ -116,12 +118,13 @@ function DrawerAppBar(props) {
         </Box>
     )
 }
+
 function Layout() {
     return (
         <>
             <div><DrawerAppBar /></div>
             <Outlet />
-            <div>Footer</div>
+            <div><Footer/></div>
         </>
     )
 }
