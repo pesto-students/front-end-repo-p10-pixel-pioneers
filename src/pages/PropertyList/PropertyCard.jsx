@@ -32,11 +32,30 @@ const useStyles = makeStyles((theme) => ({
 const PropertyCard = ({ property }) => {
   const navigate = useNavigate();
   const classes = useStyles();
+  let { amenities } = property;
   //console.log(property);
+  //console.log(amenities);
 
   let baseurl = "http://localhost:1337".concat(
     property.images.data[0].attributes.url
   );
+
+  let getAminities = () => {
+    if (!amenities || Object.keys(amenities).length === 0) {
+      return [];
+    }
+    const enabledAmenities = Object.entries(amenities)
+      .filter(([key, value]) => value && value.enabled === "true")
+      .reduce((acc, [key]) => {
+        acc[key] = amenities[key];
+        return acc;
+      }, {});
+    // console.log(Object.keys(enabledAmenities));
+    // return enabledAmenities;
+    return Object.keys(enabledAmenities);
+  };
+
+  let aminitiesList = getAminities();
   return (
     <Card className={classes.card}>
       <CardMedia
@@ -67,11 +86,11 @@ const PropertyCard = ({ property }) => {
               Facilities:
             </Typography>
           </Grid>
-          {/* {property.amenities.map((facility, index) => (
-            <Grid item key={index}>
-              <Chip label={facility} className={classes.chip} />
+          {aminitiesList.map((aminity) => (
+            <Grid item key={aminity}>
+              <Chip label={aminity} className={classes.chip} />
             </Grid>
-          ))} */}
+          ))}
         </Grid>
         <Typography
           component="p"

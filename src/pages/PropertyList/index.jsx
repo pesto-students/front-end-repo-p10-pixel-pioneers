@@ -46,7 +46,6 @@ function PropertyList() {
 
         <div className="card-section">
           {/* <PropertyCard property={propertyData} /> */}
-          {/* <PropertyCard property={propertyData} /> */}
           {properties.length !== 0
             ? properties.map((property) => {
                 // console.log(property);
