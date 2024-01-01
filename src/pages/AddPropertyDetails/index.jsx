@@ -13,6 +13,9 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+import { addProperty } from "../../api/property";
+import { Description } from "@mui/icons-material";
+
 function Copyright(props) {
   return (
     <Typography
@@ -39,26 +42,17 @@ export default function AddPropertyDetails() {
   const [file, setFile] = useState();
 
   function handleChange(e) {
-    console.log(e.target.files);
     setFile(URL.createObjectURL(e.target.files[0]));
   }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      data,
-      // email: data.get('email'),
-      // password: data.get('password'),
-    });
-    // await register({
-    //     email: data.get('email'),
-    //     password: data.get('password'),
-    //     username: data.get('username'),
-    //     firstName: data.get('firstName'),
-    //     lastName: data.get('lastName'),
-    //     phoneNumber: data.get('phoneNumber'),
-    // });
+    const image = document.getElementById("image");
+    Object.keys(image.files).forEach(key => {
+      data.append("images", image.files[key]);
+    })
+    await addProperty(data);
   };
 
   return (
@@ -86,14 +80,25 @@ export default function AddPropertyDetails() {
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={12}>
+              <Grid item xs={6} sm={6}>
                 <TextField
                   autoComplete="given-name"
-                  name="propertyName"
+                  name="name"
                   required
                   fullWidth
                   id="propertyName"
                   label="Property Name"
+                  autoFocus
+                />
+              </Grid>
+                <Grid item xs={6} sm={6}>
+                <TextField
+                  autoComplete="given-name"
+                  name="title"
+                  required
+                  fullWidth
+                  id="title"
+                  label="Title"
                   autoFocus
                 />
               </Grid>
@@ -104,6 +109,8 @@ export default function AddPropertyDetails() {
                   id="description"
                   label="description"
                   name="description"
+                  multiline
+                  minRows={4}
                 />
               </Grid>
               <Grid item xs={12} sm={12}>
@@ -112,8 +119,10 @@ export default function AddPropertyDetails() {
                   fullWidth
                   id="address"
                   label="Property Address"
-                  name=" property address"
+                  name="address"
                   autoComplete="address"
+                  multiline
+                  minRows={3}
                 />
               </Grid>
 
@@ -142,7 +151,7 @@ export default function AddPropertyDetails() {
                   fullWidth
                   id="city"
                   label="City"
-                  name="City"
+                  name="city"
                 />
               </Grid>
 
@@ -152,11 +161,11 @@ export default function AddPropertyDetails() {
                   fullWidth
                   id="state"
                   label="State"
-                  name="State"
+                  name="state"
                   autoComplete="state"
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={6}>
                 <TextField
                   required
                   fullWidth
@@ -165,6 +174,15 @@ export default function AddPropertyDetails() {
                   type="country"
                   id="country"
                   autoComplete="country"
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  required
+                  fullWidth
+                  name="phoneNumber"
+                  label="Phone Number"
+                  id="phoneNumber"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -255,8 +273,8 @@ export default function AddPropertyDetails() {
               <Grid item>
                 <Button variant="contained" component="label">
                   Upload Property Snippets
-                  <input type="file" hidden />
-                  <img src={file} />
+                  <input type="file" accept="image/*" id="image" multiple hidden onChange={handleChange}/>
+                  <img name="image"  src={file} />
                 </Button>
               </Grid>
             </Grid>

@@ -27,7 +27,7 @@ const router = createBrowserRouter(
       <Route path="property-details/:propertyID" element={<PropertyDetails />} />
       <Route path="contact" element={<Contact />} />
       <Route path="about" element={<About />} />
-      
+      <Route path="add-location" element={<AddPropertyDetails />}/>
     </Route>
   )
 );

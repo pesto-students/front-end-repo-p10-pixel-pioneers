@@ -60,7 +60,7 @@ export async function propertyList(filters) {
 export async function getProperty(id) {
   try {
     const response = await axios.get(`http://localhost:1337/api/properties/${id}?populate=*`);
-    console.log(`Get Property By ID:-`, response);
+    // console.log(`Get Property By ID:-`, response);
 
     let {data} = response.data
     return {
@@ -71,6 +71,25 @@ export async function getProperty(id) {
       }
     }
   } catch (error) {
+    return {
+      success: false,
+      message: error.message
+    }
+  }
+}
+
+export async function addProperty(property) {
+  try {
+    console.log(`Property:-`, property);
+    const response = await axios.post(`http://localhost:1337/api/properties`, property, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+  });
+    console.log(`API RES`,response)
+  } catch (error) {
+    console.log(`ERR`)
+    console.error(error)
     return {
       success: false,
       message: error.message

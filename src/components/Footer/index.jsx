@@ -60,13 +60,13 @@ const Footer = () => {
                         <Typography variant="subtitle1" style={{ color: "#fff" }} gutterBottom>
                             SOCIAL MEDIA
                         </Typography>
-                        <IconButton aria-label="Facebook" color="inherit" component="a" href={socialMediaLinks.facebook}>
+                        <IconButton aria-label="Facebook" style={{color:"#fff"}} component="a" href={socialMediaLinks.facebook}>
                             <FacebookIcon />
                         </IconButton>
-                        <IconButton aria-label="Twitter" color="inherit" component="a" href={socialMediaLinks.twitter}>
+                        <IconButton aria-label="Twitter" style={{color:"#fff"}} component="a" href={socialMediaLinks.twitter}>
                             <TwitterIcon />
                         </IconButton>
-                        <IconButton aria-label="Instagram" color="inherit" component="a" href={socialMediaLinks.instagram}>
+                        <IconButton aria-label="Instagram" style={{color:"#fff"}} component="a" href={socialMediaLinks.instagram}>
                             <InstagramIcon />
                         </IconButton>
                     </Grid>
