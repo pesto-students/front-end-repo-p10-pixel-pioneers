@@ -1,4 +1,3 @@
-// import { Password } from "@mui/icons-material";
 import axios from "axios";
 
 export async function login(email, password) {
@@ -7,8 +6,9 @@ export async function login(email, password) {
       identifier: email,
       password: password,
     });
-    const { jwt } = response.data;
+    const { jwt, user } = response.data;
     localStorage.setItem("token", jwt);
+    localStorage.setItem("user", JSON.stringify(user))
     return response.data;
   } catch (error) {
     return {

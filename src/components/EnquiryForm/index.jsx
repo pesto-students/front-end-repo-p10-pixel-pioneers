@@ -9,6 +9,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
+import { enquire } from "../../api/enquiry";
+
 const EnquiryForm = ({property}) => {
     const [open, openchange] = useState(false);
     const [value, setValue] = useState(dayjs(new Date().toISOString().split('T')[0]));
@@ -24,22 +26,23 @@ const EnquiryForm = ({property}) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         console.log({
-            fullName: data.get("fullName"),
+            name: data.get("name"),
             email: data.get("email"),
             phoneNumber: data.get("phoneNumber"),
             numberOfSeats: data.get("numberOfSeats"),
-            checkIn: data.get("checkIn"),
+            date: data.get("checkIn"),
             propertyID:property.id,
             propertyName: property.name
         });
-        // await register({
-        //   email: data.get("email"),
-        //   password: data.get("password"),
-        //   username: data.get("username"),
-        //   firstName: data.get("firstName"),
-        //   lastName: data.get("lastName"),
-        //   phoneNumber: data.get("phoneNumber"),
-        // });
+        await enquire({data:{
+            name: data.get("name"),
+            email: data.get("email"),
+            phoneNumber: data.get("phoneNumber"),
+            numberOfSeats: data.get("numberOfSeats"),
+            date: dayjs(data.get("checkIn")).format('YYYY-MM-DD'),
+            propertyID:String(property.id),
+            propertyName: property.name
+        }});
       };
 
     return (
@@ -60,7 +63,7 @@ const EnquiryForm = ({property}) => {
                             spacing={2}
                             margin={2}
                         >
-                            <TextField name="fullName" variant="outlined" label="Full Name*"></TextField>
+                            <TextField name="name" variant="outlined" label="Full Name*"></TextField>
                             <TextField name="email" variant="outlined" label="Email*"></TextField>
                             <TextField name="phoneNumber" variant="outlined" label="Phone Number*"></TextField>
                             <TextField name="numberOfSeats" variant="outlined" label="No of people" type="number" inputProps={{ min: 0, max: 50, step: 1 }}></TextField>

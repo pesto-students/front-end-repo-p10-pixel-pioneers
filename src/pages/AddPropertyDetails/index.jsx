@@ -14,7 +14,6 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { addProperty } from "../../api/property";
-import { Description } from "@mui/icons-material";
 
 function Copyright(props) {
   return (
