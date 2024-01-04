@@ -77,7 +77,7 @@ const About = () => {
                   <Card className={classes.teamMemberCard}>
                     <Avatar
                       alt={`Team Member ${member}`}
-                      src={`https://via.placeholder.com/150`} // Replace with team member image URL
+                      src={`https://api.dicebear.com/7.x/bottts/png`} // Replace with team member image URL
                       className={classes.avatar}
                     />
                     <CardContent>
