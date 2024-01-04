@@ -16,7 +16,7 @@
 }
 
 .section-1 {
-  disply: flex;
+  display: flex;
   flex-direction: column;
   overflow: hidden;
   position: relative;

@@ -83,19 +83,30 @@ function PropertyDetails() {
     };
 
     const handleOpen = (e) => {
-        if (e.target.id === "enquiry") {
-            setOpenEnquiryModal(prev => true);
-        } else if (e.target.id === "booking") {
-            setOpenBookingModal(prev => true)
+        switch (e.target.id) {
+            case "enquiry":
+                setOpenEnquiryModal(prev => true);
+                break;
+            case "booking":
+                setOpenBookingModal(prev => true);
+                break;
+            default:
+                break;
         }
     };
+    
     const handleClose = (e) => {
-        if (e.target.id === "enquiryModal") {
-            setOpenEnquiryModal(prev => true);
-        } else if (e.target.id === "bookingModal") {
-            setOpenBookingModal(prev => true)
+        switch (e.target.id) {
+            case "enquiryModal":
+                setOpenEnquiryModal(prev => true);
+                break;
+            case "bookingModal":
+                setOpenBookingModal(prev => true);
+                break;
+            default:
+                break;
         }
-    }
+    };
 
     useEffect(() => {
         (async () => {
