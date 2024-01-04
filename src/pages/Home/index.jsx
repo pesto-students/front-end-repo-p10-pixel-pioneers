@@ -1,5 +1,6 @@
 import "./homepage.css";
 import Testimonials from "./Components/Testimonials";
+import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <>
@@ -12,8 +13,12 @@ const Home = () => {
               open-plan area, or a shared office.{" "}
             </div>
             <div className="lower-section">
-              <div className="lower-section-btn1">BOOK A SPACE</div>
-              <div className="lower-section-btn2">About Us</div>
+              <Link to={"properties"}>
+                <div className="lower-section-btn1">BOOK A SPACE</div>
+              </Link>
+              <Link to={"about"}>
+                <div className="lower-section-btn2">About Us</div>
+              </Link>
             </div>
           </div>
         </div>
