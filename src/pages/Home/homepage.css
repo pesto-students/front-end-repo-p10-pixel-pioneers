@@ -127,6 +127,8 @@
   letter-spacing: 0.3px;
   align-self: center;
   margin: auto 0;
+  background-color: #4c4033;
+  padding: 10px 10px 10px 10px;
   font: 600 16px/162.5% Poppins, sans-serif;
 }
 
