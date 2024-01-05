@@ -24,10 +24,13 @@ const router = createBrowserRouter(
       <Route path="register" element={<SignUp />} />
       <Route path="user" element={<User />} />
       <Route path="properties" element={<PropertyList />} />
-      <Route path="property-details/:propertyID" element={<PropertyDetails />} />
+      <Route
+        path="property-details/:propertyID"
+        element={<PropertyDetails />}
+      />
       <Route path="contact" element={<Contact />} />
       <Route path="about" element={<About />} />
-      <Route path="add-location" element={<AddPropertyDetails />}/>
+      <Route path="add-location" element={<AddPropertyDetails />} />
     </Route>
   )
 );

@@ -2,7 +2,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import { testimonials } from "./TestimonialsData";
 import TestimonialCard from "./TestimonialCard";
 import { Grid } from "@material-ui/core";
-import BookSpaceForm from "./BookSpaceForm";
+// import BookSpaceForm from "./BookSpaceForm";
+import galleryImage1 from "../../../Assets/Wallpaper1.jpeg";
+import galleryImage2 from "../../../Assets/Wallpaper.jpeg";
+import galleryImage3 from "../../../Assets/gallery-1.jpeg";
+import galleryImage4 from "../../../Assets/gallery-2.jpeg";
+import galleryImage5 from "../../../Assets/gallery-3.jpeg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,11 +55,11 @@ function Testimonials() {
           do eiusmod tempor incididunt ut labore et dolore
         </p>
         <div className="GalleryView">
-          <img src={"../../../Assets/Wallpaper1.jpeg"} />
-          <img src={"../../../Assets/Wallpaper1.jpeg"} />
-          <img src={"../../../Assets/Wallpaper1.jpeg"} />
-          <img src={"../../../Assets/Wallpaper1.jpeg"} />
-          <img src={"../../../Assets/Wallpaper1.jpeg"} />
+          <img src={galleryImage1} />
+          <img src={galleryImage2} />
+          <img src={galleryImage3} />
+          <img src={galleryImage4} />
+          <img src={galleryImage5} />
         </div>
       </div>
     </div>

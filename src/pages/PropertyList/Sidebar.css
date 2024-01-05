@@ -1,31 +1,36 @@
-.homepage {
-  display: flex;
-  flex-direction: row;
-  flex: 1;
+:root {
+  --flex-display: flex;
+  --flex-direction-row: row;
+  --flex-1: 1;
+  --sidebar-bg-color: aquamarine;
+  --propertyCard-bg-color: antiquewhite;
+}
+
+.homepage, .card-section {
+  display: var(--flex-display);
+  flex-direction: var(--flex-direction-row);
+  flex: var(--flex-1);
 }
 
 .sidebar {
-  background-color: aquamarine;
+  background-color: var(--sidebar-bg-color);
 }
 
 .propertyCard {
-  background-color: antiquewhite;
-  flex: 1;
+  background-color: var(--propertyCard-bg-color);
+  flex: var(--flex-1);
 }
 
 .custom-sidebar {
-  height: 600px;
-  width: 400px;
-  /* flex: 1; */
+  height: 37.5rem; /* 600px/16 */
+  width: 25rem; /* 400px/16 */
 }
 
-.css-1nrlq1o-MuiFormControl-root {
-  flex-direction: row;
+.css-1nrlq1o-MuiFormControl-root, .card-section {
+  flex-direction: var(--flex-direction-row);
 }
 
 .card-section {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
+  gap: 1.25rem; /* 20px/16 */
   flex-wrap: wrap;
 }
