@@ -46,9 +46,9 @@ const EnquiryForm = ({property}) => {
       };
 
     return (
-        <div style={{ textAlign: 'center' }}>
-            <h1>Get in Touch</h1>
-            <Button onClick={functionopenpopup} color="primary" variant="contained">Open Popup</Button>
+        <div style={{ textAlign: 'center', marginTop:"30px" }}>
+            {/* <h1>Get in Touch</h1> */}
+            <Button onClick={functionopenpopup} size={"large"} color="primary" variant="contained">Enquire Now</Button>
             <Dialog
                 // fullScreen 
                 open={open} onClose={closepopup} fullWidth maxWidth="sm">

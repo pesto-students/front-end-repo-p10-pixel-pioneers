@@ -151,17 +151,19 @@ function PropertyDetails() {
 
                 <Carousel data={getImageData(propertyDetails.images)} />
 
-                <Stack spacing={2} style={{ width: "50vw" }}>
-                    <Typography component="h4" variant="h5" color="text.primary">
+                <Stack direction="row" spacing={2} >
+                    <Box style={{ width: "50vw" }}>
+                    <Typography marginTop={3} component="h4" variant="h5" color="text.primary">
                         {propertyDetails.title}
                     </Typography>
-                    <Typography variant="body1" color="text.secondary">
+                    <Typography marginTop={5} variant="body1" color="text.secondary">
                         {propertyDetails.description}
                     </Typography>
-                </Stack>
-                <Grid container marginTop={2} rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} style={{ width: "50vw" }}>
-                    <Grid item xs={12}>
-                        <Typography component="h4" variant="h5" color="text.primary">
+                    </Box>
+
+                    <Grid container marginTop={2} rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} style={{ width: "50vw" }}>
+                    <Grid  marginBottom={2} item xs={12}>
+                        <Typography  marginTop={3} component="h4" variant="h5" color="text.primary">
                             Amenities
                         </Typography>
                     </Grid>
@@ -185,6 +187,8 @@ function PropertyDetails() {
                         })
                     }
                 </Grid>
+                </Stack>
+               
                 <EnquiryForm property={propertyDetails}/>
             </>
         ) : (
