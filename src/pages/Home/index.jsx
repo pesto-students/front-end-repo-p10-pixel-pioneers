@@ -1,7 +1,7 @@
 import "./homepage.css";
 import Testimonials from "./Components/Testimonials";
 import { useEffect } from "react";
-import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom';
 const Home = () => {
 
   return (

@@ -49,8 +49,7 @@ const getImageData = (imagesObj=[]) => {
                 src: imageObj.attributes.url,
                 alt: `Image ${imageObjIndex}`
             }
-        }) || data
-        console.log(`Image Object:-`, image);
+        }) || data;
         return image
     }
     else {
