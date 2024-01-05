@@ -1,8 +1,9 @@
 import axios from "axios";
+import axiosInstance from "./axiosInstance";
 
 export async function enquire(payload) {
     try {
-        let res = axios.post("http://localhost:1337/api/enquiries", payload);
+        let res = axiosInstance.post("/enquiries", payload);
         console.log(`Enquiry Resp:-`, res);
         return {
             success: true,

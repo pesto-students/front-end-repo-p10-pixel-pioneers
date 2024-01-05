@@ -31,6 +31,7 @@ function DrawerAppBar(props) {
         setMobileOpen((prevState) => !prevState);
     };
     const handleClickListIem = (e) => {
+    
         switch (e.target.value) {
             case "Home":
                 navigate("/")
@@ -44,7 +45,6 @@ function DrawerAppBar(props) {
             case "Contact":
                 navigate("/contact");
                 break;
-
         }
     }
 
@@ -56,8 +56,26 @@ function DrawerAppBar(props) {
             <Divider />
             <List>
                 {navItems.map((item) => (
-                    <ListItem key={item} disablePadding >
-                        <ListItemButton sx={{ textAlign: 'center' }}>
+                    <ListItem key={item} disablePadding>
+                        <ListItemButton sx={{ textAlign: 'center' }} value={item} onClick={
+                            (e) => {
+                                switch (item) {
+                                    case "Home":
+                                        navigate("/")
+                                        break;
+                                    case "Locations":
+                                        navigate("/properties");
+                                        break;
+                                    case "About":
+                                        navigate("/about");
+                                        break;
+                                    case "Contact":
+                                        navigate("/contact");
+                                        break;
+                        
+                                }
+                            }
+                        }>
                             <ListItemText primary={item} />
                         </ListItemButton>
                     </ListItem>

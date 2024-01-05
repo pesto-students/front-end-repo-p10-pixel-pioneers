@@ -1,8 +1,9 @@
 import axios from "axios";
+import axiosInstance from "./axiosInstance";
 
 export async function login(email, password) {
   try {
-    const response = await axios.post("http://localhost:1337/api/auth/local", {
+    const response = await axiosInstance.post("/auth/local", {
       identifier: email,
       password: password,
     });
@@ -21,8 +22,8 @@ export async function login(email, password) {
 export async function register(payload) {
   try {
     console.log("Register:-", payload);
-    const response = await axios.post(
-      "http://localhost:1337/api/auth/local/register",
+    const response = await axiosInstance.post(
+      "/auth/local/register",
       payload
     );
     const { jwt } = response.data;

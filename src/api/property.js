@@ -1,5 +1,5 @@
 import axios from "axios";
-//import qs from "qs";
+import axiosInstance from "./axiosInstance";
 
 let getFilters = (filters) => {
   let filterObject = {};
@@ -23,8 +23,8 @@ export async function propertyList(filters) {
   console.log(retunedParams);
 
   try {
-    const response = await axios.get(
-      `http://localhost:1337/api/properties?populate=*`,
+    const response = await axiosInstance.get(
+      `properties?populate=*`,
       {
         params: {
           filters: retunedParams.filters,
@@ -59,7 +59,7 @@ export async function propertyList(filters) {
 
 export async function getProperty(id) {
   try {
-    const response = await axios.get(`http://localhost:1337/api/properties/${id}?populate=*`);
+    const response = await axiosInstance.get(`/properties/${id}?populate=*`);
     // console.log(`Get Property By ID:-`, response);
 
     let {data} = response.data
@@ -81,7 +81,7 @@ export async function getProperty(id) {
 export async function addProperty(property) {
   try {
     console.log(`Property:-`, property);
-    const response = await axios.post(`http://localhost:1337/api/properties`, property, {
+    const response = await axiosInstance.post(`/properties`, property, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }

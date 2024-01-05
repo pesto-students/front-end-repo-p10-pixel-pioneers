@@ -24,15 +24,29 @@ import BookingForm from "../../components/BookingForm";
 
 let data = [
     {
-        "src": "http://localhost:1337/uploads/A_Ax_WWIN_NESCO_IT_PARK_3_f18451f330.jpg",
+        "src": "https://res.cloudinary.com/dgsdjswul/image/upload/v1704382324/A_Ax_WWIN_NESCO_IT_PARK_3_97d0e35d5a.jpg",
         "alt": "Image 1 for carousel"
-    },
-    {
-        "src": "http://localhost:1337/uploads/A_Ax_WWIN_NESCO_IT_PARK_1_1_abe94bdadd.jpg",
-        "alt": "Image 2 for carousel"
     },
 ];
 
+const getImageData = (imagesObj=[]) => {
+    console.log(`Image`, imagesObj)
+
+    if (imagesObj.data && imagesObj.data.length > 0) {
+        let image = imagesObj.data.map((imageObj, imageObjIndex) => {
+            return {
+                src: imageObj.attributes.url,
+                alt: `Image ${imageObjIndex}`
+            }
+        }) || data
+        console.log(`Image Object:-`, image);
+        return image
+    }
+    else {
+        return data
+    }
+    
+}
 const amenities = [
     {
         parking: "LocalParking",
@@ -122,15 +136,18 @@ function PropertyDetails() {
                     Get Directions
                     <OpenInNewIcon sx={{ fontSize: 15 }} />
                 </Link>
-                <Carousel data={data} />
 
-                <Stack spacing={2} style={{ width: "50vw" }}>
+                <Carousel data={getImageData(propertyDetails.images)} />
+
+                <Stack direction="row" spacing={2} style={{ width: "50vw" }}>
+                    <Box>
                     <Typography component="h4" variant="h5" color="text.primary">
                         {propertyDetails.title}
                     </Typography>
                     <Typography variant="body1" color="text.secondary">
                         {propertyDetails.description}
                     </Typography>
+                    </Box>
                 </Stack>
                 <Grid container marginTop={2} rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} style={{ width: "50vw" }}>
                     <Grid item xs={12}>
@@ -162,7 +179,7 @@ function PropertyDetails() {
             </>
         ) : (
             <>
-                {error}
+                No Data Found
             </>
         )
 

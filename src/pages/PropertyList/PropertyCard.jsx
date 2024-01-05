@@ -36,7 +36,7 @@ const PropertyCard = ({ property }) => {
   //console.log(property);
   //console.log(amenities);
 
-  let baseurl = "http://localhost:1337".concat(
+  let baseurl = "https://strapi-dqt5.onrender.com".concat(
     property.images.data[0].attributes.url
   );
 
@@ -60,7 +60,7 @@ const PropertyCard = ({ property }) => {
     <Card className={classes.card}>
       <CardMedia
         className={classes.media}
-        image={baseurl}
+        image={property.images.data[0].attributes.url}
         title={property.name}
       />
       <CardContent>

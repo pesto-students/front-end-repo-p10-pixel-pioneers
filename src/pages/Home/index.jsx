@@ -1,6 +1,21 @@
 import "./homepage.css";
 import Testimonials from "./Components/Testimonials";
+import { useEffect } from "react";
+import axios from "axios";
+
 const Home = () => {
+
+  // useEffect(()=>{
+  //   (async ()=>{
+  //     console.log(`Test Website Connecting Backend:-`);
+  //     const response = await axios.post("https://strapi-dqt5.onrender.com/api/auth/local", {
+  //       identifier: "kartik@gmail.com",
+  //       password: "pA$$w0rd#$",
+  //     });
+  //     console.log(response);
+  //   })()
+   
+  // })
   return (
     <>
       <div className="">
