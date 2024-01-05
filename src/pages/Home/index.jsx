@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <>
       <div className="">
-        <div className="section-1A">
+        <div className="section-1A gallery-view">
           <div className="section-1A-outer">
             <div className="heading-1">Comfortable coworking spaces.</div>
             <div className="subHeading">

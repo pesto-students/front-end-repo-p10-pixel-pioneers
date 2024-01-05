@@ -249,4 +249,10 @@
 .GalleryView > img {
   height: 180px;
   width: 240px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.GalleryView > img:hover {
+  transform: scale(1.5);
+  transform-origin: center;
 }
