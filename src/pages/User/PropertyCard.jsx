@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
   media: {
     height: 200,
-    width: 400,
+    width: 500,
   },
   //   chip: {
   //     margin: theme.spacing(0.5),
@@ -57,11 +57,11 @@ const PropertyCard = ({ property }) => {
 
   let aminitiesList = getAminities();
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} style={{ marginBottom: "15px" }}>
       <CardMedia
         className={classes.media}
         // image={property.images.data[0].attributes.url}
-         image={property.images[0].url}
+        image={property.images[0].url}
         title={property.name}
       />
       <CardContent>

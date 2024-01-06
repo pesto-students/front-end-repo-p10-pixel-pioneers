@@ -7,6 +7,7 @@ import Box from "@material-ui/core/Box";
 import { Button, Card, CardContent } from "@material-ui/core";
 import PropertyCard from "./PropertyCard";
 import { getUserPropertyList } from "../../api/property";
+import "./index.css";
 
 export const useStyles = makeStyles((theme) => ({
   container: {
