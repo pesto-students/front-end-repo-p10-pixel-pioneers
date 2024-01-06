@@ -96,3 +96,23 @@ export async function addProperty(property) {
     }
   }
 }
+
+export async function getUserPropertyList(id) {
+  try {
+    let res = await axios.get(`http://localhost:1337/api/properties/owner/${id}`)
+    let {data} = res.data;
+    console.log(`Get USER Property:-`, data.results);
+    return {
+      success: res.data.success,
+      data:data.results  
+    }
+
+  } catch (error) {
+    console.log(`ERR`)
+    console.error(error)
+    return {
+      success: false,
+      message: error.message
+    }
+  }
+}
