@@ -16,22 +16,52 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
+import Tooltip from '@mui/material/Tooltip';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack'
+
+
+
 import Footer from '../../components/Footer';
 
 const drawerWidth = 240;
-const navItems = ['Home', 'About', 'Locations', 'Contact'];
-
+const navItems = ['Home', 'About', 'Locations', "Login"];
+const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function DrawerAppBar(props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = useState(false);
     const navigate = useNavigate();
 
+    const [anchorElUser, setAnchorElUser] = useState(null);
+
+    const handleOpenUserMenu = (event) => {
+        setAnchorElUser(event.currentTarget);
+    };
+
+    const handleCloseUserMenu = (e) => {
+        console.log(`HANDLE-CLOSE:-`, e.target.innerText)
+        
+        switch (e.target.innerText) {
+            case "Logout":
+                localStorage.clear();
+                break;
+        
+            default:
+                break;
+        }
+        setAnchorElUser(null);
+    };
+
     const handleDrawerToggle = () => {
         setMobileOpen((prevState) => !prevState);
     };
-    const handleClickListIem = (e) => {
-    
+
+
+    const handleClickListItem = (e) => {
+
         switch (e.target.value) {
             case "Home":
                 navigate("/")
@@ -45,6 +75,9 @@ function DrawerAppBar(props) {
             case "Contact":
                 navigate("/contact");
                 break;
+            case "Login":
+                navigate("/login")
+                break;
         }
     }
 
@@ -56,29 +89,35 @@ function DrawerAppBar(props) {
             <Divider />
             <List>
                 {navItems.map((item) => (
-                    <ListItem key={item} disablePadding>
-                        <ListItemButton sx={{ textAlign: 'center' }} value={item} onClick={
-                            (e) => {
-                                switch (item) {
-                                    case "Home":
-                                        navigate("/")
-                                        break;
-                                    case "Locations":
-                                        navigate("/properties");
-                                        break;
-                                    case "About":
-                                        navigate("/about");
-                                        break;
-                                    case "Contact":
-                                        navigate("/contact");
-                                        break;
-                        
-                                }
-                            }
-                        }>
-                            <ListItemText primary={item} />
-                        </ListItemButton>
-                    </ListItem>
+                    (localStorage.user && item === "Login")
+                        ? (<></>)
+                        : (
+                            <ListItem key={item} disablePadding>
+                                <ListItemButton sx={{ textAlign: 'center' }} value={item} onClick={
+                                    (e) => {
+                                        switch (item) {
+                                            case "Home":
+                                                navigate("/")
+                                                break;
+                                            case "Locations":
+                                                navigate("/properties");
+                                                break;
+                                            case "About":
+                                                navigate("/about");
+                                                break;
+                                            case "Contact":
+                                                navigate("/contact");
+                                                break;
+                                            case "Login":
+                                                navigate("/login");
+                                                break;
+                                        }
+                                    }
+                                }>
+                                    <ListItemText primary={item} />
+                                </ListItemButton>
+                            </ListItem>
+                        )
                 ))}
             </List>
         </Box>
@@ -86,34 +125,116 @@ function DrawerAppBar(props) {
 
     const container = window !== undefined ? () => window().document.body : undefined;
 
+    console.log(`LocalStorage:-`, localStorage)
+
     return (
         <Box sx={{ display: 'flex' }} marginBottom={8}>
             <CssBaseline />
             <AppBar component="nav">
                 <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        edge="start"
-                        onClick={handleDrawerToggle}
-                        sx={{ mr: 2, display: { sm: 'none' } }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography
-                        variant="h6"
-                        component="div"
-                        sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-                    >
-                        Proximity Pods
-                    </Typography>
-                    <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                        {navItems.map((item) => (
-                            <Button value={item} key={item} sx={{ color: '#fff' }} onClick={handleClickListIem}>
-                                {item}
-                            </Button>
-                        ))}
-                    </Box>
+                        <IconButton
+                            color="inherit"
+                            aria-label="open drawer"
+                            edge="start"
+                            onClick={handleDrawerToggle}
+                            sx={{ mr: 2, display: { sm: 'none' } }}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                          {/** USER SETTINGS */}
+
+                          {
+                            localStorage.user && (
+                                <Box marginLeft={2} sx={{  flexGrow: 0, mr: 2, display: { sm:'none' }, marginLeft: "auto" }}>
+                                    <Tooltip title="Open settings">
+                                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                            <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                        </IconButton>
+                                    </Tooltip>
+                                    <Menu
+                                        sx={{ mt: '45px' }}
+                                        id="menu-appbar"
+                                        anchorEl={anchorElUser}
+                                        anchorOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'right',
+                                        }}
+                                        keepMounted
+                                        transformOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'right',
+                                        }}
+                                        open={Boolean(anchorElUser)}
+                                        onClose={handleCloseUserMenu}
+                                    >
+                                        {settings.map((setting) => (
+                                            <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                                                <Typography textAlign="center">{setting}</Typography>
+                                            </MenuItem>
+                                        ))}
+                                    </Menu>
+                                </Box>
+                            )
+                        }
+                        
+                        <Typography
+                            variant="h6"
+                            component="div"
+                            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+                        >
+                            Proximity Pods
+                        </Typography>
+                        
+
+                        <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                            {navItems.map((item) => (
+
+                                (localStorage.user && item === "Login")
+                                    ? (<></>)
+                                    : (
+                                        <Button value={item} key={item} sx={{ color: '#fff' }} onClick={handleClickListItem}>
+                                            {item}
+                                        </Button>
+                                    )
+
+                            ))}
+                          
+                        </Box>
+                          {/** USER SETTINGS */}
+
+                          {
+                            localStorage.user && (
+                                <Box marginLeft={2} sx={{  flexGrow: 0, mr: 2, display: { xs: 'none', sm:'block' } }}>
+                                    <Tooltip title="Open settings">
+                                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                            <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                        </IconButton>
+                                    </Tooltip>
+                                    <Menu
+                                        sx={{ mt: '45px' }}
+                                        id="menu-appbar"
+                                        anchorEl={anchorElUser}
+                                        anchorOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'right',
+                                        }}
+                                        keepMounted
+                                        transformOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'right',
+                                        }}
+                                        open={Boolean(anchorElUser)}
+                                        onClose={handleCloseUserMenu}
+                                    >
+                                        {settings.map((setting) => (
+                                            <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                                                <Typography textAlign="center">{setting}</Typography>
+                                            </MenuItem>
+                                        ))}
+                                    </Menu>
+                                </Box>
+                            )
+                        }
                 </Toolbar>
             </AppBar>
             <nav>
@@ -142,7 +263,7 @@ function Layout() {
         <>
             <div><DrawerAppBar /></div>
             <Outlet />
-            <div><Footer/></div>
+            <div><Footer /></div>
         </>
     )
 }
