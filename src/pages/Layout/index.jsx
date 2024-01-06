@@ -148,7 +148,7 @@ function DrawerAppBar(props) {
                                 <Box marginLeft={2} sx={{  flexGrow: 0, mr: 2, display: { sm:'none' }, marginLeft: "auto" }}>
                                     <Tooltip title="Open settings">
                                         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                            <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                            <Avatar alt={`${localStorage.user.username}`} src="/static/images/avatar/2.jpg" />
                                         </IconButton>
                                     </Tooltip>
                                     <Menu
@@ -204,10 +204,10 @@ function DrawerAppBar(props) {
 
                           {
                             localStorage.user && (
-                                <Box marginLeft={2} sx={{  flexGrow: 0, mr: 2, display: { xs: 'none', sm:'block' } }}>
+                                <Box key="user" marginLeft={2} sx={{  flexGrow: 0, mr: 2, display: { xs: 'none', sm:'block' } }}>
                                     <Tooltip title="Open settings">
                                         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                            <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                            <Avatar alt={`${JSON.parse(localStorage.user).firstName}`} src="/static/images/avatar/2.jpg" />
                                         </IconButton>
                                     </Tooltip>
                                     <Menu
