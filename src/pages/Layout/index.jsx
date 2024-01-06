@@ -28,7 +28,7 @@ import Footer from '../../components/Footer';
 
 const drawerWidth = 240;
 const navItems = ['Home', 'About', 'Locations', "Login"];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Profile', 'Logout'];
 
 function DrawerAppBar(props) {
     const { window } = props;
@@ -48,7 +48,9 @@ function DrawerAppBar(props) {
             case "Logout":
                 localStorage.clear();
                 break;
-        
+            case "Profile": 
+                navigate("/profile")
+            break;
             default:
                 break;
         }

@@ -22,7 +22,7 @@ const router = createBrowserRouter(
       {/* AUTH Routes */}
       <Route path="login" element={<Login />} />
       <Route path="register" element={<SignUp />} />
-      <Route path="user" element={<User />} />
+      <Route path="profile" element={<User />} />
       <Route path="properties" element={<PropertyList />} />
       <Route
         path="property-details/:propertyID"
