@@ -5,7 +5,7 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { Button, Card, CardContent } from "@material-ui/core";
-import PropertyCard from "../PropertyList/PropertyCard";
+import PropertyCard from "./PropertyCard";
 import { getUserPropertyList } from "../../api/property";
 
 export const useStyles = makeStyles((theme) => ({

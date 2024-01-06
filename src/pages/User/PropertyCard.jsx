@@ -60,8 +60,8 @@ const PropertyCard = ({ property }) => {
     <Card className={classes.card}>
       <CardMedia
         className={classes.media}
-        image={property.images.data[0].attributes.url}
-        //  image={property.images[0].url}
+        // image={property.images.data[0].attributes.url}
+         image={property.images[0].url}
         title={property.name}
       />
       <CardContent>
