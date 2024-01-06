@@ -6,7 +6,27 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { Button, Card, CardContent } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles((theme) => ({
+  container: {
+    paddingRight: 15,
+    paddingLeft: 15,
+    marginRight: "auto",
+    marginLeft: "auto",
+
+    // Full width for (xs, extra-small: 0px or larger) and (sm, small: 600px or larger)
+    [theme.breakpoints.up("md")]: {
+      // medium: 960px or larger
+      width: 920,
+    },
+    [theme.breakpoints.up("lg")]: {
+      // large: 1280px or larger
+      width: 1170,
+    },
+    [theme.breakpoints.up("xl")]: {
+      // extra-large: 1920px or larger
+      width: 1366,
+    },
+  },
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
@@ -40,8 +60,9 @@ function TabPanel(props) {
 }
 
 function UserDetailTab() {
+  const classes = useStyles();
   return (
-    <div>
+    <div className={classes.container}>
       <Typography variant="h5" gutterBottom>
         {/* User Profile */}
       </Typography>
@@ -72,7 +93,7 @@ function PastBookingTab() {
   ];
 
   return (
-    <div>
+    <div className={classes.container}>
       <Typography variant="h5" gutterBottom>
         Your Tickets
       </Typography>
