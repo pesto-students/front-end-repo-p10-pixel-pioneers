@@ -5,6 +5,7 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { Button, Card, CardContent } from "@material-ui/core";
+import CardMedia from "@mui/material/CardMedia";
 
 export const useStyles = makeStyles((theme) => ({
   container: {
@@ -61,18 +62,20 @@ function TabPanel(props) {
 
 function UserDetailTab() {
   const classes = useStyles();
+  const userData = JSON.parse(localStorage.user);
+  console.log(userData);
   return (
     <div className={classes.container}>
       <Typography variant="h5" gutterBottom>
         {/* User Profile */}
       </Typography>
       {/* Replace these fields with user data */}
-      <Typography>First Name: John</Typography>
-      <Typography>Last Name: Doe</Typography>
-      <Typography>Username: johndoe123</Typography>
-      <Typography>Email: johndoe@example.com</Typography>
-      <Typography>Phone Number: +1234567890</Typography>
-      <Typography>City: New York</Typography>
+      <Typography>First Name: {userData.firstName}</Typography>
+      <Typography>Last Name: {userData.lastName}</Typography>
+      <Typography>Username: {userData.username}</Typography>
+      <Typography>Email: {userData.email}</Typography>
+      <Typography>Phone Number: {userData.phoneNumber}</Typography>
+      {/* <Typography>City: {}</Typography> */}
     </div>
   );
 }
@@ -112,6 +115,34 @@ function PastBookingTab() {
   );
 }
 
+function RegisteredSpacesDetails() {
+  const classes = useStyles();
+  return (
+    <div className={classes.container}>
+      {/* <Card
+        sx={{ maxWidth: 345 }}
+        md={{ maxWidth: 345 }}
+        lg={{ maxWidth: 345 }}
+      >
+        <CardMedia
+          image="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pexels.com%2Fsearch%2Fbeautiful%2F&psig=AOvVaw0HU9l24XCjY5zQ0rl3Rjis&ust=1704635976991000&source=images&cd=vfe&ved=0CBMQjRxqFwoTCMD9_oD2yIMDFQAAAAAdAAAAABAE"
+          title="green iguana"
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            Lizard
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Lizards are a widespread group of squamate reptiles, with over 6,000
+            species, ranging across all continents except Antarctica
+          </Typography>
+        </CardContent> */}
+      {/* </Card> */}
+      No properties regstered
+    </div>
+  );
+}
+
 export default function UserProfileTabs() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -139,6 +170,10 @@ export default function UserProfileTabs() {
       </TabPanel>
       <TabPanel value={value} index={1} className={classes.tabContent}>
         <PastBookingTab />
+      </TabPanel>
+
+      <TabPanel value={value} index={2} className={classes.tabContent}>
+        <RegisteredSpacesDetails />
       </TabPanel>
       {/* Add more TabPanel components for additional tabs */}
     </div>
