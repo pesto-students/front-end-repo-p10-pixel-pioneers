@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { Button, Card, CardContent } from "@material-ui/core";
-import CardMedia from "@mui/material/CardMedia";
-
+import PropertyCard from "../PropertyList/PropertyCard";
 import { getUserPropertyList } from "../../api/property";
 
 export const useStyles = makeStyles((theme) => ({
@@ -119,42 +118,32 @@ function PastBookingTab() {
 
 function RegisteredSpacesDetails() {
   const classes = useStyles();
-  const [properties, setProperties] = useState([])
+  const [properties, setProperties] = useState([]);
   const [error, setError] = useState("");
   const [hasError, setHasError] = useState(false);
-  useEffect(()=>{
+
+  useEffect(() => {
     (async () => {
       let res = await getUserPropertyList(2);
       if (res.success) {
-        setProperties(prev => res.data);
-      } else{
+        setProperties((prev) => res.data);
+      } else {
         setHasError(true);
         setError(res.data.message);
       }
     })();
-  })
+  }, []);
   return (
     <div className={classes.container}>
-      {/* <Card
-        sx={{ maxWidth: 345 }}
-        md={{ maxWidth: 345 }}
-        lg={{ maxWidth: 345 }}
-      >
-        <CardMedia
-          image="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pexels.com%2Fsearch%2Fbeautiful%2F&psig=AOvVaw0HU9l24XCjY5zQ0rl3Rjis&ust=1704635976991000&source=images&cd=vfe&ved=0CBMQjRxqFwoTCMD9_oD2yIMDFQAAAAAdAAAAABAE"
-          title="green iguana"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            Lizard
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
-          </Typography>
-        </CardContent> */}
-      {/* </Card> */}
-      No properties regstered
+      {/* 1. there are no properties */}
+      {!properties ? <div>No Properties Registered</div> : ""}
+      {/* 2. there are properties */}
+      {properties.length &&
+        properties.map((property) => (
+          <PropertyCard property={property} key={property.name} />
+        ))}
+      {/* there is error */}
+      {hasError ? <div>error</div> : ""}
     </div>
   );
 }
