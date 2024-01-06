@@ -99,7 +99,7 @@ export async function addProperty(property) {
 
 export async function getUserPropertyList(id) {
   try {
-    let res = await axios.get(`http://localhost:1337/api/properties/owner/${id}`)
+    let res = await axiosInstance.get(`/properties/owner/${id}`)
     let {data} = res.data;
     console.log(`Get USER Property:-`, data.results);
     return {
