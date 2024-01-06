@@ -1,5 +1,6 @@
 import { useState } from "react";
-// import Avatar from "@mui/material/Avatar";
+import { useNavigate } from "react-router-dom";
+
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -39,19 +40,25 @@ const defaultTheme = createTheme();
 
 export default function AddPropertyDetails() {
   const [file, setFile] = useState();
-
+  const navigate = useNavigate();
   function handleChange(e) {
     setFile(URL.createObjectURL(e.target.files[0]));
   }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const image = document.getElementById("image");
-    Object.keys(image.files).forEach(key => {
-      data.append("images", image.files[key]);
-    })
-    await addProperty(data);
+    if (localStorage.user) {
+      const data = new FormData(event.currentTarget);
+      data.append("ownedBy", JSON.parse(localStorage.user).id);
+      const image = document.getElementById("image");
+      Object.keys(image.files).forEach(key => {
+        data.append("images", image.files[key]);
+      })
+      await addProperty(data);
+    } else {
+      navigate('/login')
+    }
+
   };
 
   return (
@@ -90,7 +97,7 @@ export default function AddPropertyDetails() {
                   autoFocus
                 />
               </Grid>
-                <Grid item xs={6} sm={6}>
+              <Grid item xs={6} sm={6}>
                 <TextField
                   autoComplete="given-name"
                   name="title"
@@ -272,8 +279,8 @@ export default function AddPropertyDetails() {
               <Grid item>
                 <Button variant="contained" component="label">
                   Upload Property Snippets
-                  <input type="file" accept="image/*" id="image" multiple hidden onChange={handleChange}/>
-                  <img name="image"  src={file} />
+                  <input type="file" accept="image/*" id="image" multiple hidden onChange={handleChange} />
+                  <img name="image" src={file} />
                 </Button>
               </Grid>
             </Grid>
