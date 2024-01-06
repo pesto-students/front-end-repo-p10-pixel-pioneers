@@ -28,7 +28,7 @@ import Footer from '../../components/Footer';
 
 const drawerWidth = 240;
 const navItems = ['Home', 'About', 'Locations', "Login"];
-const settings = ['Profile', 'Logout'];
+const settings = ['Profile', "List Property",'Logout'];
 
 function DrawerAppBar(props) {
     const { window } = props;
@@ -50,6 +50,9 @@ function DrawerAppBar(props) {
                 break;
             case "Profile": 
                 navigate("/profile")
+            break;
+            case "List Property":
+            navigate('/add-location')    
             break;
             default:
                 break;
