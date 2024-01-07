@@ -87,7 +87,9 @@ function Sidebar({ handleFilterChange }) {
               <MenuItem value={""}>ALL</MenuItem>
               <MenuItem value={"Pune"}>Pune</MenuItem>
               <MenuItem value={"Mumbai"}>Mumbai</MenuItem>
-              <MenuItem value={"Bangalore"}>Banglore</MenuItem>
+              <MenuItem value={"Bangalore"}>Bangalore</MenuItem>
+              <MenuItem value={"Noida"}>Noida</MenuItem>
+              <MenuItem value={"Hyderabad"}>Hyderabad</MenuItem>
             </Select>
           </FormControl>
         </Box>

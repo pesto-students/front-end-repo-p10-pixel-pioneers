@@ -51,10 +51,10 @@ export default function AddPropertyDetails() {
     if (localStorage.user) {
       const data = new FormData(event.currentTarget);
       data.append("ownedBy", JSON.parse(localStorage.user).id);
-      data.append("workSpace",{
+      data.append("workSpace", JSON.stringify({
         "total":250,
         "available":250
-      })
+      }))
       const image = document.getElementById("image");
       Object.keys(image.files).forEach(key => {
         data.append("images", image.files[key]);
