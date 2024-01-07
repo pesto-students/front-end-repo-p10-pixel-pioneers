@@ -12,8 +12,9 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
+import { useNavigate } from "react-router-dom";
 import { register } from "../../api/login";
+import { toast, ToastContainer } from 'react-toastify';
 
 function Copyright(props) {
   return (
@@ -37,7 +38,12 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
+
+
 export default function SignUp() {
+
+  const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -45,7 +51,7 @@ export default function SignUp() {
       email: data.get("email"),
       password: data.get("password"),
     });
-    await register({
+    let res = await register({
       email: data.get("email"),
       password: data.get("password"),
       username: data.get("username"),
@@ -53,6 +59,31 @@ export default function SignUp() {
       lastName: data.get("lastName"),
       phoneNumber: data.get("phoneNumber"),
     });
+
+    if (res.success) {
+      toast.success("Signed in Successfully !", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+      navigate("/");
+    } else {
+      toast.error('Unable to Signin', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+    }
   };
 
   return (

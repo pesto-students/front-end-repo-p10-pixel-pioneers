@@ -13,8 +13,9 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
+import { toast, ToastContainer } from 'react-toastify';
 import { addProperty } from "../../api/property";
+
 
 function Copyright(props) {
   return (
@@ -44,17 +45,45 @@ export default function AddPropertyDetails() {
   function handleChange(e) {
     setFile(URL.createObjectURL(e.target.files[0]));
   }
-
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (localStorage.user) {
       const data = new FormData(event.currentTarget);
       data.append("ownedBy", JSON.parse(localStorage.user).id);
+      data.append("workSpace",{
+        "total":250,
+        "available":250
+      })
       const image = document.getElementById("image");
       Object.keys(image.files).forEach(key => {
         data.append("images", image.files[key]);
       })
-      await addProperty(data);
+      let res = await addProperty(data);
+      if (res.success) {
+        toast.success("Property Added Successfully !", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+        navigate("/profile");
+      } else {
+        toast.error('Unable to Add Property', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+      }
     } else {
       navigate('/login')
     }
@@ -182,6 +211,7 @@ export default function AddPropertyDetails() {
                   autoComplete="country"
                 />
               </Grid>
+              
               <Grid item xs={6}>
                 <TextField
                   required
@@ -192,6 +222,16 @@ export default function AddPropertyDetails() {
                 />
               </Grid>
               <Grid item xs={12}>
+                <TextField
+                  type="number"
+                  required
+                  fullWidth
+                  name="cost"
+                  label="Rent of Property"
+                  id="cost"
+                />
+              </Grid>
+              {/* <Grid item xs={12}>
                 <label>Facilities</label>
               </Grid>
               <Grid item>
@@ -267,18 +307,11 @@ export default function AddPropertyDetails() {
                   }
                   label="Printer and Scanner"
                 />
-              </Grid>
-              <Grid item xs={12} sm={6} lg={12}>
-                <TextField
-                  multiline
-                  aria-label="minimum height"
-                  minRows={2}
-                  placeholder="Minimum 2 rows"
-                />
-              </Grid>
+              </Grid> */}
+             
               <Grid item>
                 <Button variant="contained" component="label">
-                  Upload Property Snippets
+                  Upload Property Images
                   <input type="file" accept="image/*" id="image" multiple hidden onChange={handleChange} />
                   <img name="image" src={file} />
                 </Button>

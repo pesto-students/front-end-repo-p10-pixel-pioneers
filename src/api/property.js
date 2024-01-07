@@ -87,6 +87,10 @@ export async function addProperty(property) {
       }
   });
     console.log(`API RES`,response)
+    return {
+      success: true,
+      data: response.data
+    }
   } catch (error) {
     console.log(`ERR`)
     console.error(error)

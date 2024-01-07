@@ -9,7 +9,7 @@ export async function login(email, password) {
     });
     const { jwt, user } = response.data;
     localStorage.setItem("token", jwt);
-    localStorage.setItem("user", JSON.stringify(user))
+    localStorage.setItem("user", JSON.stringify(user));
     return response.data;
   } catch (error) {
     return {
@@ -28,8 +28,12 @@ export async function register(payload) {
     );
     const { jwt } = response.data;
     localStorage.setItem("token", jwt);
-    console.log(`API:-`, response);
-    return response.data;
+    localStorage.setItem("user", JSON.stringify(user));
+  
+    return {
+      success: true,
+      data:response.data.data
+    };
   } catch (error) {
     console.log(`Response Error:-`, error);
     return {

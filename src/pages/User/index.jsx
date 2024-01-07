@@ -125,7 +125,7 @@ function RegisteredSpacesDetails() {
 
   useEffect(() => {
     (async () => {
-      let res = await getUserPropertyList(2);
+      let res = await getUserPropertyList(JSON.parse(localStorage.user).id);
       if (res.success) {
         setProperties((prev) => res.data);
       } else {
