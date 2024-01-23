@@ -14,6 +14,7 @@ import PropertyDetails from "../PropertyDetails";
 import AddPropertyDetails from "../AddPropertyDetails";
 import About from "../About";
 import Contact from "../Contact";
+import Blank from "../Blank";
 
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
@@ -34,6 +35,7 @@ const router = createBrowserRouter(
       <Route path="contact" element={<Contact />} />
       <Route path="about" element={<About />} />
       <Route path="add-location" element={<AddPropertyDetails />} />
+      <Route path="blank" element={<Blank />} />
     </Route>
   )
 );

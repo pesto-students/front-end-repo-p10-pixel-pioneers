@@ -21,7 +21,6 @@ import AdminPanelSettingsRoundedIcon from "@mui/icons-material/AdminPanelSetting
 
 import { Carousel } from "../../components/Carousel";
 import EnquiryForm from "../../components/EnquiryForm";
-import BookingForm from "../../components/BookingForm";
 
 /*
 let data = [
