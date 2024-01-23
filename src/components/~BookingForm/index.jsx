@@ -12,7 +12,7 @@ const BookingForm = ({property}) => {
     //     Enquiry Form
     // </>
     // ) 
-    const [open,openchange]=useState(false);
+    const [open, openchange]=useState(false);
     const functionopenpopup=()=>{
         openchange(true);
     }

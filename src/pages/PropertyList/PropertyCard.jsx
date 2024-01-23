@@ -33,8 +33,7 @@ const PropertyCard = ({ property }) => {
   const navigate = useNavigate();
   const classes = useStyles();
   let { amenities } = property;
-  //console.log(property);
-  //console.log(amenities);
+
 
   // let baseurl = "https://strapi-dqt5.onrender.com".concat(
   //   property.images.data[0].attributes.url
@@ -50,8 +49,7 @@ const PropertyCard = ({ property }) => {
         acc[key] = amenities[key];
         return acc;
       }, {});
-    // console.log(Object.keys(enabledAmenities));
-    // return enabledAmenities;
+   
     return Object.keys(enabledAmenities);
   };
 

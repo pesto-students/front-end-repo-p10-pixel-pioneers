@@ -56,6 +56,7 @@ function Sidebar({ handleFilterChange }) {
       price: priceRange,
     });
   };
+
   const handlePriceSort = (event) => {
     setPrice(event.target.value);
     setpriceRange(getPriceRange(event.target.value));
@@ -64,7 +65,6 @@ function Sidebar({ handleFilterChange }) {
       sort: sortvalue === "Price High to Low" ? "desc" : "asc",
       city: location,
     });
-    // console.log('Sort----', )
   };
 
   return (
@@ -157,6 +157,7 @@ function Sidebar({ handleFilterChange }) {
       </Box>
     </div>
   );
+
 }
 
 export default Sidebar;

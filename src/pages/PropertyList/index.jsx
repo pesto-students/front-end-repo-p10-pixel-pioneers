@@ -15,9 +15,8 @@ function PropertyList() {
   });
 
   const fetchData = async (filter) => {
-    //console.log("fetchData callled-----");
     const response = await propertyList(filter);
-    //console.log("------Response ", response);
+    
     if (response.success) {
       setProperties(response.data);
     } else {
@@ -29,14 +28,11 @@ function PropertyList() {
     (async function () {
       await fetchData(filter);
     })();
-
-    //console.log("useEffect fired");
   }, [filter]);
   let handleFilter = (filter) => {
-    console.log("In Index.js---", filter);
     setFilter(filter);
   };
-  //console.log("State--", filter);
+  
   return (
     <Box m={2}>
       <div className="homepage">
@@ -45,10 +41,8 @@ function PropertyList() {
         </div>
 
         <div className="card-section">
-          {/* <PropertyCard property={propertyData} /> */}
           {properties.length !== 0
             ? properties.map((property) => {
-                // console.log(property);
                 return <PropertyCard property={property} key={property.name} />;
               })
             : "No Data Found"}
