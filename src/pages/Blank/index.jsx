@@ -1,4 +1,4 @@
-import BookingForm from "../../components/BookimgForm";
+import BookingForm from "../../components/BookingForm";
 
 const Blank = () => {
     return (
