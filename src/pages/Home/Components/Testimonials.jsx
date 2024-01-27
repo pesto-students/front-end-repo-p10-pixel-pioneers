@@ -2,6 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { testimonials } from "./TestimonialsData";
 import TestimonialCard from "./TestimonialCard";
 import { Grid } from "@material-ui/core";
+import { Carousel2 } from "../../../components/Carousel2";
 // import BookSpaceForm from "./BookSpaceForm";
 import galleryImage1 from "../../../Assets/Wallpaper1.jpeg";
 import galleryImage2 from "../../../Assets/Wallpaper.jpeg";
@@ -54,13 +55,14 @@ function Testimonials() {
           Generate Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
           do eiusmod tempor incididunt ut labore et dolore
         </p>
-        <div className="GalleryView">
+        {/* <div className="GalleryView">
           <img src={galleryImage1} />
           <img src={galleryImage2} />
           <img src={galleryImage3} />
           <img src={galleryImage4} />
           <img src={galleryImage5} />
-        </div>
+        </div> */}
+        <Carousel2 />
       </div>
     </div>
   );
