@@ -1,11 +1,9 @@
 import "./homepage.css";
 import Testimonials from "./Components/Testimonials";
 import { useEffect } from "react";
-import { Link } from 'react-router-dom';
-import GetttingStarted from "../../components/GettingStarted";
+import { Link } from "react-router-dom";
 
 const Home = () => {
-
   return (
     <>
       <div className="">
@@ -20,16 +18,12 @@ const Home = () => {
               <Link to={"properties"}>
                 <div className="lower-section-btn1">BOOK A SPACE</div>
               </Link>
-              <Link to={"about"}>
-                <div className="lower-section-btn2">About Us</div>
-              </Link>
             </div>
           </div>
         </div>
       </div>
       <GetttingStarted />
       <Testimonials />
-      
     </>
   );
 };
