@@ -10,6 +10,7 @@ import Login from "../Login";
 import SignUp from "../SignUp";
 import User from "../User";
 import PropertyList from "../PropertyList";
+import PropertyList2 from "../PropertyList2";
 import PropertyDetails from "../PropertyDetails";
 import AddPropertyDetails from "../AddPropertyDetails";
 import About from "../About";
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
       <Route path="register" element={<SignUp />} />
       <Route path="profile" element={<User />} />
       <Route path="properties" element={<PropertyList />} />
+      <Route path="properties2" element={<PropertyList2 />} />
       <Route
         path="property-details/:propertyID"
         element={<PropertyDetails />}
