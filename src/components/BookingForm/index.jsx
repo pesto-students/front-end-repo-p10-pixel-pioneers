@@ -84,7 +84,7 @@ const BookingForm = () => {
 
             return (
               <Form>
-                <pre style={{border:"1px solid red"}}>{JSON.stringify({...values,errors,touched},null,"\n")}</pre>
+                {/* <pre style={{border:"1px solid red"}}>{JSON.stringify({...values,errors,touched},null,"\n")}</pre> */}
                 <Grid item container spacing={1} >
                   {/* Name Field */}
                   <Grid item xs={12} sm={6} md={6}>

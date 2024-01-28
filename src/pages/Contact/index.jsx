@@ -1,82 +1,103 @@
-import { useState } from "react";
-import { TextField, Button, Typography, Grid, Box } from "@mui/material";
+import React from 'react'
+import {  
+    Box,
+    Button,
+    Stack,
+    TextField
+} from '@mui/material'
+import Title from '../../components/Title'
+import Paragraph from '../../components/Paragraph'
 
 const Contact = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
-  return (
-    <>
-      <div>
-        <Box sx={{ height: "100vh" }}>
-          <Grid
-            container
-            direction="column"
-            alignItems="center"
-            justifyContent="center"
-            sx={{ height: "100%" }}
-          >
-            <Grid item xs={12} md={4}>
-              <Box sx={{ p: 2 }}>
-                <Typography variant="h4" align="center" mb={2}>
-                  Contact Us
-                </Typography>
-                <form onSubmit={handleSubmit}>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12} md={6}>
-                      <Box sx={{ display: "flex", justifyContent: "center" }}>
-                        <img
-                          src="https://cdn.pixabay.com/photo/2023/04/24/03/16/camping-7947056__340.jpg"
-                          alt="Contact"
-                          style={{ maxWidth: "100%" }}
-                        />
-                      </Box>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                      <TextField
-                        fullWidth
-                        label="Name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        margin="normal"
-                        required
-                      />
-                      <TextField
-                        fullWidth
-                        label="Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        margin="normal"
-                        required
-                        type="email"
-                      />
-                      <TextField
-                        fullWidth
-                        label="Message"
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                        margin="normal"
-                        required
-                        multiline
-                        rows={4}
-                      />
-                      <Button variant="contained" type="submit" sx={{ mt: 2 }}>
-                        Submit
-                      </Button>
-                    </Grid>
-                  </Grid>
-                </form>
-              </Box>
-            </Grid>
-          </Grid>
-        </Box>
-      </div>
-    </>
-  );
-};
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        console.log({
+            email: data.get('email'),
+            phone: data.get('phone'),
+        });
+    }
+
+
+    return (
+        <Stack 
+        component='section'
+        direction="column"
+        justifyContent= 'center'
+        alignItems='center'
+        sx={{
+            py: 10,
+            px: 2,
+        }}
+        >
+            <Title 
+            text={
+                'Interested to rent a property'
+                } 
+            textAlign={'center'}
+            />
+            <Paragraph 
+            text={
+                'If you are interested to rent the property contact us we will call you. \
+                Shortly to fulfill you requirements and property.'
+            }
+            maxWidth = {'sm'}
+            mx={0}
+            textAlign={'center'}
+            />
+
+            <Box 
+            component="form" 
+            noValidate 
+            onSubmit={handleSubmit} 
+            sx={{ 
+                mt: 1,
+                py: 2
+            }}>
+                <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    autoFocus
+                />
+                <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="phone"
+                    label="Phone Number"
+                    type="phone"
+                    id="phone"
+                    autoComplete="current-phone"
+                />
+                <Button 
+                variant="contained" 
+                fullWidth
+                type="submit"
+                size="medium"
+                sx= {{ 
+                    fontSize: '0.9rem',
+                    textTransform: 'capitalize', 
+                    py: 2,
+                    mt: 3, 
+                    mb: 2,
+                    borderRadius: 0,
+                    backgroundColor: '#14192d',
+                    "&:hover": {
+                        backgroundColor: '#1e2a5a',
+                    }
+                }}
+                >
+                    send
+                </Button>
+            </Box>
+        </Stack>
+    )
+}
 
 export default Contact;

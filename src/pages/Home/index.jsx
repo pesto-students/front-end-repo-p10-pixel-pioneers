@@ -2,6 +2,7 @@ import "./homepage.css";
 import Testimonials from "./Components/Testimonials";
 import { useEffect } from "react";
 import { Link } from 'react-router-dom';
+import GetttingStarted from "../../components/GettingStarted";
 
 const Home = () => {
 
@@ -26,7 +27,9 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <GetttingStarted />
       <Testimonials />
+      
     </>
   );
 };
