@@ -1,55 +1,87 @@
-import PropertyCard from "./PropertyCard";
+import React, { useState, useEffect } from "react";
+import Stack from "@mui/material/Stack";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+
+import PropertyCard from "../../components/PropertyCard";
+import Filters from "../../components/Filters";
+
 import { propertyList } from "../../api/property";
-import Sidebar from "./Sidebar";
-import "./Sidebar.css";
-import { Box } from "@mui/material";
-import { useEffect, useState } from "react";
 
-function PropertyList() {
-  const [properties, setProperties] = useState([]);
-  const [error, setError] = useState("");
-  const [filter, setFilter] = useState({
-    city: "",
-    price: { min: 0, max: 30000 },
-    sort: "desc",
-  });
+const PropertyList = () => {
 
-  const fetchData = async (filter) => {
-    const response = await propertyList(filter);
-    
-    if (response.success) {
-      setProperties(response.data);
-    } else {
-      setError(response.message);
+    const [loading, setLoading] = useState(false);
+    const [filters, setFilters] = useState({
+        city: "All",
+        sort: "none"
+    });
+    const [properties, setProperties] = useState([]);
+    const [error, setError] = useState("");
+
+    const fetchData = async (filter) => {
+
+        const response = await propertyList(filter);
+
+        if (response.success) {
+            setProperties(response.data);
+        } else {
+            setError(response.message);
+        }
+
+    };
+
+    useEffect(() => {
+
+        setLoading(prev => true);
+        setProperties([]);
+        (async function () {
+            await fetchData(filters);
+        })();
+        setLoading(prev => false);
+
+    }, [filters]);
+
+    if (loading) {
+        return (
+            <>
+                <Box sx={{ display: 'flex', justifyContent: "center", alignContent: "center" }} margin={10}>
+                    <CircularProgress />
+                </Box>
+            </>
+        )
     }
-  };
 
-  useEffect(() => {
-    (async function () {
-      await fetchData(filter);
-    })();
-  }, [filter]);
-  let handleFilter = (filter) => {
-    setFilter(filter);
-  };
-  
-  return (
-    <Box m={2}>
-      <div className="homepage">
-        <div className="">
-          <Sidebar handleFilterChange={handleFilter} />
-        </div>
+    if (properties.length === 0) {
+        return (
+            <>
+                <h1 style={{ textAlign: "center" }}>Property List 2</h1>
+                <Filters handleFilter={setFilters} />
+                <Box sx={{ display: 'flex', justifyContent: "center", alignContent: "center" }} margin={10}>
+                    <CircularProgress />
+                </Box>
+            </>
+        )
+    }
 
-        <div className="card-section">
-          {properties.length !== 0
-            ? properties.map((property) => {
-                return <PropertyCard property={property} key={property.name} />;
-              })
-            : "No Data Found"}
-        </div>
-      </div>
-    </Box>
-  );
+    return (
+
+        <>
+            <h1 style={{ textAlign: "center" }}>Property List 2</h1>
+            <Filters handleFilter={setFilters} />
+
+            {/* {PropertyCards} */}
+            <Stack margin={3} direction={{ xs: "column", md: "row" }} gap={1} justifyContent={"center"} alignContent={"center"} flexWrap={"wrap"}>
+                {
+                    properties.map((property, propertyIndex) => {
+                        console.log(`:-`, property)
+                        return (
+                            <PropertyCard key={`property-card-${propertyIndex}`} propertyDetails={property} />
+                        )
+                    })
+                }
+            </Stack>
+        </>
+    )
 }
 
 export default PropertyList;
