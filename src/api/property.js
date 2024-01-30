@@ -5,11 +5,14 @@ let getFilters = (filters) => {
   let filterObject = {};
   let sortObject = {};
 
-  if (filters.city != "") {
-    filterObject.city = { $eqi: filters.city };
+  if (filters.city != "All") {
+    filterObject.city = { $eqi: filters.city.toLowerCase() };
   }
-  sortObject.cost = filters.sort;
-  filterObject.cost = { $lte: filters.price.max, $gte: filters.price.min };
+
+  if (filters.sort !== "none") {
+    sortObject.cost = filters.sort;
+  } 
+  
 
   return {
     filters: filterObject,
@@ -18,22 +21,20 @@ let getFilters = (filters) => {
 };
 
 export async function propertyList(filters) {
-  console.log("Filters:---", filters);
-  let retunedParams = getFilters(filters);
-  console.log(retunedParams);
-
+  
+  let paramsObj = getFilters(filters);
+  
   try {
     const response = await axiosInstance.get(
       `properties?populate=*`,
       {
         params: {
-          filters: retunedParams.filters,
-          sort: retunedParams.sort,
+          filters: paramsObj.filters,
+          sort: paramsObj.sort,
         },
       }
     );
-    console.log("Property.js Response-->", response);
-
+    
     let properties =
       response.data.length != 0
         ? response.data.data.map((property) => {

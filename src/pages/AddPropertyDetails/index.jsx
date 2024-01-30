@@ -312,6 +312,7 @@ export default function AddPropertyDetails() {
               <Grid item>
                 <Button variant="contained" component="label">
                   Upload Property Images
+                  {/* TODO Change image display */}
                   <input type="file" accept="image/*" id="image" multiple hidden onChange={handleChange} />
                   <img name="image" src={file} />
                 </Button>

@@ -44,8 +44,7 @@ function DrawerAppBar(props) {
     };
 
     const handleCloseUserMenu = (e) => {
-        console.log(`HANDLE-CLOSE:-`, e.target.innerText)
-
+        
         switch (e.target.innerText) {
             case "Logout":
                 localStorage.clear();
@@ -97,11 +96,11 @@ function DrawerAppBar(props) {
             </Link>
             <Divider />
             <List>
-                {navItems.map((item) => (
+                {navItems.map((item, itemIndex) => (
                     (localStorage.user && item === "Login")
                         ? (<></>)
                         : (
-                            <ListItem key={item} disablePadding>
+                            <ListItem key={`list-${itemIndex}`} disablePadding>
                                 <ListItemButton sx={{ textAlign: 'center' }} value={item} onClick={
                                     (e) => {
                                         switch (item) {
@@ -152,7 +151,7 @@ function DrawerAppBar(props) {
 
                     {
                         localStorage.user && (
-                            <Box marginLeft={2} sx={{ flexGrow: 0, mr: 2, display: { sm: 'none' }, marginLeft: "auto" }}>
+                            <Box key="test" marginLeft={2} sx={{ flexGrow: 0, mr: 2, display: { sm: 'none' }, marginLeft: "auto" }}>
                                 <Tooltip title="Open settings">
                                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                         <Avatar alt={`${JSON.parse(localStorage.user).username}`} />
@@ -174,8 +173,9 @@ function DrawerAppBar(props) {
                                     open={Boolean(anchorElUser)}
                                     onClose={handleCloseUserMenu}
                                 >
-                                    {settings.map((setting) => (
-                                        <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                                    
+                                    {settings.map((setting, settingIndex) => (
+                                        <MenuItem key={`setting-${settingIndex}`} onClick={handleCloseUserMenu}>
                                             <Typography textAlign="center">{setting}</Typography>
                                         </MenuItem>
                                     ))}
@@ -197,12 +197,12 @@ function DrawerAppBar(props) {
                     
 
                     <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                        {navItems.map((item) => (
+                        {navItems.map((item, itemIndex) => (
 
                             (localStorage.user && item === "Login")
                                 ? (<></>)
                                 : (
-                                    <Button value={item} key={item} sx={{ color: '#fff' }} onClick={handleClickListItem}>
+                                    <Button value={item} key={`nav-${itemIndex}`} sx={{ color: '#fff' }} onClick={handleClickListItem}>
                                         {item}
                                     </Button>
                                 )
@@ -236,8 +236,8 @@ function DrawerAppBar(props) {
                                     open={Boolean(anchorElUser)}
                                     onClose={handleCloseUserMenu}
                                 >
-                                    {settings.map((setting) => (
-                                        <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                                    {settings.map((setting, settingIndex) => (
+                                        <MenuItem key={`set-${settingIndex}`} onClick={handleCloseUserMenu}>
                                             <Typography textAlign="center">{setting}</Typography>
                                         </MenuItem>
                                     ))}

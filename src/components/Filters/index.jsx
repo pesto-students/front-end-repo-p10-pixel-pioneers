@@ -11,21 +11,20 @@ import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 
 const useStyles = makeStyles(theme => ({
     formControl: {
-      margin: theme.spacing(1),
-      width: "9vw"
+        margin: theme.spacing(1),
+        width:"140px"
     },
     selectEmpty: {
-      marginTop: theme.spacing(2)
+        marginTop: theme.spacing(2)
     },
     select: {
-      height: "6vh"
+        height: "6vh",
+        minHeight: "40px",
     },
     inputLabel: {
-      fontSize: "4vh",
-      alignSelf: "center"
+        alignSelf: "center"
     }
-  }));
-
+}));
 
 const cities = [
     "All",
@@ -34,6 +33,7 @@ const cities = [
     "Bangalore",
     "Noida",
     "Hyderabad",
+    "Nagpur"
 ];
 
 const sorts = [
@@ -42,7 +42,7 @@ const sorts = [
     "desc"
 ];
 
-const Filters = () => {
+const Filters = ({ handleFilter }) => {
     const classes = useStyles();
     const [city, setCity] = useState(cities[0]);
     const [sort, setSort] = useState(sorts[0]);
@@ -50,15 +50,24 @@ const Filters = () => {
     const handleCityChange = (event) => {
         const cityValue = event.target.value;
         setCity(prev => cityValue);
+        handleFilter(prev => ({
+            city: cityValue,
+            sort,
+        }))
     };
 
     const handleSortChange = (event) => {
         const sortValue = event.target.value;
         setSort(prev => sortValue);
-    }
+        handleFilter(prev => ({
+            sort: sortValue,
+            city,
+        }))
+    };
+
     return (
         <>
-            <Stack direction={"row"} spacing={2} justifyContent={"center"}>
+            <Stack direction={{ xs: "column", md: "row" }} gap={2} justifyContent={"center"} alignItems={"center"} flexWrap={"nowrap"}>
 
                 {/* City Select */}
                 <FormControl className={classes.formControl}>
@@ -76,8 +85,8 @@ const Filters = () => {
                             cities.map((city, cityIndex) => (
                                 <MenuItem key={`select-city-${cityIndex}`} value={city}>
                                     <Stack direction={"row"}>
-                                    <LocationOnOutlinedIcon  fontSize="small"/>
-                                    {city}
+                                        <LocationOnOutlinedIcon fontSize="small" />
+                                        {city}
                                     </Stack>
                                 </MenuItem>
                             ))
