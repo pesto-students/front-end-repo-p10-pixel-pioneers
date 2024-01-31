@@ -1,4 +1,7 @@
+
+import Box from "@mui/material/Box"
 import { GoogleMap, Marker, LoadScript } from "@react-google-maps/api";
+
 
 const locations = [
   {
@@ -38,7 +41,7 @@ function OurLocations() {
     margin: "auto",
   };
 
-  const handleMapClick = () => {};
+  const handleMapClick = () => { };
 
   const defaultCenter = {
     lat: locations.length > 0 ? locations[0].lat : 0,
@@ -46,19 +49,21 @@ function OurLocations() {
   };
 
   return (
-    <LoadScript googleMapsApiKey="AIzaSyC9swLScGCN8EwlfJFtD0ILzVCGj9uqgOA">
-      <GoogleMap mapContainerStyle={mapStyles} zoom={4} center={defaultCenter}>
-        {locations.map((location) => (
-          <Marker
-            key={location.id}
-            position={{ lat: location.lat, lng: location.long }}
-            title={location.city}
-            onClick={handleMapClick}
-            yesIWantToUseGoogleMapApiInternals
-          />
-        ))}
-      </GoogleMap>
-    </LoadScript>
+    <Box marginBottom={10}>
+      <LoadScript googleMapsApiKey="AIzaSyC9swLScGCN8EwlfJFtD0ILzVCGj9uqgOA">
+        <GoogleMap mapContainerStyle={mapStyles} zoom={4} center={defaultCenter}>
+          {locations.map((location) => (
+            <Marker
+              key={location.id}
+              position={{ lat: location.lat, lng: location.long }}
+              title={location.city}
+              onClick={handleMapClick}
+              yesIWantToUseGoogleMapApiInternals
+            />
+          ))}
+        </GoogleMap>
+      </LoadScript>
+    </Box>
   );
 }
 
