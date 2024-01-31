@@ -1,8 +1,13 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { testimonials } from "./TestimonialsData";
 import TestimonialCard from "./TestimonialCard";
+
 import { Grid } from "@material-ui/core";
+import Stack from "@mui/material/Stack";
+
 import { Carousel2 } from "../../../components/Carousel2";
+import ReviewCard from "../../../components/ReviewCard";
+
 // import BookSpaceForm from "./BookSpaceForm";
 import galleryImage1 from "../../../Assets/Wallpaper1.jpeg";
 import galleryImage2 from "../../../Assets/Wallpaper.jpeg";
@@ -16,6 +21,37 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
 }));
+
+const cardDetails = [
+  {
+    name: "Kartik Dhunisinghani",
+    description: `This impressive paella is a perfect party dish and a fun meal
+      to cook together with your guests. Add 1 cup of frozen..`,
+    date: "November 19, 2021",
+  },
+  {
+    name: "Yash Dhunisinghani",
+    description: `This impressive paella is a perfect party dish and a fun meal
+      to cook together with your guests. Add 1 cup of frozen..`,
+      date: "August 4, 2019",
+  },
+  {
+    name: "Harish Dhunisinghani",
+    description: `This impressive paella is a perfect party dish and a fun meal
+      to cook together with your guests. Add 1 cup of frozen..`,
+      date: "June 5, 2016",
+  },
+];
+
+const items = cardDetails.map((cardDetail, index) => (
+  <ReviewCard key={`review-${index}`} name={cardDetail.name} description={cardDetail.description} date={cardDetail.date} className={"item"} />
+));
+
+const ReviewCards = () => ((
+  <Stack margin={1} direction={{ xs: "column", md: "row" }} justifyContent={"center"} alignContent={"center"} gap={2} flexWrap={"wrap"}>
+    {items}
+  </Stack>
+));
 
 function Testimonials() {
   const classes = useStyles();
@@ -37,16 +73,9 @@ function Testimonials() {
           </div>
         </div>
       </div>
+
       {/* Card section */}
-      <div className={classes.root}>
-        <Grid container justifyContent="center">
-          {testimonials.map((testimonial, index) => (
-            <Grid item key={index}>
-              <TestimonialCard {...testimonial} />
-            </Grid>
-          ))}
-        </Grid>
-      </div>
+      <ReviewCards />
 
       {/* Gallery */}
       <div className="Gallery">

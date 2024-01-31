@@ -13,7 +13,7 @@ const PropertyList = () => {
     const [loading, setLoading] = useState(false);
     const [filters, setFilters] = useState({
         city: "All",
-        sort: "none"
+        sort: "asc"
     });
     const [properties, setProperties] = useState([]);
     const [error, setError] = useState("");

@@ -4,6 +4,7 @@ import {
   createRoutesFromElements,
   RouterProvider,
 } from "react-router-dom";
+
 import Home from "../Home";
 import Layout from "../Layout";
 import Login from "../Login";
@@ -43,8 +44,9 @@ const router = createBrowserRouter(
 function App() {
   return (
     <>
-      <RouterProvider router={router} />
-      <ToastContainer />
+        <RouterProvider router={router} />
+        <ToastContainer />
+      
     </>
   );
 }

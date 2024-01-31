@@ -37,7 +37,6 @@ const cities = [
 ];
 
 const sorts = [
-    "none",
     "asc",
     "desc"
 ];

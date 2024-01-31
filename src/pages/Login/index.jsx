@@ -52,33 +52,6 @@ export default function SignUp() {
         });
 
         const response = await login(data.get('email'), data.get('password'));
-        // console.log(`RESPONSE:-`, response);
-        if (response.success === false) {
-            toast.error('Unable to Login', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-                });
-            setMessage(prev => response.message)
-            setError(true);
-        } else {
-            toast.success("Logged in Successfully !", {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-                });
-            navigate("/");
-        }
     };
 
     return (

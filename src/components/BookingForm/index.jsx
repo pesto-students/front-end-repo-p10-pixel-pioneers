@@ -13,9 +13,10 @@ import {
   CardHeader,
   FormControl,
 } from "@material-ui/core"
-import Stack from "@mui/material/Stack"
+import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
 import { Formik, Form, Field } from "formik";
-// import { DatePicker } from 'formik-mui-lab';
+
 import * as Yup from "yup";
 import { TextField } from "formik-material-ui";
 import dayjs from "dayjs";
@@ -80,7 +81,6 @@ const BookingForm = () => {
           validationSchema={validationSchema}
           onSubmit={onSubmit}>
           {({ dirty, isValid, values, setFieldValue, handleChange, handleBlur, errors, touched, setFieldTouched }) => {
-
 
             return (
               <Form>
@@ -191,7 +191,7 @@ const BookingForm = () => {
                       onChange={(value) => {
                         setFieldTouched("end", true);
                         setFieldValue("end", value.format(), true);
-                        
+
                       }}
                       slotProps={{
                         textField: {
