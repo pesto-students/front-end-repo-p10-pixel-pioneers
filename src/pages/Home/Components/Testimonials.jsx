@@ -78,7 +78,7 @@ function Testimonials() {
       <ReviewCards />
 
       {/* Gallery */}
-      <div className="Gallery">
+      <div className="Gallery section-1-home">
         <h1 className="GalleryTitle">Space Overview</h1>
         <p className="GalleryDesc">
           Generate Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed

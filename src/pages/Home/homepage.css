@@ -257,3 +257,7 @@
   transform: scale(1.5);
   transform-origin: center;
 }
+
+.section-1-home {
+  background-color: #b4b4b8;
+}

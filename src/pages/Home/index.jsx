@@ -1,6 +1,5 @@
 import "./homepage.css";
 import Testimonials from "./Components/Testimonials";
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import GetStarted from "../../components/GetStarted";

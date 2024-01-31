@@ -17,8 +17,6 @@ import About from "../About";
 import Contact from "../Contact";
 import Blank from "../Blank";
 
-import { toast, ToastContainer } from 'react-toastify';
-import "react-toastify/dist/ReactToastify.css";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -44,9 +42,13 @@ const router = createBrowserRouter(
 function App() {
   return (
     <>
+<<<<<<< HEAD
         <RouterProvider router={router} />
         <ToastContainer />
       
+=======
+      <RouterProvider router={router} />
+>>>>>>> 1aec9ce6141f27dd3973c3267ac825e3001d0b43
     </>
   );
 }
