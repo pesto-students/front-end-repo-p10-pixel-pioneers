@@ -1,13 +1,8 @@
 import { useMemo } from "react";
-import {
-  GoogleMap,
-  Marker,
-  useLoadScript,
-  MarkerF,
-} from "@react-google-maps/api";
+import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 
 function GoogleIntegration() {
-  let center = useMemo(() => ({ lat: -30.292038, lng: 153.118896 }), []);
+  let center = useMemo(() => ({ lat: 18.52043, lng: 73.856743 }), []);
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyC9swLScGCN8EwlfJFtD0ILzVCGj9uqgOA",
   });
