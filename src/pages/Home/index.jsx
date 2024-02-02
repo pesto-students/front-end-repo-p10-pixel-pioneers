@@ -14,10 +14,10 @@ const Home = () => {
             <div className="heading-1">Comfortable coworking spaces.</div>
             <div className="subHeading">
               Our coworking spaces let you choose to work with others in an
-              open-plan area, or a shared office.{" "}
+              open-plan area, or a shared office.
             </div>
             <div className="lower-section">
-              <Link to={"properties"}>
+              <Link to={"properties"} style={{textDecoration: "none"}}>
                 <div className="lower-section-btn1">BOOK A SPACE</div>
               </Link>
             </div>

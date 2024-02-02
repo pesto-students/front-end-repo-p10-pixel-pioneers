@@ -54,7 +54,7 @@ const PropertyList = () => {
     if (properties.length === 0) {
         return (
             <>
-                <h1 style={{ textAlign: "center" }}>Property List 2</h1>
+                <h1 style={{ textAlign: "center" }}>Property List</h1>
                 <Filters handleFilter={setFilters} />
                 <Box sx={{ display: 'flex', justifyContent: "center", alignContent: "center" }} margin={10}>
                     <CircularProgress />
@@ -66,14 +66,13 @@ const PropertyList = () => {
     return (
 
         <>
-            <h1 style={{ textAlign: "center" }}>Property List 2</h1>
+            <h1 style={{ textAlign: "center" }}>Property List</h1>
             <Filters handleFilter={setFilters} />
 
             {/* {PropertyCards} */}
             <Stack margin={3} direction={{ xs: "column", md: "row" }} gap={1} justifyContent={"center"} alignContent={"center"} flexWrap={"wrap"}>
                 {
                     properties.map((property, propertyIndex) => {
-                        console.log(`:-`, property)
                         return (
                             <PropertyCard key={`property-card-${propertyIndex}`} propertyDetails={property} />
                         )

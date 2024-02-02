@@ -287,11 +287,15 @@ function Layout() {
   return (
     <>
       <div>
-        <DrawerAppBar />
-      </div>
-      <Outlet />
-      <div>
-        <Footer />
+        <div>
+          <DrawerAppBar />
+        </div>
+        <div style={{minHeight: "64vh"}}>
+        <Outlet />
+        </div>
+        <div>
+          <Footer />
+        </div>
       </div>
     </>
   );

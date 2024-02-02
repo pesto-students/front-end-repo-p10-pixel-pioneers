@@ -48,7 +48,7 @@ const items = cardDetails.map((cardDetail, index) => (
 ));
 
 const ReviewCards = () => ((
-  <Stack margin={1} direction={{ xs: "column", md: "row" }} justifyContent={"center"} alignContent={"center"} gap={2} flexWrap={"wrap"}>
+  <Stack margin={1} marginBottom={4} direction={{ xs: "column", md: "row" }} justifyContent={"center"} alignContent={"center"} gap={2} flexWrap={"wrap"}>
     {items}
   </Stack>
 ));
@@ -84,13 +84,6 @@ function Testimonials() {
           Generate Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
           do eiusmod tempor incididunt ut labore et dolore
         </p>
-        {/* <div className="GalleryView">
-          <img src={galleryImage1} />
-          <img src={galleryImage2} />
-          <img src={galleryImage3} />
-          <img src={galleryImage4} />
-          <img src={galleryImage5} />
-        </div> */}
         <Carousel2 />
       </div>
     </div>

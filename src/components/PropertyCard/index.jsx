@@ -9,6 +9,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 
 import galleryImage1 from "../../Assets/gallery-1.jpeg";
 
@@ -28,7 +29,7 @@ const useStyles = makeStyles({
 });
 
 const PropertyCard = ({ propertyDetails }) => {
-  
+
   console.log(`Property Details:-`, propertyDetails)
   const classes = useStyles();
   const propertyImage = propertyDetails.images.data[0].attributes.url;
@@ -56,8 +57,14 @@ const PropertyCard = ({ propertyDetails }) => {
             </Typography>
           </CardContent>
           <CardActions >
-            <Button size="small" onClick={handleShare}>Share</Button>
-            <Button size="small" >Learn More</Button>
+            <Stack direction={"row"} gap={20} justifyContent={"space-between"}>
+              <Box>
+              ₹{propertyDetails.cost}
+              </Box>
+              <Box>
+              <Button size="small" onClick={handleShare}>View Details</Button>
+              </Box>
+            </Stack>
           </CardActions>
         </CardActionArea>
       </Card>
