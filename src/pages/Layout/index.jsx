@@ -131,7 +131,7 @@ function DrawerAppBar(props) {
   return (
     <Box sx={{ display: "flex" }} marginBottom={8}>
       <CssBaseline />
-      <AppBar component="nav" style={{ backgroundColor: "#1976d2" }}>
+      <AppBar component="nav" style={{ backgroundColor: "#1976d2", height: "64px" }}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -286,17 +286,20 @@ function DrawerAppBar(props) {
 function Layout() {
   return (
     <>
+
       <div>
-        <div>
+        <header>
           <DrawerAppBar />
-        </div>
-        <div style={{minHeight: "64vh"}}>
-        <Outlet />
-        </div>
-        <div>
-          <Footer />
-        </div>
+        </header>
       </div>
+      
+        <main style={{ minHeight: "64vh" }}>
+          <Outlet />
+        </main>
+      <footer>
+        <Footer />
+      </footer>
+
     </>
   );
 }

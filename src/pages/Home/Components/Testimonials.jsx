@@ -7,6 +7,8 @@ import Stack from "@mui/material/Stack";
 
 import { Carousel2 } from "../../../components/Carousel2";
 import ReviewCard from "../../../components/ReviewCard";
+import ReviewCards from "../../../components/ReviewCards";
+import Box from "@mui/material/Box";
 
 // import BookSpaceForm from "./BookSpaceForm";
 import galleryImage1 from "../../../Assets/Wallpaper1.jpeg";
@@ -33,16 +35,16 @@ const cardDetails = [
     name: "Yash Dhunisinghani",
     description: `This impressive paella is a perfect party dish and a fun meal
       to cook together with your guests. Add 1 cup of frozen..`,
-      date: "August 4, 2019",
+    date: "August 4, 2019",
   },
   {
     name: "Harish Dhunisinghani",
     description: `This impressive paella is a perfect party dish and a fun meal
       to cook together with your guests. Add 1 cup of frozen..`,
-      date: "June 5, 2016",
+    date: "June 5, 2016",
   },
 ];
-
+{/**
 const items = cardDetails.map((cardDetail, index) => (
   <ReviewCard key={`review-${index}`} name={cardDetail.name} description={cardDetail.description} date={cardDetail.date} className={"item"} />
 ));
@@ -52,7 +54,7 @@ const ReviewCards = () => ((
     {items}
   </Stack>
 ));
-
+ */}
 function Testimonials() {
   const classes = useStyles();
   return (
@@ -75,8 +77,9 @@ function Testimonials() {
       </div>
 
       {/* Card section */}
-      <ReviewCards />
-
+      <Box padding={2}>
+        <ReviewCards />
+      </Box>
       {/* Gallery */}
       <div className="Gallery section-1-home">
         <h1 className="GalleryTitle">Space Overview</h1>

@@ -38,8 +38,8 @@ import {
 const CARD_PROPERTY = {
     borderRadius: 3,
     boxShadow: 2,
-    maxWidth: 345,
-
+    height: 270,
+    maxWidth: "100%",
 };
 
 {/**

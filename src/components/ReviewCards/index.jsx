@@ -11,8 +11,8 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
-import BookingForm from "../../components/BookingForm";
-import ReviewCard from "../../components/ReviewCard";
+import BookingForm from "../BookingForm";
+import ReviewCard from "../ReviewCard";
 import { Description } from "@mui/icons-material";
 
 const cardDetails = [
@@ -39,8 +39,8 @@ const cardDetails = [
 ]
 
 
-const Blank = () => {
-   
+const ReviewCards = ({}) => {
+ 
     return (
         <>
             <Stack>
@@ -50,13 +50,13 @@ const Blank = () => {
                     centeredSlides={false}
                     breakpoints={{
                         640: {
-                            slidesPerView: 2    ,
+                            slidesPerView: 2,
                         },
                         768: {
-                            slidesPerView: 3,
+                            slidesPerView: 2,
                         },
                         1024: {
-                            slidesPerView: 4,
+                            slidesPerView: 3,
                         },
                         1440: {
                             slidesPerView: 5,
@@ -69,7 +69,7 @@ const Blank = () => {
                     virtual
                 >
                     {
-                        Array(19).fill(true).map((_, index) => {
+                        Array(20).fill(true).map((_, index) => {
                             return (
 
                                 <SwiperSlide key={`review-card-${index}`} virtualIndex={index}>
@@ -87,4 +87,4 @@ const Blank = () => {
     );
 }
 
-export default Blank;
+export default ReviewCards;
