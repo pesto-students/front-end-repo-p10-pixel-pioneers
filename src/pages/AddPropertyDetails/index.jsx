@@ -45,16 +45,16 @@ export default function AddPropertyDetails() {
   function handleChange(e) {
     setFile(URL.createObjectURL(e.target.files[0]));
   }
-  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (localStorage.user) {
       const data = new FormData(event.currentTarget);
       data.append("ownedBy", JSON.parse(localStorage.user).id);
       data.append("workSpace", JSON.stringify({
-        "total":250,
-        "available":250
-      }))
+          "total":250,
+          "available":250
+        }))
       const image = document.getElementById("image");
       Object.keys(image.files).forEach(key => {
         data.append("images", image.files[key]);
@@ -70,7 +70,7 @@ export default function AddPropertyDetails() {
           draggable: true,
           progress: undefined,
           theme: "dark",
-          });
+        });
         navigate("/profile");
       } else {
         toast.error('Unable to Add Property', {
@@ -82,7 +82,7 @@ export default function AddPropertyDetails() {
           draggable: true,
           progress: undefined,
           theme: "dark",
-          });
+        });
       }
     } else {
       navigate('/login')
@@ -105,9 +105,6 @@ export default function AddPropertyDetails() {
           {/* <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar> */}
-          <Typography component="h1" variant="h5">
-            Add Property Details
-          </Typography>
           <Box
             component="form"
             noValidate
@@ -211,7 +208,7 @@ export default function AddPropertyDetails() {
                   autoComplete="country"
                 />
               </Grid>
-              
+
               <Grid item xs={6}>
                 <TextField
                   required
@@ -308,7 +305,7 @@ export default function AddPropertyDetails() {
                   label="Printer and Scanner"
                 />
               </Grid> */}
-             
+
               <Grid item>
                 <Button variant="contained" component="label">
                   Upload Property Images
