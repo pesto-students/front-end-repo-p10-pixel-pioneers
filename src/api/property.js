@@ -81,13 +81,24 @@ export async function getProperty(id) {
 
 export async function addProperty(property) {
   try {
-    console.log(`Property:-`, property);
-    const response = await axiosInstance.post(`/properties`, property, {
+    
+    const formData = new FormData();
+    
+    // Creating formdata
+    Object.keys(property).forEach(key => {
+      if (key !== "images") formData.append(key, property[key]);
+    });
+    
+    // Upload Image
+    Object.keys(property.images).forEach(key => {
+      formData.append("images", property.images[key]);
+    });
+
+    const response = await axiosInstance.post(`/properties`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
   });
-    console.log(`API RES`,response)
     return {
       success: true,
       data: response.data

@@ -28,7 +28,7 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import bookingRequest from "../../api/booking"
 
-// Booking Form Initail data
+// Booking Form Initial data
 const initialValues = {
   fullName: "",
   email: "",
@@ -65,12 +65,11 @@ let validationSchema = Yup.object().shape({
     }),
 })
 
-const BookingForm = () => {
+const onSubmit = async (values) => {
+  await  bookingRequest(values);
+}
 
-  const onSubmit = async (values) => {
-    console.log("Values:-", values);
-    bookingRequest(values);
-  }
+const BookingForm = () => {
 
   return (
     <>

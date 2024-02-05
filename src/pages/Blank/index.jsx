@@ -1,19 +1,9 @@
 import React, { useRef, useState } from 'react';
-import { Virtual, Navigation, Pagination } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import "./styles.css"
-
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
 
-import BookingForm from "../../components/BookingForm";
-import ReviewCard from "../../components/ReviewCard";
-import { Description } from "@mui/icons-material";
+import "./styles.css"
 
 const cardDetails = [
     {
@@ -40,51 +30,16 @@ const cardDetails = [
 
 
 const Blank = () => {
-   
+
     return (
         <>
             <Stack>
-                <Swiper
-                    modules={[Virtual, Navigation, Pagination]}
-                    slidesPerView={1}
-                    centeredSlides={false}
-                    breakpoints={{
-                        640: {
-                            slidesPerView: 2    ,
-                        },
-                        768: {
-                            slidesPerView: 3,
-                        },
-                        1024: {
-                            slidesPerView: 4,
-                        },
-                        1440: {
-                            slidesPerView: 5,
-                        },
-                        2560: {
-                            slidesPerView: 7,
-                        }
-                    }}
-                    navigation={true}
-                    virtual
-                >
-                    {
-                        Array(19).fill(true).map((_, index) => {
-                            return (
-
-                                <SwiperSlide key={`review-card-${index}`} virtualIndex={index}>
-                                    <Box padding={2}>
-                                        <ReviewCard />
-                                    </Box>
-                                </SwiperSlide>
-                            )
-                        })
-                    }
-                </Swiper>
+                
             </Stack>
 
         </>
     );
-}
+}   
+
 
 export default Blank;
