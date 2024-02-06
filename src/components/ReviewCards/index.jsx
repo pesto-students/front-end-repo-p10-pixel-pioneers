@@ -15,28 +15,7 @@ import BookingForm from "../BookingForm";
 import ReviewCard from "../ReviewCard";
 import { Description } from "@mui/icons-material";
 
-const cardDetails = [
-    {
-        name: "Kartik Dhunisinghani",
-        description: `This impressive paella is a perfect party dish and a fun meal
-        to cook together with your guests. Add 1 cup of frozen..`
-    },
-    {
-        name: "Yash Dhunisinghani",
-        description: `This impressive paella is a perfect party dish and a fun meal
-        to cook together with your guests. Add 1 cup of frozen..`
-    },
-    {
-        name: "Harish Dhunisinghani",
-        description: `This impressive paella is a perfect party dish and a fun meal
-        to cook together with your guests. Add 1 cup of frozen..`
-    },
-    {
-        name: "Nikita Dhunisinghani",
-        description: `This impressive paella is a perfect party dish and a fun meal
-        to cook together with your guests. Add 1 cup of frozen..`
-    },
-]
+
 
 
 const ReviewCards = ({}) => {
