@@ -64,8 +64,8 @@ function Item(props) {
       return (
         <div className={className}>
           <img
-            src={item.src}
-            alt={item?.name}
+            src={item.photo}
+            alt={item?.label}
             style={{
               height: "100%",
               maxHeight: "100%",
