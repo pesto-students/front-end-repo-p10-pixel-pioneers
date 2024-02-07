@@ -1,8 +1,4 @@
 // import Slider from "react-slick";
-import React from "react";
-import Container from "@mui/material/Container";
-import Link from "@mui/material/Link";
-import Typography from "@mui/material/Typography";
 import Carousel from "react-carousel-mui";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
@@ -71,20 +67,6 @@ const Blank = () => {
     .split(" ")
     .slice(0, 10);
 
-  var settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    autoplay: true,
-    autoplaySpeed: 2000,
-    slickNext: true,
-    slickPrevious: true,
-    swipe: true,
-    verticalSwiping: false,
-  };
-
   return (
     <>
       <Carousel
@@ -112,9 +94,6 @@ const Blank = () => {
         sliderIndicatorsStyle={{
           padding: "10px",
         }}
-        // sliderActiveIndicator={{
-        //   color: "pink",
-        // }}
       />
     </>
   );
