@@ -44,7 +44,8 @@ const cardDetails = [
     date: "June 5, 2016",
   },
 ];
-{/**
+{
+  /**
 const items = cardDetails.map((cardDetail, index) => (
   <ReviewCard key={`review-${index}`} name={cardDetail.name} description={cardDetail.description} date={cardDetail.date} className={"item"} />
 ));
@@ -54,23 +55,28 @@ const ReviewCards = () => ((
     {items}
   </Stack>
 ));
- */}
+ */
+}
 function Testimonials() {
   const classes = useStyles();
   return (
     <div>
       {/* <BookSpaceForm /> */}
       <div className="container">
-        <div className="testimonialHeading">
-          They Satisfied With Our Coworking Spaces
-        </div>
+        {/* <div className="testimonialHeading">
+          Be a part of the happiest coworking space in the country, trusted by
+          over 2300 brands and 17,000+ professionals
+        </div> 
+        <br />*/}
+        <div className="testimonialHeading">Proof of the pudding…</div>
+        <br />
 
         <div className="content-section">
           <div className="TestimonialsContainer">
-            <div className="TestimonialsTitle">Testimonials</div>
+            {/* <div className="TestimonialsTitle">Testimonials</div> */}
+
             <div className="TestimonialsText">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Here’s what some of our delighted clients have to say
             </div>
           </div>
         </div>
@@ -82,10 +88,11 @@ function Testimonials() {
       </Box>
       {/* Gallery */}
       <div className="Gallery section-1-home">
-        <h1 className="GalleryTitle">Space Overview</h1>
+        <h1 className="GalleryTitle">Solutions that delight</h1>
         <p className="GalleryDesc">
-          Generate Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore
+          A one-stop software solution that optimises your space management,
+          provides data-driven insights for cost savings on real estate, and
+          elevates employee experience.
         </p>
         <Carousel2 />
       </div>

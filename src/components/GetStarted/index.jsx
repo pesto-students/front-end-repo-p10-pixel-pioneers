@@ -37,16 +37,11 @@ const GetStarted = () => {
             px: 4,
           }}
         >
-          <Title
-            text={"We make it easy for tenants and landlords"}
-            textAlign={"start"}
-          />
+          <Title text={"Welcome to the joy of coworking"} textAlign={"start"} />
           <CustomTypography>
-            Listing are updated continuously so you
-            <br />
-            won't miss out on homes that just hit
-            <br />
-            market until you find your perfect home.
+            Embrace a dynamic work culture, and enjoy move-in-ready spaces for
+            your growing teams. Explore our fully-furnished, private, lockable
+            spaces with access to shared amenities and conference rooms.
           </CustomTypography>
         </Box>
       </CustomGridItem>
@@ -94,11 +89,15 @@ const GetStarted = () => {
             px: 4,
           }}
         >
-          <Title text={"Match with the best agent"} textAlign={"start"} />
+          <Title
+            text={"Discover a collaborative private office space"}
+            textAlign={"start"}
+          />
           <CustomTypography>
-            Our verified partner Agents are local experts who
-            <br />
-            earn an average of 4.8/5 stars from buyers and sellers.
+            At ProximityPods, you’ll find joy in our thoughtfully designed
+            spaces, in our commitment to your well-being and growth, and in your
+            interactions with one of the largest communities of working
+            professionals in India.
           </CustomTypography>
         </Box>
       </CustomGridItem>

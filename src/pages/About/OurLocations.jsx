@@ -1,7 +1,13 @@
-
-import Box from "@mui/material/Box"
+import Box from "@mui/material/Box";
 import { GoogleMap, Marker, LoadScript } from "@react-google-maps/api";
+import { makeStyles } from "@mui/styles";
 
+const useStyles = makeStyles({
+  boxContainer: {
+    backgroundColor: "#B4B4B8", // Example background color
+    padding: "20px", // Example padding
+  },
+});
 
 const locations = [
   {
@@ -41,17 +47,22 @@ function OurLocations() {
     margin: "auto",
   };
 
-  const handleMapClick = () => { };
+  const handleMapClick = () => {};
 
   const defaultCenter = {
     lat: locations.length > 0 ? locations[0].lat : 0,
     lng: locations.length > 0 ? locations[0].long : 0,
   };
+  const classes = useStyles();
 
   return (
-    <Box marginBottom={10}>
+    <Box marginBottom={10} className={classes.boxContainer}>
       <LoadScript googleMapsApiKey="AIzaSyC9swLScGCN8EwlfJFtD0ILzVCGj9uqgOA">
-        <GoogleMap mapContainerStyle={mapStyles} zoom={4} center={defaultCenter}>
+        <GoogleMap
+          mapContainerStyle={mapStyles}
+          zoom={4}
+          center={defaultCenter}
+        >
           {locations.map((location) => (
             <Marker
               key={location.id}
