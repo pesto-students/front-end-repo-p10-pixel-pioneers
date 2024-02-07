@@ -247,7 +247,7 @@ const AddPropertyDetails = () => {
                 sx={{ mt: 3 }}
               >
                 <Form>
-                <pre style={{border:"1px solid red"}}>{JSON.stringify({...values,errors,touched},null,"\n")}</pre>
+                {/* <pre style={{border:"1px solid red"}}>{JSON.stringify({...values,errors,touched},null,"\n")}</pre> */}
                 <Grid container spacing={2}>
 
                   {/* Name */}

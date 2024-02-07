@@ -33,15 +33,15 @@ const cities = [
     "Bangalore",
     "Noida",
     "Hyderabad",
-    "Nagpur"
 ];
 
 const sorts = [
-    "asc",
-    "desc"
+    "Low to High",
+    "High to Low"
 ];
 
 const Filters = ({ handleFilter }) => {
+    
     const classes = useStyles();
     const [city, setCity] = useState(cities[0]);
     const [sort, setSort] = useState(sorts[0]);

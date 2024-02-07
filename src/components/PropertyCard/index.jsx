@@ -30,14 +30,9 @@ const useStyles = makeStyles({
 
 const PropertyCard = ({ propertyDetails }) => {
 
-  console.log(`Property Details:-`, propertyDetails)
   const classes = useStyles();
   const propertyImage = propertyDetails.images.data[0].attributes.url;
 
-
-  const handleShare = (event) => {
-    event.preventDefault();
-  };
 
   return (
     <Box margin={2}>
@@ -46,7 +41,7 @@ const PropertyCard = ({ propertyDetails }) => {
           <CardMedia
             sx={{ height: 140 }}
             image={propertyImage || galleryImage1}
-            title="green iguana"
+            title={propertyDetails.name}
           />
           <CardContent className={classes.container}>
             <Typography gutterBottom variant="h5" component="div">
@@ -55,17 +50,10 @@ const PropertyCard = ({ propertyDetails }) => {
             <Typography variant="body2" color="text.secondary" className={classes.multiLineEllipsis}>
               {propertyDetails.description}
             </Typography>
+            <Box marginTop={2}>
+                {(propertyDetails.cost)? `₹ ${propertyDetails.cost.toLocaleString("en-IN")}`: "Not Available"}
+            </Box>
           </CardContent>
-          <CardActions >
-            <Stack direction={"row"} gap={20} justifyContent={"space-between"}>
-              <Box>
-              ₹{propertyDetails.cost}
-              </Box>
-              <Box>
-              <Button size="small" onClick={handleShare}>View Details</Button>
-              </Box>
-            </Stack>
-          </CardActions>
         </CardActionArea>
       </Card>
     </Box>

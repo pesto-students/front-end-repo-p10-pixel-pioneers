@@ -10,7 +10,7 @@ let getFilters = (filters) => {
   }
 
   if (filters.sort !== "none") {
-    sortObject.cost = filters.sort;
+    sortObject.cost = (filters.sort === "Low to High")? "asc": "desc";
   } 
   
 
@@ -61,8 +61,7 @@ export async function propertyList(filters) {
 export async function getProperty(id) {
   try {
     const response = await axiosInstance.get(`/properties/${id}?populate=*`);
-    // console.log(`Get Property By ID:-`, response);
-
+    
     let {data} = response.data
     return {
       success: true,
@@ -99,12 +98,12 @@ export async function addProperty(property) {
         'Content-Type': 'multipart/form-data'
       }
   });
+    
     return {
       success: true,
       data: response.data
     }
   } catch (error) {
-    console.log(`ERR`)
     console.error(error)
     return {
       success: false,
@@ -117,14 +116,12 @@ export async function getUserPropertyList(id) {
   try {
     let res = await axiosInstance.get(`/properties/owner/${id}`)
     let {data} = res.data;
-    console.log(`Get USER Property:-`, data.results);
     return {
       success: res.data.success,
       data:data.results  
     }
 
   } catch (error) {
-    console.log(`ERR`)
     console.error(error)
     return {
       success: false,
