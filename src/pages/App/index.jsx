@@ -28,7 +28,7 @@ const router = createBrowserRouter(
       <Route path="profile" element={<User />} />
       <Route path="properties" element={<PropertyList />} />
       <Route
-        path="property-details/:propertyID"
+        path="property-details/:propertyName"
         element={<PropertyDetails />}
       />
       <Route path="contact" element={<Contact />} />

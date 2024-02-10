@@ -1,0 +1,10 @@
+.star {
+    font-size: x-large;
+    color: #ff9933;
+    cursor: pointer;
+}
+
+.star-container {
+    width: 30px;
+    height: 25px; 
+}

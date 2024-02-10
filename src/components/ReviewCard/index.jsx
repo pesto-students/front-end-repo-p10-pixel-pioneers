@@ -15,25 +15,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 
-import {
-    grey,
-    lightGreen,
-    lime,
-    green,
-    cyan,
-    teal,
-    red,
-    purple,
-    deepPurple,
-    indigo,
-    blue,
-    orange,
-    pink,
-    amber,
-    brown,
-    blueGrey,
-    deepOrange
-} from "@mui/material/colors";
+import { purple } from "@mui/material/colors";
 
 const CARD_PROPERTY = {
     borderRadius: 3,

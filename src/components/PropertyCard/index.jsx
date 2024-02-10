@@ -11,6 +11,8 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 
+import Star from "../../components/Star";
+
 import galleryImage1 from "../../Assets/gallery-1.jpeg";
 
 const LINES_TO_SHOW = 4;
@@ -37,21 +39,24 @@ const PropertyCard = ({ propertyDetails }) => {
   return (
     <Box margin={2}>
       <Card sx={{ maxWidth: 345 }}>
-        <CardActionArea component={Link} to={`/property-details/${propertyDetails.id}`}>
+        <CardActionArea component={Link} to={`/property-details/${propertyDetails.name.toLowerCase().replace(" ", "-")}`}>
           <CardMedia
             sx={{ height: 140 }}
             image={propertyImage || galleryImage1}
             title={propertyDetails.name}
           />
           <CardContent className={classes.container}>
-            <Typography gutterBottom variant="h5" component="div">
-              {propertyDetails.name}
-            </Typography>
+            <Stack direction={"row"} justifyContent={"space-between"}>
+              <Typography gutterBottom variant="h5" component="div">
+                {propertyDetails.name}
+              </Typography>
+              <Star marked={true} rating={propertyDetails.rating} />
+            </Stack>
             <Typography variant="body2" color="text.secondary" className={classes.multiLineEllipsis}>
               {propertyDetails.description}
             </Typography>
             <Box marginTop={2}>
-                {(propertyDetails.cost)? `₹ ${propertyDetails.cost.toLocaleString("en-IN")}`: "Not Available"}
+              {(propertyDetails.cost) ? `₹ ${propertyDetails.cost.toLocaleString("en-IN")}` : "Not Available"}
             </Box>
           </CardContent>
         </CardActionArea>

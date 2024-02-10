@@ -5,14 +5,6 @@ import CardMedia from "@mui/material/CardMedia";
 import { makeStyles } from "@mui/styles";
 import Slider from "./Slider";
 
-const CustomCard = ({ url }) => {
-  return (
-    <Card>
-      <CardMedia component="img" image={url} />
-    </Card>
-  );
-};
-
 const useStyles = makeStyles((theme) => ({
   sliderContainer: {
     // marginTop: "20px",
@@ -69,6 +61,7 @@ const Blank = () => {
 
   return (
     <>
+    {/**
       <Carousel
         items={srcList}
         className={classes.carouselContainer}
@@ -95,6 +88,8 @@ const Blank = () => {
           padding: "10px",
         }}
       />
+       */}
+
     </>
   );
 };
