@@ -1,7 +1,8 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import { Virtual, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "./styles.css";
+import { testimonials } from "../../pages/Home/Components/TestimonialsData";
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -11,9 +12,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import BookingForm from "../BookingForm";
 import ReviewCard from "../ReviewCard";
-import { Description } from "@mui/icons-material";
 
 const ReviewCards = ({}) => {
   return (
