@@ -1,8 +1,7 @@
 import React from "react";
 import { Box, Grid, styled, Typography } from "@mui/material";
 import Title from "../Title";
-// img
-import imgDetail from "../../Assets/pexels-alex-staudinger-1732414.jpg";
+import imgDetail from "../../Assets/8.jpg";
 import imgDetail2 from "../../Assets/pexels-pixabay-271816.jpg";
 
 const GetStarted = () => {
@@ -52,6 +51,7 @@ const GetStarted = () => {
           alt=""
           style={{
             width: "100%",
+            borderRadius: "15px",
           }}
         />
       </Grid>
@@ -70,6 +70,7 @@ const GetStarted = () => {
           alt=""
           style={{
             width: "100%",
+            borderRadius: "15px",
           }}
         />
       </Grid>
