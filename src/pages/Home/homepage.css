@@ -29,7 +29,7 @@
   }
 }
 
-.section-1 > Img {
+.section-1 > img {
   position: absolute;
   inset: 0;
   height: 100%;
@@ -261,5 +261,6 @@
 }
 
 .section-1-home {
-  background-color: #b4b4b8;
+  /* background-color: #b4b4b8; */
+  background-color: #f0f0f0;
 }

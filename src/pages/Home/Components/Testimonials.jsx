@@ -11,11 +11,11 @@ import ReviewCards from "../../../components/ReviewCards";
 import Box from "@mui/material/Box";
 
 // import BookSpaceForm from "./BookSpaceForm";
-import galleryImage1 from "../../../Assets/Wallpaper1.jpeg";
-import galleryImage2 from "../../../Assets/Wallpaper.jpeg";
-import galleryImage3 from "../../../Assets/gallery-1.jpeg";
-import galleryImage4 from "../../../Assets/gallery-2.jpeg";
-import galleryImage5 from "../../../Assets/gallery-3.jpeg";
+// import galleryImage1 from "../../../Assets/Wallpaper1.jpeg";
+// import galleryImage2 from "../../../Assets/Wallpaper.jpeg";
+// import galleryImage3 from "../../../Assets/gallery-1.jpeg";
+// import galleryImage4 from "../../../Assets/gallery-2.jpeg";
+// import galleryImage5 from "../../../Assets/gallery-3.jpeg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,9 +60,9 @@ const ReviewCards = () => ((
 function Testimonials() {
   const classes = useStyles();
   return (
-    <div>
+    <div className="">
       {/* <BookSpaceForm /> */}
-      <div className="container">
+      <div className="container ">
         {/* <div className="testimonialHeading">
           Be a part of the happiest coworking space in the country, trusted by
           over 2300 brands and 17,000+ professionals

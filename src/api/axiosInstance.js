@@ -1,9 +1,9 @@
-import axios from  "axios";
+import axios from "axios";
 
 const instance = axios.create({
-    // baseURL: 'https://strapi-dqt5.onrender.com/api/',
-    baseURL: 'http://localhost:1337/api/',
-    timeout:20000,
-  });
+  baseURL: "https://strapi-dqt5.onrender.com/api/",
+  //baseURL: 'http://localhost:1337/api/',
+  timeout: 20000,
+});
 
 export default instance;
