@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Grid, styled, Typography } from "@mui/material";
 import Title from "../Title";
 import imgDetail from "../../Assets/8.jpg";
-import imgDetail2 from "../../Assets/pexels-pixabay-271816.jpg";
+import six from "../../Assets/10.jpg";
 
 const GetStarted = () => {
   const CustomGridItem = styled(Grid)({
@@ -66,7 +66,7 @@ const GetStarted = () => {
         }}
       >
         <img
-          src={imgDetail2}
+          src={six}
           alt=""
           style={{
             width: "100%",
