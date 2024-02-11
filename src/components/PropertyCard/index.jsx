@@ -39,7 +39,8 @@ const PropertyCard = ({ propertyDetails }) => {
   return (
     <Box margin={2}>
       <Card sx={{ maxWidth: 345 }}>
-        <CardActionArea component={Link} to={`/property-details/${propertyDetails.name.toLowerCase().replace(" ", "-")}`}>
+        {/* <CardActionArea component={Link} to={`/property-details/${propertyDetails.name.toLowerCase().replace(" ", "-")}`}> */}
+        <CardActionArea component={Link} to={`/property-details/${propertyDetails.id}`}>
           <CardMedia
             sx={{ height: 140 }}
             image={propertyImage || galleryImage1}
