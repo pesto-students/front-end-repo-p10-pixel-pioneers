@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography } from '@mui/material'
+import { Typography } from '@mui/material';
 
 const Title = ({ text, textAlign }) => {
   return (
@@ -16,4 +16,4 @@ const Title = ({ text, textAlign }) => {
   )
 }
 
-export default Title
+export default Title;

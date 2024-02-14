@@ -48,10 +48,14 @@ const PropertyCard = ({ propertyDetails }) => {
           />
           <CardContent className={classes.container}>
             <Stack direction={"row"} justifyContent={"space-between"}>
-              <Typography gutterBottom variant="h5" component="div">
-                {propertyDetails.name}
-              </Typography>
-              <Star marked={true} rating={propertyDetails.rating} />
+              <Box>
+                <Typography gutterBottom variant="h5" component="div">
+                  {propertyDetails.name}
+                </Typography>
+              </Box>
+              <Box marginRight={2}>
+                <Star marked={true} rating={propertyDetails.rating} />
+              </Box>
             </Stack>
             <Typography variant="body2" color="text.secondary" className={classes.multiLineEllipsis}>
               {propertyDetails.description}
