@@ -54,7 +54,7 @@ const PropertyList = () => {
     if (properties.length === 0) {
         return (
             <>
-                <h1 style={{ textAlign: "center" }}>Property List</h1>
+                {/* <h1 style={{ textAlign: "center" }}>Property List</h1> */}
                 <Filters handleFilter={setFilters} />
                 <Box sx={{ display: 'flex', justifyContent: "center", alignContent: "center" }} margin={10}>
                     <CircularProgress />
