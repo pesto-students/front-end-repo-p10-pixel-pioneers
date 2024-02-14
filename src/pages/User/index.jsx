@@ -5,9 +5,11 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { Button, Card, CardContent } from "@material-ui/core";
-import PropertyCard from "./PropertyCard";
+// import PropertyCard from "./PropertyCard";
 import { getUserPropertyList } from "../../api/property";
 import "./index.css";
+import PropertyCard from "../../components/PropertyCard";
+import { Stack } from "@mui/material";
 
 export const useStyles = makeStyles((theme) => ({
   container: {
@@ -118,7 +120,6 @@ function PastBookingTab() {
 }
 
 function RegisteredSpacesDetails() {
-  const classes = useStyles();
   const [properties, setProperties] = useState([]);
   const [error, setError] = useState("");
   const [hasError, setHasError] = useState(false);
@@ -135,14 +136,26 @@ function RegisteredSpacesDetails() {
     })();
   }, []);
   return (
-    <div className={classes.container}>
+    <div>
       {/* 1. there are no properties */}
       {!properties ? <div>No Properties Registered</div> : ""}
       {/* 2. there are properties */}
-      {properties.length &&
-        properties.map((property) => (
-          <PropertyCard property={property} key={property.name} />
-        ))}
+      <Stack
+        margin={2}
+        direction={{ xs: "column", md: "row" }}
+        gap={1}
+        justifyContent={"center"}
+        alignContent={"center"}
+        flexWrap={"wrap"}
+      >
+        {properties.length &&
+          properties.map((property) => (
+            <PropertyCard
+              propertyDetails={property}
+              key={property.name + "hello"}
+            />
+          ))}
+      </Stack>
       {/* there is error */}
       {hasError ? <div>error</div> : ""}
     </div>
