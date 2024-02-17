@@ -23,7 +23,6 @@ const Footer = () => {
                 borderColor: 'divider',
                 position: "sticky",
                 bottom: "0",
-                width: "100vw"
             }}
         >
             <Container maxWidth={false}>

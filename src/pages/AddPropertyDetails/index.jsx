@@ -18,6 +18,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { addProperty } from "../../api/property";
 
+import "./styles.css"
+
 
 const ImageUploader = ({ setFieldValue, selectedfile, SetSelectedFile, Files, SetFiles }) => {
 

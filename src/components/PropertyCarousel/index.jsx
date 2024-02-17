@@ -14,7 +14,7 @@ import './styles.css';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 
 const PropertyCarousel = ({ images }) => {
-    const [thumbsSwiper, setThumbsSwiper] = useState(null);
+    // const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
     console.log(images);
     return (
@@ -23,10 +23,11 @@ const PropertyCarousel = ({ images }) => {
                 style={{
                     '--swiper-navigation-color': '#fff',
                     '--swiper-pagination-color': '#fff',
+                    height:"50vh"
                 }}
                 spaceBetween={10}
                 navigation={true}
-                thumbs={{ swiper: thumbsSwiper }}
+                // thumbs={{ swiper: thumbsSwiper }}
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper2"
             >
@@ -41,6 +42,7 @@ const PropertyCarousel = ({ images }) => {
                 }
 
             </Swiper>
+            {/*
             <Swiper
                 onSwiper={setThumbsSwiper}
                 spaceBetween={10}
@@ -60,6 +62,7 @@ const PropertyCarousel = ({ images }) => {
                     })
                 }
             </Swiper>
+             */}
         </>
     );
 }
