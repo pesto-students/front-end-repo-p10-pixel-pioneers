@@ -17,7 +17,6 @@ import About from "../About";
 import Contact from "../Contact";
 import Blank from "../Blank";
 
-
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<Layout />}>
@@ -41,9 +40,9 @@ const router = createBrowserRouter(
 
 function App() {
   return (
-    <>
-        <RouterProvider router={router} />
-    </>
+    <div style={{ backgroundColor: "#f0f0f0" }}>
+      <RouterProvider router={router} />
+    </div>
   );
 }
 
