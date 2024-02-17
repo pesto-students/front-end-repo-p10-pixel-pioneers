@@ -4,8 +4,7 @@ import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
   boxContainer: {
-    backgroundColor: "#B4B4B8", // Example background color
-    padding: "20px", // Example padding
+    padding: "20px",
   },
 });
 
@@ -37,10 +36,7 @@ const locations = [
 ];
 
 function OurLocations() {
-  //   const { isLoaded } = useLoadScript({
-  //     googleMapsApiKey: "AIzaSyC9swLScGCN8EwlfJFtD0ILzVCGj9uqgOA",
-  //   });
-
+  
   const mapStyles = {
     height: "400px",
     width: "60%",

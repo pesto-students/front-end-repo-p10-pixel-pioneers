@@ -14,8 +14,7 @@ import Paragraph from "../Paragraph";
 
 const useStyles = makeStyles({
   gridContainer: {
-    backgroundColor: "#f0f0f0", // Example background color
-    padding: "20px", // Example padding
+    padding: "20px",
   },
 });
 
