@@ -6,7 +6,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -24,8 +24,8 @@ function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
             {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
+            <Link color="inherit" to="/">
+                Proximity Pods
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -46,12 +46,12 @@ export default function SignUp() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
-
         const response = await login(data.get('email'), data.get('password'));
+        console.log(`Response:-`, response);
+        if (response.success) {
+
+            navigate("/");
+        }
     };
 
     return (
@@ -75,7 +75,7 @@ export default function SignUp() {
                     {
                         hasError &&
                         (
-                        <Alert severity="error">{message}</Alert>
+                            <Alert severity="error">{message}</Alert>
                         )
                     }
 
@@ -126,7 +126,7 @@ export default function SignUp() {
                         </Grid>
                     </Box>
                 </Box>
-                <Copyright sx={{ mt: 8, mb: 4 }} />
+                {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
             </Container>
         </ThemeProvider>
     );

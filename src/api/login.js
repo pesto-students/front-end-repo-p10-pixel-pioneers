@@ -10,7 +10,10 @@ export async function login(email, password) {
     const { jwt, user } = response.data;
     localStorage.setItem("token", jwt);
     localStorage.setItem("user", JSON.stringify(user));
-    return response.data;
+    return {
+      success: true,
+      data: response.data
+    };
   } catch (error) {
     return {
       success: false,
