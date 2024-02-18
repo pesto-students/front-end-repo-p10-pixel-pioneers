@@ -1,6 +1,8 @@
-import React from 'react'
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
-import GeoCoderMarker from '../GeoCoderMarker'
+import React from 'react';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+
+import GeoCoderMarker from '../GeoCoderMarker';
+
 const Map = ({ center, address, city, country }) => {
   return (
       <MapContainer
@@ -10,16 +12,16 @@ const Map = ({ center, address, city, country }) => {
         style={{
           height: "40vh",
           minWidth: "430px",
-          width: "50%",
+          width: "100%",
           zIndex: 0,
         }}
       >
         <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
         <GeoCoderMarker address={`${address} ${city} ${country}`} />
         <Marker position={center}>
-          <Popup>
+          {/* <Popup>
             A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
+          </Popup> */}
         </Marker>
       </MapContainer>
   )

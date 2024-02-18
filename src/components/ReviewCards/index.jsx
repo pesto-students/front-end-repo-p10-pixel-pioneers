@@ -16,12 +16,11 @@ import ReviewCard from "../ReviewCard";
 
 const ReviewCards = ({}) => {
   return (
-    <>
-      <Stack>
+      <Box padding={2}>
         <Swiper
           modules={[Virtual, Navigation, Pagination]}
           slidesPerView={1}
-          centeredSlides={false}
+          centeredSlides={true}
           breakpoints={{
             640: {
               slidesPerView: 2,
@@ -47,15 +46,14 @@ const ReviewCards = ({}) => {
             .map((_, index) => {
               return (
                 <SwiperSlide key={`review-card-${index}`} virtualIndex={index}>
-                  <Box padding={2}>
+                  <Box padding={2} style={{backgroundColor: "black"}}>
                     <ReviewCard />
                   </Box>
                 </SwiperSlide>
               );
             })}
         </Swiper>
-      </Stack>
-    </>
+      </Box>
   );
 };
 

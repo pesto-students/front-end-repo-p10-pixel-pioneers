@@ -135,17 +135,37 @@ const PropertyDetails = () => {
 
                             </Grid>
 
-
-
-                            {/*Property Map Location */}
-                            <Stack className="map" margin={4} direction={"row"} justifyContent={"center"}>
+                            <Box marginTop={2}>
+                                <Typography
+                                    variant="h6"
+                                    sx={{
+                                        color: 'text.primary',
+                                    }}
+                                    style={{
+                                        fontWeight: '600',
+                                    }}
+                                >
+                                    Location
+                                </Typography>
+                                <Typography
+                                    component='p'
+                                    marginTop={1}
+                                    marginBottom={1}
+                                    sx={{
+                                        typography: { sm: 'body1', xs: 'body2' },
+                                        fontWeight: '100',
+                                    }}
+                                >
+                                    {propertyDetails.address}
+                                </Typography>
+                                {/*Property Map Location */}
                                 <Map
                                     center={[propertyDetails.latitude, propertyDetails.longitude]}
                                     address={propertyDetails.address}
                                     city={propertyDetails.city}
                                     country={propertyDetails.country}
                                 />
-                            </Stack>
+                            </Box>
                         </>
                     )
                 }

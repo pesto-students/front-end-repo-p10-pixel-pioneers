@@ -83,9 +83,7 @@ function Testimonials() {
       </div>
 
       {/* Card section */}
-      <Box padding={2}>
         <ReviewCards />
-      </Box>
       {/* Gallery */}
       <div className="Gallery section-1-home">
         <h1 className="GalleryTitle">Solutions that delight</h1>
