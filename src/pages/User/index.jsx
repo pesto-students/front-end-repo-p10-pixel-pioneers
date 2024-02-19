@@ -5,13 +5,18 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { Button, Card, CardContent } from "@material-ui/core";
-// import PropertyCard from "./PropertyCard";
 import { getUserPropertyList } from "../../api/property";
 import "./index.css";
 import PropertyCard from "../../components/PropertyCard";
 import { Stack } from "@mui/material";
+import { Avatar } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export const useStyles = makeStyles((theme) => ({
+  customUser: {
+    backgroundColor: "blue",
+    margin: "auto",
+  },
   container: {
     paddingRight: 15,
     paddingLeft: 15,
@@ -68,19 +73,57 @@ function UserDetailTab() {
   const classes = useStyles();
   const userData = JSON.parse(localStorage.user);
   console.log(userData);
+  const bull = (
+    <Box
+      component="span"
+      sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
+    >
+      •
+    </Box>
+  );
+
   return (
-    <div className={classes.container}>
-      <Typography variant="h5" gutterBottom>
+    <>
+      <Box
+        sx={{
+          // display: "flex",
+          // justifyContent: "center",
+          margin: "auto",
+          width: "50%",
+          // alignItems: "center",
+          // height: "100vh", // Use '100vh' for full viewport height
+        }}
+      >
+        {/* <div className={classes.container}> */}
+        {/* <Typography variant="h5" gutterBottom> */}
         {/* User Profile */}
-      </Typography>
-      {/* Replace these fields with user data */}
-      <Typography>First Name: {userData.firstName}</Typography>
-      <Typography>Last Name: {userData.lastName}</Typography>
-      <Typography>Username: {userData.username}</Typography>
-      <Typography>Email: {userData.email}</Typography>
-      <Typography>Phone Number: {userData.phoneNumber}</Typography>
-      {/* <Typography>City: {}</Typography> */}
-    </div>
+        {/* </Typography> */}
+        {/* Replace these fields with user data */}
+
+        <Avatar
+          alt="Profile Picture"
+          src="/path/to/your/image.jpg"
+          // sx={{ width: 56, height: 56, marginRight: 2 }}
+        />
+        <Typography variant="h6" component="div">
+          First Name: {userData.firstName}
+        </Typography>
+        <Typography variant="h6" component="div">
+          Last Name: {userData.lastName}
+        </Typography>
+        <Typography variant="h6" component="div">
+          Username: {userData.username}
+        </Typography>
+        <Typography variant="h6" component="div">
+          Email: {userData.email}
+        </Typography>
+        <Typography variant="h6" component="div">
+          Phone Number: {userData.phoneNumber}
+        </Typography>
+        {/* <Typography>City: {}</Typography> */}
+        {/* </div> */}
+      </Box>
+    </>
   );
 }
 
@@ -123,22 +166,40 @@ function RegisteredSpacesDetails() {
   const [properties, setProperties] = useState([]);
   const [error, setError] = useState("");
   const [hasError, setHasError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     (async () => {
       let res = await getUserPropertyList(JSON.parse(localStorage.user).id);
       if (res.success) {
-        setProperties((prev) => res.data);
+        setProperties(res.data);
+        setLoading(false);
       } else {
-        setHasError(true);
         setError(res.data.message);
+        setLoading(false);
       }
     })();
   }, []);
   return (
     <div>
       {/* 1. there are no properties */}
-      {!properties ? <div>No Properties Registered</div> : ""}
+      {loading ? (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignContent: "center",
+          }}
+          margin={10}
+        >
+          <CircularProgress />{" "}
+        </Box>
+      ) : (
+        ""
+      )}
+      {!properties ? <h1>No Properties Registered</h1> : ""}
+
       {/* 2. there are properties */}
       <Stack
         margin={2}
