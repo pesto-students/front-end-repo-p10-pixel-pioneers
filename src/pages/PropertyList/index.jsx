@@ -57,7 +57,6 @@ const PropertyList = () => {
     return (
       <>
         {/* <h1 style={{ textAlign: "center" }}>Property List</h1> */}
-        <Filters handleFilter={setFilters} />
         <Box
           sx={{
             display: "flex",
