@@ -38,7 +38,11 @@ export const Carousel2 = () => {
 
   const renderSlides = imageData.map((image) => (
     <div key={image.alt}>
-      <img src={image.url} alt={image.alt} />
+      <img
+        src={image.url}
+        alt={image.alt}
+        style={{ border: "6px solid #000", "border-radius": "10px" }}
+      />
     </div>
   ));
 
