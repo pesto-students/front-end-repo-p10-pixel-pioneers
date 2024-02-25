@@ -38,13 +38,16 @@ export const useStyles = makeStyles((theme) => ({
   },
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: "none",
   },
   tabContent: {
     marginTop: theme.spacing(2),
   },
   card: {
     marginBottom: theme.spacing(2),
+  },
+  RegisteredSpaceTab: {
+    backgroundColor: "#FAF0E6",
   },
 }));
 
@@ -92,6 +95,7 @@ function UserDetailTab() {
           // alignItems: "center",
           // height: "100vh", // Use '100vh' for full viewport height
         }}
+        // className={classes.UserTab}
       >
         {/* <div className={classes.container}> */}
         {/* <Typography variant="h5" gutterBottom> */}
@@ -131,12 +135,19 @@ function PastBookingTab() {
 
   const bookings = [
     {
-      location: "Location 1",
+      id: "1",
+      location: "Pune",
+      address:
+        "Kharadi, Tower 5, World Trade Center , Kharadi, MIDC Knowledge Park, Pune, MH 411014",
       date: "2023-01-15",
+      amountPaid: "15000",
     },
     {
-      location: "Location 2",
+      id: "2",
+      location: "Mumbai",
+      address: "some virtual address",
       date: "2023-02-20",
+      amountPaid: "20,000",
     },
     // Add more booking data as needed
   ];
@@ -149,7 +160,9 @@ function PastBookingTab() {
       {bookings.map((booking, index) => (
         <Card key={index} className={classes.card}>
           <CardContent>
+            <Typography variant="p">Booking ID: {booking.id}</Typography>
             <Typography variant="h6">Location: {booking.location}</Typography>
+            <Typography variant="p"> Address: {booking.address}</Typography>
             <Typography>Date: {booking.date}</Typography>
             <Button variant="outlined" color="primary">
               View
@@ -166,6 +179,7 @@ function RegisteredSpacesDetails() {
   const [error, setError] = useState("");
   const [hasError, setHasError] = useState(false);
   const [loading, setLoading] = useState(false);
+  let classes = useStyles();
 
   useEffect(() => {
     setLoading(true);
@@ -207,6 +221,7 @@ function RegisteredSpacesDetails() {
         justifyContent={"center"}
         alignContent={"center"}
         flexWrap={"wrap"}
+        className={classes.RegisteredSpaceTab}
       >
         {properties.length &&
           properties.map((property) => (
@@ -254,7 +269,6 @@ export default function UserProfileTabs() {
       <TabPanel value={value} index={2} className={classes.tabContent}>
         <RegisteredSpacesDetails />
       </TabPanel>
-      {/* Add more TabPanel components for additional tabs */}
     </div>
   );
 }
