@@ -14,7 +14,6 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 export const useStyles = makeStyles((theme) => ({
   customUser: {
-    backgroundColor: "blue",
     margin: "auto",
   },
   container: {
