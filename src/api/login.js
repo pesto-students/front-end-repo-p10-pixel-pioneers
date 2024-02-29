@@ -1,7 +1,8 @@
 import axios from "axios";
 import axiosInstance from "./axiosInstance";
 
-export async function login(email, password) {
+export async function login({email, password}) {
+  console.log(`Login:-`, {email, password})
   try {
     const response = await axiosInstance.post("/auth/local", {
       identifier: email,
@@ -17,7 +18,7 @@ export async function login(email, password) {
   } catch (error) {
     return {
       success: false,
-      message: error.response.data.error.message || error.message,
+      message: error.response?.data.error.message || error.message,
     };
   }
 }
@@ -29,7 +30,7 @@ export async function register(payload) {
       "/auth/local/register",
       payload
     );
-    const { jwt } = response.data;
+    const { jwt, user } = response.data;
     localStorage.setItem("token", jwt);
     localStorage.setItem("user", JSON.stringify(user));
   

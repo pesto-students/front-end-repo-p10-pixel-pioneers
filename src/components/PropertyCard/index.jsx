@@ -31,7 +31,6 @@ const useStyles = makeStyles({
 });
 
 const PropertyCard = ({ propertyDetails }) => {
-  console.log(propertyDetails.images[0]?.url);
   const classes = useStyles();
   const propertyImage = propertyDetails.images[0]?.url
     ? propertyDetails.images[0]?.url

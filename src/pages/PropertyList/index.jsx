@@ -30,7 +30,7 @@ const PropertyList = () => {
   useEffect(() => {
     setLoading((prev) => true);
     setProperties([]);
-    (async function() {
+    (async function () {
       await fetchData(filters);
     })();
     setLoading((prev) => false);
@@ -55,9 +55,9 @@ const PropertyList = () => {
 
   if (properties.length === 0) {
     return (
-      <>
+      <Box marginTop={11}>
         {/* <h1 style={{ textAlign: "center" }}>Property List</h1> */}
-        <Filters handleFilter={setFilters} />
+        <Filters city={filters.city} sort={filters.sort} handleFilter={setFilters} />
         <Box
           sx={{
             display: "flex",
@@ -68,14 +68,15 @@ const PropertyList = () => {
         >
           <CircularProgress />
         </Box>
-      </>
+      </Box>
+
     );
   }
 
   return (
     <div style={{ marginTop: "90px" }}>
       {/* <h1 style={{ textAlign: "center" }}>Property List</h1> */}
-      <Filters handleFilter={setFilters} />
+      <Filters city={filters.city} sort={filters.sort} handleFilter={setFilters} />
 
       {/* {PropertyCards} */}
       <Stack

@@ -18,6 +18,47 @@ import Star from "../../components/Star";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 
+// Amenities Icon
+
+// Pantry
+import RestaurantIcon from '@mui/icons-material/Restaurant';
+
+// Parking
+import LocalParkingIcon from '@mui/icons-material/LocalParking';
+import DriveEtaIcon from '@mui/icons-material/DriveEta';
+
+// Printer
+import PrintIcon from '@mui/icons-material/Print';
+
+// IT Services
+import ComputerIcon from '@mui/icons-material/Computer';
+import ImportantDevicesIcon from '@mui/icons-material/ImportantDevices';
+
+// Cleaning
+import SanitizerIcon from '@mui/icons-material/Sanitizer';
+import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
+
+// Onsite Staff
+import PeopleIcon from '@mui/icons-material/People';
+
+// Spa
+import SpaIcon from '@mui/icons-material/Spa';
+
+// Phone
+import PhoneIcon from '@mui/icons-material/Phone';
+
+// Security
+
+// Pets
+import PetsIcon from '@mui/icons-material/Pets';
+
+// Server
+import DnsIcon from '@mui/icons-material/Dns';
+
+// Conference rooms
+import Groups3Icon from '@mui/icons-material/Groups3';
+
+
 const capitaliseFirstAlphabet = (text) => {
     const words = text.split(" ");
     const capitalisedWords = words.map((word, wordIndex) => {
@@ -39,6 +80,7 @@ const PropertyDetails = () => {
     const fetchData = async () => {
         let res = await getProperty(propertyID);
         if (res.success) {
+            console.log("Data:-", res.data.amenities);
             setPropertyDetails(res.data);
         } else {
             setHasError((prev) => true);
@@ -54,7 +96,13 @@ const PropertyDetails = () => {
 
     return (
         <>
-            <Box margin={2.5} marginTop={9}>
+            <Box sx={{
+                marginLeft: { xs: 5, sm: 5, md: 15, lg: 15, xl: 15 },
+                marginRight: { xs: 5, sm: 5, md: 15, lg: 15, xl: 15 },
+            }}
+                marginTop={10}
+                marginBottom={5}
+            >
                 {
                     (Object.keys(propertyDetails).length > 1) &&
                     (
@@ -95,9 +143,9 @@ const PropertyDetails = () => {
                             <PropertyCarousel images={propertyDetails.images.data} />
 
                             {/* Description, Get in Touch*/}
-                            <Grid container alignItems="center" spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 4, md: 8, lg: 12, xl: 12 }}>
+                            <Grid container alignItems="flex-start" spacing={{ xs: 2, md: 3 }}>
 
-                                <Grid item xs={4} sm={4} md={4} lg={6} xl={6}>
+                                <Grid item>
                                     <Box >
                                         <Typography
                                             variant="h6"
@@ -127,13 +175,46 @@ const PropertyDetails = () => {
 
                                 </Grid>
 
-                                <Grid item xs={4} sm={4} md={4} lg={6} xl={6}>
+                                <Grid item>
                                     <Box>
-                                        TODO: Get in Touch Form
+                                        {/* TODO: Get in Touch Form */}
+                                        <Typography
+                                            variant="h6"
+                                            sx={{
+                                                color: 'text.primary',
+                                            }}
+                                            style={{
+                                                fontWeight: '600',
+                                            }}
+                                            marginBottom={2}
+                                        >
+                                            Amenities
+                                        </Typography>
+                                        <Grid container columns={12}>
+                                            {
+                                                Object.keys(propertyDetails.amenities).map((amenity, amenityIndex) => {
+                                                    return (
+                                                        <Grid item key={`amenity-${amenityIndex}`} xs={6}>
+                                                            <Stack gap={1} direction={"row"} justifyContent={"flex-start"} alignContent={"center"} alignItems={"center"}>
+                                                                <OpenInNewIcon fontSize="small"/>
+                                                                <Typography variant="body1">
+
+                                                                    {amenity}
+                                                                </Typography>
+                                                            </ Stack>
+                                                        </Grid>
+                                                    )
+                                                })
+                                            }
+                                        </Grid>
                                     </Box>
                                 </Grid>
 
                             </Grid>
+
+
+
+
 
                             <Box marginTop={2}>
                                 <Typography

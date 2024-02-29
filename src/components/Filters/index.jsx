@@ -40,15 +40,12 @@ const sorts = [
     "High to Low"
 ];
 
-const Filters = ({ handleFilter }) => {
+const Filters = ({ city, sort, handleFilter }) => {
     
     const classes = useStyles();
-    const [city, setCity] = useState(cities[0]);
-    const [sort, setSort] = useState(sorts[0]);
 
     const handleCityChange = (event) => {
         const cityValue = event.target.value;
-        setCity(prev => cityValue);
         handleFilter(prev => ({
             city: cityValue,
             sort,
@@ -57,7 +54,6 @@ const Filters = ({ handleFilter }) => {
 
     const handleSortChange = (event) => {
         const sortValue = event.target.value;
-        setSort(prev => sortValue);
         handleFilter(prev => ({
             sort: sortValue,
             city,

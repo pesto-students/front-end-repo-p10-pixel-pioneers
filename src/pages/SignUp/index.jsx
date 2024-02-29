@@ -5,7 +5,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -15,6 +15,10 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { register } from "../../api/login";
 import { toast, ToastContainer } from 'react-toastify';
+
+// Formik
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
 
 function Copyright(props) {
   return (
@@ -34,57 +38,59 @@ function Copyright(props) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
 const defaultTheme = createTheme();
-
-
 
 export default function SignUp() {
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-    let res = await register({
-      email: data.get("email"),
-      password: data.get("password"),
-      username: data.get("username"),
-      firstName: data.get("firstName"),
-      lastName: data.get("lastName"),
-      phoneNumber: data.get("phoneNumber"),
-    });
+  const handleSubmit = async (values) => {
+    
+    console.log(values);
+    delete values.confirmPassword;
+    let res = await register(values);
 
-    if (res.success) {
-      toast.success("Signed in Successfully !", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-        });
-      navigate("/");
-    } else {
-      toast.error('Unable to Signin', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-        });
-    }
+      if (res.success) {
+        navigate("/");
+      }
+      
+    
   };
+  const mobileRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+
+  // Initial Values 
+  const initialValues = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    username: "",
+    phoneNumber: "",
+    password: "",
+    confirmPassword: ""
+  }
+  // Validation Schema
+  const validationSchema = Yup.object().shape({
+    firstName: Yup.string().required("This field is required"),
+    lastName: Yup.string().notRequired(),
+    username: Yup.string().required("This field is required"),
+    email: Yup.string().email("Please enter a valid email").required("This field is required"),
+    phoneNumber: Yup.string()
+      .matches(mobileRegExp, 'Mobile number is not valid')
+      .min(10, 'Mobile number must have 10 digits')
+      .max(10, 'Mobile number must have 10 digits')
+      .required("Required"),
+    password: Yup.string()
+      .required("This field is required")
+      .min(8, "Pasword must be 8 or more characters")
+      .matches(/(?=.*[a-z])(?=.*[A-Z])\w+/, "Password ahould contain at least one uppercase and lowercase character")
+      .matches(/\d/, "Password should contain at least one number")
+      .matches(/[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/, "Password should contain at least one special character"),
+    confirmPassword: Yup.string().when("password", (password, field) => {
+      if (password) {
+        return field.required("The passwords do not match").oneOf([Yup.ref("password")], "The passwords do not match");
+      }
+    }),
+  });
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -104,98 +110,153 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
-          >
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="username"
-                  label="User Name"
-                  name="username"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="phoneNumber"
-                  label="Phone Number"
-                  name="phoneNumber"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid>
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign Up
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link to="/login" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}>
+            {({ dirty, isValid, values, setFieldValue, handleChange, handleBlur, errors, touched, setFieldTouched }) => {
+              return (
+                <Box
+                  sx={{ mt: 3 }}
+                >
+                  <Form>
+                  <Grid container spacing={2}>
+                    <pre>{JSON.stringify({values, errors,touched, dirty, isValid}, null, 2)}</pre>
+                    {/* First Name */}
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        name="firstName"
+                        required
+                        fullWidth
+                        value={values.firstName}
+                        error={Boolean(touched.firstName && errors.firstName)}
+                        helperText={touched.firstName && errors.firstName}
+                        id="firstName"
+                        label="First Name"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
+                    </Grid>
+
+                    {/* Last Name */}
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        required
+                        fullWidth
+                        value={values.lastName}
+                        error={Boolean(touched.lastName && errors.lastName)}
+                        helperText={touched.lastName && errors.lastName}
+                        id="lastName"
+                        label="Last Name"
+                        name="lastName"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
+                    </Grid>
+
+                    {/* User Name */}
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        required
+                        fullWidth
+                        value={values.username}
+                        error={Boolean(touched.username && errors.username)}
+                        helperText={touched.username && errors.username}
+                        id="username"
+                        label="User Name"
+                        name="username"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
+                    </Grid>
+
+                    {/* Phone Number */}
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        required
+                        fullWidth
+                        value={values.phoneNumber}
+                        error={Boolean(touched.phoneNumber && errors.phoneNumber)}
+                        helperText={touched.phoneNumber && errors.phoneNumber}
+                        id="phoneNumber"
+                        label="Phone Number"
+                        name="phoneNumber"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
+                    </Grid>
+
+                    {/* Email */}
+                    <Grid item xs={12}>
+                      <TextField
+                        required
+                        fullWidth
+                        value={values.email}
+                        error={Boolean(touched.email && errors.email)}
+                        helperText={touched.email && errors.email}
+                        id="email"
+                        label="Email Address"
+                        name="email"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
+                    </Grid> 
+
+                    {/* Password */}
+                    <Grid item xs={12}>
+                      <TextField
+                        required
+                        fullWidth
+                        value={values.password}
+                        error={Boolean(touched.password && errors.password)}
+                        helperText={touched.password && errors.password}
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
+                    </Grid>
+
+                    {/* Confirm Password */}
+                    <Grid item xs={12}>
+                      <TextField
+                        required
+                        fullWidth
+                        value={values.confirmPassword}
+                        error={Boolean(touched.confirmPassword && errors.confirmPassword)}
+                        helperText={touched.confirmPassword && errors.confirmPassword}
+                        name="confirmPassword"
+                        label="Confirm Password"
+                        type="password"
+                        id="confirmPassword"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
+                    </Grid>
+                  </Grid>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    disabled={!dirty || !isValid}
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                  >
+                    Sign Up
+                  </Button>
+                  <Grid container justifyContent="flex-end" marginBottom={4}>
+                    <Grid item>
+                      <Link to="/login" variant="body2">
+                        Already have an account? Sign in
+                      </Link>
+                    </Grid>
+                  </Grid>
+                  </Form>
+                </Box>
+              )
+            }}
+          </Formik>
         </Box>
         {/* <Copyright sx={{ mt: 5 }} /> */}
       </Container>

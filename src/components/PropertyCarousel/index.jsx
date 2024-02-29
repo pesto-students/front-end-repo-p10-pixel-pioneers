@@ -15,8 +15,6 @@ import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 
 const PropertyCarousel = ({ images }) => {
     // const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
-    console.log(images);
     return (
         <>
             <Swiper

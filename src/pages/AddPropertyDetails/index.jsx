@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Formik, Form, Field } from "formik";
-
 import * as Yup from "yup";
 
 import Button from "@mui/material/Button";
@@ -257,7 +256,7 @@ const AddPropertyDetails = () => {
                     <TextField
                       name="name"
                       value={values.name}
-                      error={touched.name && errors.name}
+                      error={Boolean(touched.name && errors.name)}
                       helperText={touched.name && errors.name}
                       required
                       fullWidth
@@ -273,7 +272,7 @@ const AddPropertyDetails = () => {
                     <TextField
                       name="title"
                       value={values.title}
-                      error={touched.title && errors.title}
+                      error={Boolean(touched.title && errors.title)}
                       helperText={touched.title && errors.title}
                       required
                       fullWidth
@@ -295,7 +294,7 @@ const AddPropertyDetails = () => {
                       label="description"
                       name="description"
                       value={values.description}
-                      error={touched.description && errors.description}
+                      error={Boolean(touched.description && errors.description)}
                       helperText={touched.description && errors.description}
                       multiline
                       minRows={4}
@@ -313,7 +312,7 @@ const AddPropertyDetails = () => {
                       label="Property Address"
                       name="address"
                       value={values.address}
-                      error={touched.address && errors.address}
+                      error={Boolean(touched.address && errors.address)}
                       helperText={touched.address && errors.address}
                       autoComplete="address"
                       multiline
@@ -332,7 +331,7 @@ const AddPropertyDetails = () => {
                       label="max capacity"
                       name="capacity"
                       value={values.capacity}
-                      error={touched.capacity && errors.capacity}
+                      error={Boolean(touched.capacity && errors.capacity)}
                       helperText={touched.capacity && errors.capacity}
                     />
                   </Grid>
@@ -348,7 +347,7 @@ const AddPropertyDetails = () => {
                       label="Pin Code"
                       name="pincode"
                       value={values.pincode}
-                      error={touched.pincode && errors.pincode}
+                      error={Boolean(touched.pincode && errors.pincode)}
                       helperText={touched.pincode && errors.pincode}
                     />
                   </Grid>
@@ -364,7 +363,7 @@ const AddPropertyDetails = () => {
                       label="City"
                       name="city"
                       value={values.city}
-                      error={touched.city && errors.city}
+                      error={Boolean(touched.city && errors.city)}
                       helperText={touched.city && errors.city}
                     />
                   </Grid>
@@ -381,7 +380,7 @@ const AddPropertyDetails = () => {
                       name="state"
                       autoComplete="state"
                       value={values.state}
-                      error={touched.state && errors.state}
+                      error={Boolean(touched.state && errors.state)}
                       helperText={touched.state && errors.state}
                     />
                   </Grid>
@@ -399,7 +398,7 @@ const AddPropertyDetails = () => {
                       id="country"
                       autoComplete="country"
                       value={values.country}
-                      error={touched.country && errors.country}
+                      error={Boolean(touched.country && errors.country)}
                       helperText={touched.country && errors.country}
                     />
                   </Grid>
@@ -415,7 +414,7 @@ const AddPropertyDetails = () => {
                       label="Phone Number"
                       id="phoneNumber"
                       value={values.phoneNumber}
-                      error={touched.phoneNumber && errors.phoneNumber}
+                      error={Boolean(touched.phoneNumber && errors.phoneNumber)}
                       helperText={touched.phoneNumber && errors.phoneNumber}
                     />
                   </Grid>
@@ -432,7 +431,7 @@ const AddPropertyDetails = () => {
                       label="Rent of Property"
                       id="cost"
                       value={values.cost}
-                      error={touched.cost && errors.cost}
+                      error={Boolean(touched.cost && errors.cost)}
                       helperText={touched.cost && errors.cost}
                     />
                   </Grid>

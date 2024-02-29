@@ -50,7 +50,6 @@ export async function propertyList(filters) {
       data: properties,
     };
   } catch (error) {
-    console.log(error);
     return {
       success: false,
       message: error.message,
@@ -104,7 +103,6 @@ export async function addProperty(property) {
       data: response.data
     }
   } catch (error) {
-    console.error(error)
     return {
       success: false,
       message: error.message
@@ -122,7 +120,6 @@ export async function getUserPropertyList(id) {
     }
 
   } catch (error) {
-    console.error(error)
     return {
       success: false,
       message: error.message

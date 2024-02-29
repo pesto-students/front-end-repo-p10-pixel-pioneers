@@ -17,6 +17,10 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 
+// Formik
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
+
 
 import { login } from "../../api/login";
 
@@ -33,9 +37,9 @@ function Copyright(props) {
     );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
 const defaultTheme = createTheme();
+
+
 
 export default function SignUp() {
 
@@ -43,15 +47,33 @@ export default function SignUp() {
     const [message, setMessage] = useState("");
     const navigate = useNavigate();
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        const response = await login(data.get('email'), data.get('password'));
-        console.log(`Response:-`, response);
-        if (response.success) {
 
+    // Login Form Initial data
+    const initialValues = {
+        email: "",
+        password: "",
+    }
+
+    //validation schema
+    const validationSchema = Yup.object().shape({
+        email: Yup.string()
+            .required("Email is a required field")
+            .email("Invalid email format"),
+        password: Yup.string()
+            .required("Password is a required field")
+            .min(8, "Password must be at least 8 characters"),
+    });
+
+    const handleSubmit = async (values) => {
+       
+        const response = await login(values);
+        // console.log(`Response:-`, values);
+        
+        
+        if (response.success) {
             navigate("/");
         }
+        
     };
 
     return (
@@ -79,51 +101,71 @@ export default function SignUp() {
                         )
                     }
 
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
-                            autoFocus
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                        />
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
-                        />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
-                            Sign In
-                        </Button>
-                        <Grid container>
-                            <Grid item xs>
-                                <Link href="#" variant="body2">
-                                    Forgot password?
-                                </Link>
-                            </Grid>
-                            <Grid item>
-                                <Link to="/register" variant="body2">
-                                    {"Don't have an account? Sign Up"}
-                                </Link>
-                            </Grid>
-                        </Grid>
+                    <Box sx={{ mt: 1 }}>
+                        <Formik
+                            initialValues={initialValues}
+                            validationSchema={validationSchema}
+                            onSubmit={handleSubmit}>
+                            {({ dirty, isValid, values, setFieldValue, handleChange, handleBlur, errors, touched, setFieldTouched }) => {
+
+                                return (
+                                    <Form>
+                                        <TextField
+                                            margin="normal"
+                                            required
+                                            value={values.email}
+                                            error={Boolean(touched.email && errors.email)}
+                                            helperText={touched.email && errors.email}
+                                            fullWidth
+                                            id="email"
+                                            label="Email Address"
+                                            name="email"
+                                            autoComplete="email"
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                        />
+                                        <TextField
+                                            margin="normal"
+                                            required
+                                            fullWidth
+                                            value={values.password}
+                                            error={Boolean(touched.password && errors.password)}
+                                            helperText={touched.password && errors.password}
+                                            name="password"
+                                            label="Password"
+                                            type="password"
+                                            id="password"
+                                            autoComplete="current-password"
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                        />
+                             
+                                        <Button
+                                            type="submit"
+                                            disabled={!dirty || !isValid}
+                                            fullWidth
+                                            variant="contained"
+                                            sx={{ mt: 3, mb: 2 }}
+                                        >
+                                            Sign In
+                                        </Button>
+
+                                        <Grid container>
+                                            <Grid item xs>
+                                                <Link href="#" variant="body2">
+                                                    Forgot password?
+                                                </Link>
+                                            </Grid>
+                                            <Grid item>
+                                                <Link to="/register" variant="body2">
+                                                    {"Don't have an account? Sign Up"}
+                                                </Link>
+                                            </Grid>
+                                        </Grid>
+                                    </ Form>
+                                )
+                            }}
+                        </Formik>
                     </Box>
                 </Box>
                 {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}

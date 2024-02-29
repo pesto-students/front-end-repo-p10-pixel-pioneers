@@ -11,7 +11,6 @@ const Map = ({ center, address, city, country }) => {
         scrollWheelZoom={false}
         style={{
           height: "40vh",
-          minWidth: "430px",
           width: "100%",
           zIndex: 0,
         }}
