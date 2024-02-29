@@ -5,13 +5,17 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { Button, Card, CardContent } from "@material-ui/core";
-// import PropertyCard from "./PropertyCard";
 import { getUserPropertyList } from "../../api/property";
 import "./index.css";
 import PropertyCard from "../../components/PropertyCard";
 import { Stack } from "@mui/material";
+import { Avatar } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export const useStyles = makeStyles((theme) => ({
+  customUser: {
+    margin: "auto",
+  },
   container: {
     paddingRight: 15,
     paddingLeft: 15,
@@ -34,13 +38,16 @@ export const useStyles = makeStyles((theme) => ({
   },
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: "none",
   },
   tabContent: {
     marginTop: theme.spacing(2),
   },
   card: {
     marginBottom: theme.spacing(2),
+  },
+  RegisteredSpaceTab: {
+    backgroundColor: "#FAF0E6",
   },
 }));
 
@@ -68,19 +75,58 @@ function UserDetailTab() {
   const classes = useStyles();
   const userData = JSON.parse(localStorage.user);
   console.log(userData);
+  const bull = (
+    <Box
+      component="span"
+      sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
+    >
+      •
+    </Box>
+  );
+
   return (
-    <div className={classes.container}>
-      <Typography variant="h5" gutterBottom>
+    <>
+      <Box
+        sx={{
+          // display: "flex",
+          // justifyContent: "center",
+          margin: "auto",
+          width: "50%",
+          // alignItems: "center",
+          // height: "100vh", // Use '100vh' for full viewport height
+        }}
+        // className={classes.UserTab}
+      >
+        {/* <div className={classes.container}> */}
+        {/* <Typography variant="h5" gutterBottom> */}
         {/* User Profile */}
-      </Typography>
-      {/* Replace these fields with user data */}
-      <Typography>First Name: {userData.firstName}</Typography>
-      <Typography>Last Name: {userData.lastName}</Typography>
-      <Typography>Username: {userData.username}</Typography>
-      <Typography>Email: {userData.email}</Typography>
-      <Typography>Phone Number: {userData.phoneNumber}</Typography>
-      {/* <Typography>City: {}</Typography> */}
-    </div>
+        {/* </Typography> */}
+        {/* Replace these fields with user data */}
+
+        <Avatar
+          alt="Profile Picture"
+          src="/path/to/your/image.jpg"
+          // sx={{ width: 56, height: 56, marginRight: 2 }}
+        />
+        <Typography variant="h6" component="div">
+          First Name: {userData.firstName}
+        </Typography>
+        <Typography variant="h6" component="div">
+          Last Name: {userData.lastName}
+        </Typography>
+        <Typography variant="h6" component="div">
+          Username: {userData.username}
+        </Typography>
+        <Typography variant="h6" component="div">
+          Email: {userData.email}
+        </Typography>
+        <Typography variant="h6" component="div">
+          Phone Number: {userData.phoneNumber}
+        </Typography>
+        {/* <Typography>City: {}</Typography> */}
+        {/* </div> */}
+      </Box>
+    </>
   );
 }
 
@@ -89,12 +135,19 @@ function PastBookingTab() {
 
   const bookings = [
     {
-      location: "Location 1",
+      id: "1",
+      location: "Pune",
+      address:
+        "Kharadi, Tower 5, World Trade Center , Kharadi, MIDC Knowledge Park, Pune, MH 411014",
       date: "2023-01-15",
+      amountPaid: "15000",
     },
     {
-      location: "Location 2",
+      id: "2",
+      location: "Mumbai",
+      address: "some virtual address",
       date: "2023-02-20",
+      amountPaid: "20,000",
     },
     // Add more booking data as needed
   ];
@@ -107,7 +160,9 @@ function PastBookingTab() {
       {bookings.map((booking, index) => (
         <Card key={index} className={classes.card}>
           <CardContent>
+            <Typography variant="p">Booking ID: {booking.id}</Typography>
             <Typography variant="h6">Location: {booking.location}</Typography>
+            <Typography variant="p"> Address: {booking.address}</Typography>
             <Typography>Date: {booking.date}</Typography>
             <Button variant="outlined" color="primary">
               View
@@ -123,22 +178,41 @@ function RegisteredSpacesDetails() {
   const [properties, setProperties] = useState([]);
   const [error, setError] = useState("");
   const [hasError, setHasError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  let classes = useStyles();
 
   useEffect(() => {
+    setLoading(true);
     (async () => {
       let res = await getUserPropertyList(JSON.parse(localStorage.user).id);
       if (res.success) {
-        setProperties((prev) => res.data);
+        setProperties(res.data);
+        setLoading(false);
       } else {
-        setHasError(true);
         setError(res.data.message);
+        setLoading(false);
       }
     })();
   }, []);
   return (
     <div>
       {/* 1. there are no properties */}
-      {!properties ? <div>No Properties Registered</div> : ""}
+      {loading ? (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignContent: "center",
+          }}
+          margin={10}
+        >
+          <CircularProgress />{" "}
+        </Box>
+      ) : (
+        ""
+      )}
+      {!properties ? <h1>No Properties Registered</h1> : ""}
+
       {/* 2. there are properties */}
       <Stack
         margin={2}
@@ -147,6 +221,7 @@ function RegisteredSpacesDetails() {
         justifyContent={"center"}
         alignContent={"center"}
         flexWrap={"wrap"}
+        className={classes.RegisteredSpaceTab}
       >
         {properties.length &&
           properties.map((property) => (
@@ -194,7 +269,6 @@ export default function UserProfileTabs() {
       <TabPanel value={value} index={2} className={classes.tabContent}>
         <RegisteredSpacesDetails />
       </TabPanel>
-      {/* Add more TabPanel components for additional tabs */}
     </div>
   );
 }

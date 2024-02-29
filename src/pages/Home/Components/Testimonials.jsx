@@ -1,21 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { testimonials } from "./TestimonialsData";
-import TestimonialCard from "./TestimonialCard";
-
-import { Grid } from "@material-ui/core";
-import Stack from "@mui/material/Stack";
-
 import { Carousel2 } from "../../../components/Carousel2";
-import ReviewCard from "../../../components/ReviewCard";
 import ReviewCards from "../../../components/ReviewCards";
-import Box from "@mui/material/Box";
-
-// import BookSpaceForm from "./BookSpaceForm";
-// import galleryImage1 from "../../../Assets/Wallpaper1.jpeg";
-// import galleryImage2 from "../../../Assets/Wallpaper.jpeg";
-// import galleryImage3 from "../../../Assets/gallery-1.jpeg";
-// import galleryImage4 from "../../../Assets/gallery-2.jpeg";
-// import galleryImage5 from "../../../Assets/gallery-3.jpeg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,21 +29,9 @@ const cardDetails = [
     date: "June 5, 2016",
   },
 ];
-{
-  /**
-const items = cardDetails.map((cardDetail, index) => (
-  <ReviewCard key={`review-${index}`} name={cardDetail.name} description={cardDetail.description} date={cardDetail.date} className={"item"} />
-));
 
-const ReviewCards = () => ((
-  <Stack margin={1} marginBottom={4} direction={{ xs: "column", md: "row" }} justifyContent={"center"} alignContent={"center"} gap={2} flexWrap={"wrap"}>
-    {items}
-  </Stack>
-));
- */
-}
 function Testimonials() {
-  const classes = useStyles();
+  // const classes = useStyles();
   return (
     <div className="">
       {/* <BookSpaceForm /> */}
@@ -73,8 +46,6 @@ function Testimonials() {
 
         <div className="content-section">
           <div className="TestimonialsContainer">
-            {/* <div className="TestimonialsTitle">Testimonials</div> */}
-
             <div className="TestimonialsText">
               Here’s what some of our delighted clients have to say
             </div>
@@ -83,7 +54,7 @@ function Testimonials() {
       </div>
 
       {/* Card section */}
-        <ReviewCards />
+      <ReviewCards />
       {/* Gallery */}
       <div className="Gallery section-1-home">
         <h1 className="GalleryTitle">Solutions that delight</h1>

@@ -16,44 +16,44 @@ import ReviewCard from "../ReviewCard";
 
 const ReviewCards = ({}) => {
   return (
-      <Box padding={2}>
-        <Swiper
-          modules={[Virtual, Navigation, Pagination]}
-          slidesPerView={1}
-          centeredSlides={true}
-          breakpoints={{
-            640: {
-              slidesPerView: 2,
-            },
-            768: {
-              slidesPerView: 2,
-            },
-            1024: {
-              slidesPerView: 3,
-            },
-            1440: {
-              slidesPerView: 5,
-            },
-            2560: {
-              slidesPerView: 7,
-            },
-          }}
-          navigation={true}
-          virtual
-        >
-          {Array(20)
-            .fill(true)
-            .map((_, index) => {
-              return (
-                <SwiperSlide key={`review-card-${index}`} virtualIndex={index}>
-                  <Box padding={2} style={{backgroundColor: "black"}}>
-                    <ReviewCard />
-                  </Box>
-                </SwiperSlide>
-              );
-            })}
-        </Swiper>
-      </Box>
+    <Box padding={2}>
+      <Swiper
+        modules={[Virtual, Navigation, Pagination]}
+        slidesPerView={1}
+        centeredSlides={true}
+        breakpoints={{
+          640: {
+            slidesPerView: 2,
+          },
+          768: {
+            slidesPerView: 2,
+          },
+          1024: {
+            slidesPerView: 3,
+          },
+          1440: {
+            slidesPerView: 5,
+          },
+          2560: {
+            slidesPerView: 7,
+          },
+        }}
+        navigation={true}
+        virtual
+      >
+        {Array(20)
+          .fill(true)
+          .map((_, index) => {
+            return (
+              <SwiperSlide key={`review-card-${index}`} virtualIndex={index}>
+                <Box padding={2} style={{ backgroundColor: "#FF4C29" }}>
+                  <ReviewCard />
+                </Box>
+              </SwiperSlide>
+            );
+          })}
+      </Swiper>
+    </Box>
   );
 };
 
