@@ -33,8 +33,11 @@ const router = createBrowserRouter(
       <Route path="contact" element={<Contact />} />
       <Route path="about" element={<About />} />
       <Route path="add-location" element={<AddPropertyDetails />} />
-      <Route path="blank" element={<Blank />} />
+      {/* <Route path="blank" element={<Blank />} /> */}
     </Route>
+    // <Route>
+    //   <Route path="blank" element={<Blank />} />
+    // </Route>
   )
 );
 

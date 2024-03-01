@@ -25,6 +25,7 @@
     "formik": "^2.4.5",
     "formik-material-ui": "^4.0.0-alpha.2",
     "formik-mui-lab": "^1.0.0",
+    "framer-motion": "^11.0.8",
     "qs": "^6.11.2",
     "react": "^18.2.0",
     "react-carousel-mui": "^1.0.0",

@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import Divider from '@mui/material/Divider';
+import Icon from '@mui/material/Icon';
 
 import PropertyCarousel from "../../components/PropertyCarousel";
 import Title from "../../components/Title";
@@ -17,47 +18,6 @@ import Star from "../../components/Star";
 // Icons
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-
-// Amenities Icon
-
-// Pantry
-import RestaurantIcon from '@mui/icons-material/Restaurant';
-
-// Parking
-import LocalParkingIcon from '@mui/icons-material/LocalParking';
-import DriveEtaIcon from '@mui/icons-material/DriveEta';
-
-// Printer
-import PrintIcon from '@mui/icons-material/Print';
-
-// IT Services
-import ComputerIcon from '@mui/icons-material/Computer';
-import ImportantDevicesIcon from '@mui/icons-material/ImportantDevices';
-
-// Cleaning
-import SanitizerIcon from '@mui/icons-material/Sanitizer';
-import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
-
-// Onsite Staff
-import PeopleIcon from '@mui/icons-material/People';
-
-// Spa
-import SpaIcon from '@mui/icons-material/Spa';
-
-// Phone
-import PhoneIcon from '@mui/icons-material/Phone';
-
-// Security
-
-// Pets
-import PetsIcon from '@mui/icons-material/Pets';
-
-// Server
-import DnsIcon from '@mui/icons-material/Dns';
-
-// Conference rooms
-import Groups3Icon from '@mui/icons-material/Groups3';
-
 
 const capitaliseFirstAlphabet = (text) => {
     const words = text.split(" ");
@@ -137,8 +97,6 @@ const PropertyDetails = () => {
                                 </Box>
                             </Stack>
 
-
-
                             {/* Property Images */}
                             <PropertyCarousel images={propertyDetails.images.data} />
 
@@ -160,7 +118,7 @@ const PropertyDetails = () => {
                                         </Typography>
                                         <Typography
                                             component='p'
-                                            marginTop={2}
+                                            marginTop={1}
                                             sx={{
                                                 typography: { sm: 'body1', xs: 'body2' },
                                                 color: 'text.primary'
@@ -175,9 +133,9 @@ const PropertyDetails = () => {
 
                                 </Grid>
 
+                            {/* Amenities */}
                                 <Grid item>
                                     <Box>
-                                        {/* TODO: Get in Touch Form */}
                                         <Typography
                                             variant="h6"
                                             sx={{
@@ -186,7 +144,7 @@ const PropertyDetails = () => {
                                             style={{
                                                 fontWeight: '600',
                                             }}
-                                            marginBottom={2}
+                                            marginBottom={1}
                                         >
                                             Amenities
                                         </Typography>
@@ -194,11 +152,10 @@ const PropertyDetails = () => {
                                             {
                                                 Object.keys(propertyDetails.amenities).map((amenity, amenityIndex) => {
                                                     return (
-                                                        <Grid item key={`amenity-${amenityIndex}`} xs={6}>
+                                                        <Grid marginTop={1/2} item key={`amenity-${amenityIndex}`} xs={6}>
                                                             <Stack gap={1} direction={"row"} justifyContent={"flex-start"} alignContent={"center"} alignItems={"center"}>
-                                                                <OpenInNewIcon fontSize="small"/>
+                                                                <Icon fontSize="small">{propertyDetails.amenities[amenity].icon || "open_in_new_icon"}</Icon>
                                                                 <Typography variant="body1">
-
                                                                     {amenity}
                                                                 </Typography>
                                                             </ Stack>
@@ -212,10 +169,7 @@ const PropertyDetails = () => {
 
                             </Grid>
 
-
-
-
-
+                            {/*Property Map Location */}
                             <Box marginTop={2}>
                                 <Typography
                                     variant="h6"
@@ -239,7 +193,7 @@ const PropertyDetails = () => {
                                 >
                                     {propertyDetails.address}
                                 </Typography>
-                                {/*Property Map Location */}
+                                {/* Property Map */}
                                 <Map
                                     center={[propertyDetails.latitude, propertyDetails.longitude]}
                                     address={propertyDetails.address}
