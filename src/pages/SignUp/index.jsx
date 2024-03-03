@@ -1,10 +1,11 @@
-// import * as React from 'react';
+import React, {useState} from 'react';
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import Alert from '@mui/material/Alert';
 import { Link } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -42,19 +43,21 @@ const defaultTheme = createTheme();
 
 export default function SignUp() {
 
+  const [hasError, setError] = useState(false);
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (values) => {
-    
-    console.log(values);
-    delete values.confirmPassword;
     let res = await register(values);
 
-      if (res.success) {
-        navigate("/");
-      }
-      
-    
+    if (res.success) {
+      navigate("/");
+    } else {
+      setError(prev => true);
+      setMessage(prev => res.message)
+    }
+
+
   };
   const mobileRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 
@@ -98,7 +101,7 @@ export default function SignUp() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 11,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -110,6 +113,12 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
+          {
+            hasError &&
+            (
+              <Alert severity="error">{message}</Alert>
+            )
+          }
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
@@ -120,138 +129,138 @@ export default function SignUp() {
                   sx={{ mt: 3 }}
                 >
                   <Form>
-                  <Grid container spacing={2}>
-                    <pre>{JSON.stringify({values, errors,touched, dirty, isValid}, null, 2)}</pre>
-                    {/* First Name */}
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        name="firstName"
-                        required
-                        fullWidth
-                        value={values.firstName}
-                        error={Boolean(touched.firstName && errors.firstName)}
-                        helperText={touched.firstName && errors.firstName}
-                        id="firstName"
-                        label="First Name"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                      />
-                    </Grid>
+                    <Grid container spacing={2}>
+                      {/* <pre>{JSON.stringify({values, errors,touched, dirty, isValid}, null, 2)}</pre> */}
+                      {/* First Name */}
+                      <Grid item xs={12} sm={6}>
+                        <TextField
+                          name="firstName"
+                          required
+                          fullWidth
+                          value={values.firstName}
+                          error={Boolean(touched.firstName && errors.firstName)}
+                          helperText={touched.firstName && errors.firstName}
+                          id="firstName"
+                          label="First Name"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
+                      </Grid>
 
-                    {/* Last Name */}
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        required
-                        fullWidth
-                        value={values.lastName}
-                        error={Boolean(touched.lastName && errors.lastName)}
-                        helperText={touched.lastName && errors.lastName}
-                        id="lastName"
-                        label="Last Name"
-                        name="lastName"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                      />
-                    </Grid>
+                      {/* Last Name */}
+                      <Grid item xs={12} sm={6}>
+                        <TextField
+                          required
+                          fullWidth
+                          value={values.lastName}
+                          error={Boolean(touched.lastName && errors.lastName)}
+                          helperText={touched.lastName && errors.lastName}
+                          id="lastName"
+                          label="Last Name"
+                          name="lastName"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
+                      </Grid>
 
-                    {/* User Name */}
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        required
-                        fullWidth
-                        value={values.username}
-                        error={Boolean(touched.username && errors.username)}
-                        helperText={touched.username && errors.username}
-                        id="username"
-                        label="User Name"
-                        name="username"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                      />
-                    </Grid>
+                      {/* User Name */}
+                      <Grid item xs={12} sm={6}>
+                        <TextField
+                          required
+                          fullWidth
+                          value={values.username}
+                          error={Boolean(touched.username && errors.username)}
+                          helperText={touched.username && errors.username}
+                          id="username"
+                          label="User Name"
+                          name="username"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
+                      </Grid>
 
-                    {/* Phone Number */}
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        required
-                        fullWidth
-                        value={values.phoneNumber}
-                        error={Boolean(touched.phoneNumber && errors.phoneNumber)}
-                        helperText={touched.phoneNumber && errors.phoneNumber}
-                        id="phoneNumber"
-                        label="Phone Number"
-                        name="phoneNumber"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                      />
-                    </Grid>
+                      {/* Phone Number */}
+                      <Grid item xs={12} sm={6}>
+                        <TextField
+                          required
+                          fullWidth
+                          value={values.phoneNumber}
+                          error={Boolean(touched.phoneNumber && errors.phoneNumber)}
+                          helperText={touched.phoneNumber && errors.phoneNumber}
+                          id="phoneNumber"
+                          label="Phone Number"
+                          name="phoneNumber"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
+                      </Grid>
 
-                    {/* Email */}
-                    <Grid item xs={12}>
-                      <TextField
-                        required
-                        fullWidth
-                        value={values.email}
-                        error={Boolean(touched.email && errors.email)}
-                        helperText={touched.email && errors.email}
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                      />
-                    </Grid> 
+                      {/* Email */}
+                      <Grid item xs={12}>
+                        <TextField
+                          required
+                          fullWidth
+                          value={values.email}
+                          error={Boolean(touched.email && errors.email)}
+                          helperText={touched.email && errors.email}
+                          id="email"
+                          label="Email Address"
+                          name="email"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
+                      </Grid>
 
-                    {/* Password */}
-                    <Grid item xs={12}>
-                      <TextField
-                        required
-                        fullWidth
-                        value={values.password}
-                        error={Boolean(touched.password && errors.password)}
-                        helperText={touched.password && errors.password}
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="password"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                      />
-                    </Grid>
+                      {/* Password */}
+                      <Grid item xs={12}>
+                        <TextField
+                          required
+                          fullWidth
+                          value={values.password}
+                          error={Boolean(touched.password && errors.password)}
+                          helperText={touched.password && errors.password}
+                          name="password"
+                          label="Password"
+                          type="password"
+                          id="password"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
+                      </Grid>
 
-                    {/* Confirm Password */}
-                    <Grid item xs={12}>
-                      <TextField
-                        required
-                        fullWidth
-                        value={values.confirmPassword}
-                        error={Boolean(touched.confirmPassword && errors.confirmPassword)}
-                        helperText={touched.confirmPassword && errors.confirmPassword}
-                        name="confirmPassword"
-                        label="Confirm Password"
-                        type="password"
-                        id="confirmPassword"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                      />
+                      {/* Confirm Password */}
+                      <Grid item xs={12}>
+                        <TextField
+                          required
+                          fullWidth
+                          value={values.confirmPassword}
+                          error={Boolean(touched.confirmPassword && errors.confirmPassword)}
+                          helperText={touched.confirmPassword && errors.confirmPassword}
+                          name="confirmPassword"
+                          label="Confirm Password"
+                          type="password"
+                          id="confirmPassword"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
+                      </Grid>
                     </Grid>
-                  </Grid>
-                  <Button
-                    type="submit"
-                    fullWidth
-                    disabled={!dirty || !isValid}
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
-                  >
-                    Sign Up
-                  </Button>
-                  <Grid container justifyContent="flex-end" marginBottom={4}>
-                    <Grid item>
-                      <Link to="/login" variant="body2">
-                        Already have an account? Sign in
-                      </Link>
+                    <Button
+                      type="submit"
+                      fullWidth
+                      disabled={!dirty || !isValid}
+                      variant="contained"
+                      sx={{ mt: 3, mb: 2 }}
+                    >
+                      Sign Up
+                    </Button>
+                    <Grid container justifyContent="flex-end" marginBottom={4}>
+                      <Grid item>
+                        <Link to="/login" variant="body2">
+                          Already have an account? Sign in
+                        </Link>
+                      </Grid>
                     </Grid>
-                  </Grid>
                   </Form>
                 </Box>
               )

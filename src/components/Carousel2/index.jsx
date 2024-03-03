@@ -41,7 +41,7 @@ export const Carousel2 = () => {
       <img
         src={image.url}
         alt={image.alt}
-        style={{ border: "6px solid #000", "border-radius": "10px" }}
+        style={{ border: "6px solid #000", "borderRadius": "10px" }}
       />
     </div>
   ));

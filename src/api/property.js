@@ -1,5 +1,8 @@
-import axios from "axios";
 import axiosInstance from "./axiosInstance";
+
+function delay(time) {
+  return new Promise(resolve => setTimeout(resolve, time));
+} 
 
 let getFilters = (filters) => {
   let filterObject = {};
@@ -58,6 +61,7 @@ export async function propertyList(filters) {
 }
 
 export async function getProperty(id) {
+
   try {
     const response = await axiosInstance.get(`/properties/${id}?populate=*`);
     

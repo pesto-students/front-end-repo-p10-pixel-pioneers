@@ -7,7 +7,7 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
-import Divider from '@mui/material/Divider';
+import CircularProgress from "@mui/material/CircularProgress";
 import Icon from '@mui/material/Icon';
 
 import PropertyCarousel from "../../components/PropertyCarousel";
@@ -31,7 +31,7 @@ const capitaliseFirstAlphabet = (text) => {
 const PropertyDetails = () => {
     const { propertyID, propertyName } = useParams();
     // const name = capitaliseFirstAlphabet(propertyName.replace("-", " "));
-
+    const [loading, setLoading] = useState(false);
     const [propertyDetails, setPropertyDetails] = useState({});
     const [error, setError] = useState("");
     const [hasError, setHasError] = useState(false);
@@ -40,7 +40,6 @@ const PropertyDetails = () => {
     const fetchData = async () => {
         let res = await getProperty(propertyID);
         if (res.success) {
-            console.log("Data:-", res.data.amenities);
             setPropertyDetails(res.data);
         } else {
             setHasError((prev) => true);
@@ -49,11 +48,34 @@ const PropertyDetails = () => {
     };
 
     useEffect(() => {
+        setLoading((prev) => true);
         (async () => {
             await fetchData();
+            setLoading((prev) => false);
         })();
+
+
+        return () => { };
     }, []);
 
+    if (loading) {
+        return (
+            <>
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignContent: "center",
+                        alignItems: "center",
+                        height: "50vh",
+                    }}
+                    margin={10}
+                >
+                    <CircularProgress />
+                </Box>
+            </>
+        );
+    }
     return (
         <>
             <Box sx={{
@@ -72,30 +94,28 @@ const PropertyDetails = () => {
                                 <Title text={propertyDetails.name} />
                                 <Star marked={true} rating={propertyDetails.rating} />
                             </Stack>
-                            {/* Building Address */}
-                            <Stack direction={"row"} gap={1} alignItems={"center"}>
-                                <LocationOnIcon color="primary" />
-                                <Box>
-                                    <Typography
-                                        component='p'
-                                        marginTop={1.5}
-                                        sx={{
-                                            typography: { sm: 'body1', xs: 'body2' },
-                                            fontWeight: '100',
-                                        }}
-                                    >
-                                        {propertyDetails.address}
-                                    </Typography>
-                                    {/* Google Map Link */}
-                                    <Link href={`https://www.google.com/maps/search/?api=1&query=${propertyDetails.latitude},${propertyDetails.longitude}`} target="_blank" variant="body2">
-                                        <Stack direction={"row"} gap={.2} alignItems={"center"}>
-                                            Get directions
-                                            <OpenInNewIcon sx={{ fontSize: 17 }} />
-                                        </Stack>
-                                    </Link>
+                            {/* Building City and Pincode */}
 
-                                </Box>
+                            <Stack gap={1 / 2} direction={"row"} marginTop={3 / 2} justifyContent={"flex-start"} alignContent={"center"} alignItems={"center"}>
+                                <LocationOnIcon fontSize="small" color="primary" />
+                                <Typography
+                                    sx={{
+                                        typography: { sm: 'body1', xs: 'body2' },
+                                        fontWeight: '100',
+                                    }}
+                                >
+                                    {propertyDetails.city}, {propertyDetails.pincode}
+                                </Typography>
                             </Stack>
+                            {/* Google Map Link */}
+                            {/* <Box>
+                                <Link href={`https://www.google.com/maps/search/?api=1&query=${propertyDetails.latitude},${propertyDetails.longitude}`} target="_blank" variant="body2">
+                                    <Stack direction={"row"} gap={.2} alignItems={"center"}>
+                                        Get directions
+                                        <OpenInNewIcon sx={{ fontSize: 17 }} />
+                                    </Stack>
+                                </Link>
+                            </Box> */}
 
                             {/* Property Images */}
                             <PropertyCarousel images={propertyDetails.images.data} />
@@ -133,7 +153,7 @@ const PropertyDetails = () => {
 
                                 </Grid>
 
-                            {/* Amenities */}
+                                {/* Amenities */}
                                 <Grid item>
                                     <Box>
                                         <Typography
@@ -152,7 +172,7 @@ const PropertyDetails = () => {
                                             {
                                                 Object.keys(propertyDetails.amenities).map((amenity, amenityIndex) => {
                                                     return (
-                                                        <Grid marginTop={1/2} item key={`amenity-${amenityIndex}`} xs={6}>
+                                                        <Grid marginTop={1 / 2} item key={`amenity-${amenityIndex}`} xs={6}>
                                                             <Stack gap={1} direction={"row"} justifyContent={"flex-start"} alignContent={"center"} alignItems={"center"}>
                                                                 <Icon fontSize="small">{propertyDetails.amenities[amenity].icon || "open_in_new_icon"}</Icon>
                                                                 <Typography variant="body1">
@@ -182,17 +202,20 @@ const PropertyDetails = () => {
                                 >
                                     Location
                                 </Typography>
-                                <Typography
-                                    component='p'
-                                    marginTop={1}
-                                    marginBottom={1}
-                                    sx={{
-                                        typography: { sm: 'body1', xs: 'body2' },
-                                        fontWeight: '100',
-                                    }}
-                                >
-                                    {propertyDetails.address}
-                                </Typography>
+                                <Stack direction={"row"} gap={1 / 4} alignItems={"center"}>
+                                    <LocationOnIcon fontSize="small" color="primary" />
+                                    <Typography
+                                        component='p'
+                                        marginTop={1}
+                                        marginBottom={1}
+                                        sx={{
+                                            typography: { sm: 'body1', xs: 'body2' },
+                                            fontWeight: '100',
+                                        }}
+                                    >
+                                        {propertyDetails.address}
+                                    </Typography>
+                                </Stack>
                                 {/* Property Map */}
                                 <Map
                                     center={[propertyDetails.latitude, propertyDetails.longitude]}

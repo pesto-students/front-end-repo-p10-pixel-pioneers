@@ -67,11 +67,12 @@ export default function SignUp() {
     const handleSubmit = async (values) => {
        
         const response = await login(values);
-        // console.log(`Response:-`, values);
-        
         
         if (response.success) {
             navigate("/");
+        } else {
+            setMessage(prev => response.message);
+            setError(prev => true);
         }
         
     };
@@ -82,7 +83,7 @@ export default function SignUp() {
                 <CssBaseline />
                 <Box
                     sx={{
-                        marginTop: 8,
+                        marginTop: 15,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
@@ -153,7 +154,7 @@ export default function SignUp() {
                                         <Grid container>
                                             <Grid item xs>
                                                 <Link href="#" variant="body2">
-                                                    Forgot password?
+                                                    {""}{/* Forgot password? */}
                                                 </Link>
                                             </Grid>
                                             <Grid item>
@@ -168,7 +169,6 @@ export default function SignUp() {
                         </Formik>
                     </Box>
                 </Box>
-                {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
             </Container>
         </ThemeProvider>
     );

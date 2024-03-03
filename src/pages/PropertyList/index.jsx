@@ -32,22 +32,26 @@ const PropertyList = () => {
     setProperties([]);
     (async function () {
       await fetchData(filters);
+      setLoading((prev) => false);
     })();
-    setLoading((prev) => false);
+
   }, [filters]);
 
   if (loading) {
     return (
       <>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignContent: "center",
-          }}
-          margin={10}
-        >
-          <CircularProgress />
+        <Box marginTop={11}>
+          <Filters city={filters.city} sort={filters.sort} handleFilter={setFilters} />
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignContent: "center",
+            }}
+            margin={10}
+          >
+            <CircularProgress />
+          </Box>
         </Box>
       </>
     );
@@ -56,13 +60,13 @@ const PropertyList = () => {
   if (properties.length === 0) {
     return (
       <Box marginTop={11}>
-        {/* <h1 style={{ textAlign: "center" }}>Property List</h1> */}
         <Filters city={filters.city} sort={filters.sort} handleFilter={setFilters} />
         <Box
           sx={{
             display: "flex",
             justifyContent: "center",
             alignContent: "center",
+            height: "50vh"
           }}
           margin={10}
         >

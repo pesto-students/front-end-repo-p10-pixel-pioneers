@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 
-import Star from "../../components/Star";
+import Star from "../Star";
 
 import galleryImage1 from "../../Assets/gallery-1.jpeg";
 
@@ -30,21 +30,19 @@ const useStyles = makeStyles({
   },
 });
 
-const PropertyCard = ({ propertyDetails }) => {
+const UserPropertyCard = ({ propertyDetails }) => {
   const classes = useStyles();
-  const propertyImage = propertyDetails.images.data[0].attributes?.url;
-    
+  const propertyImage = propertyDetails.images[0].url;
   return (
     <Box margin={2}>
       <Card sx={{ maxWidth: 345 }}>
-        {/* <CardActionArea component={Link} to={`/property-details/${propertyDetails.name.toLowerCase().replace(" ", "-")}`}> */}
         <CardActionArea
           component={Link}
           to={`/property-details/${propertyDetails.id}`}
         >
           <CardMedia
             sx={{ height: 140 }}
-            image={propertyImage || galleryImage1}
+            image={propertyImage}
             title={propertyDetails.name}
           />
           <CardContent className={classes.container}>
@@ -77,4 +75,4 @@ const PropertyCard = ({ propertyDetails }) => {
   );
 };
 
-export default PropertyCard;
+export default UserPropertyCard;

@@ -42,6 +42,7 @@ function DrawerAppBar(props) {
     switch (e.target.innerText) {
       case "Logout":
         localStorage.clear();
+        navigate("/");
         break;
       case "Profile":
         navigate("/profile");
@@ -90,9 +91,9 @@ function DrawerAppBar(props) {
       <List>
         {navItems.map((item, itemIndex) =>
           localStorage.user && item === "Login" ? (
-            <></>
+            <div key={`list1-${itemIndex}`} style={{display: "none"}}></div>
           ) : (
-            <ListItem key={`list-${itemIndex}`} disablePadding>
+            <ListItem key={`list1-${itemIndex}`} disablePadding>
               <ListItemButton
                 sx={{ textAlign: "center" }}
                 value={item}
@@ -201,7 +202,7 @@ function DrawerAppBar(props) {
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item, itemIndex) =>
               localStorage.user && item === "Login" ? (
-                <></>
+                <div key={`nav-${itemIndex}`} style={{display: "none"}}></div>
               ) : (
                 <Button
                   value={item}
