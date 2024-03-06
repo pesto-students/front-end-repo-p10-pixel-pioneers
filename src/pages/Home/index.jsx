@@ -1,7 +1,6 @@
 import "./homepage.css";
 import Testimonials from "./Components/Testimonials";
 import { Link } from "react-router-dom";
-import Box from "@mui/material/Box";
 import GetStarted from "../../components/GetStarted";
 
 

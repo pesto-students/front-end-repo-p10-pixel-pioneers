@@ -59,6 +59,7 @@ export default function SignUp() {
 
 
   };
+  
   const mobileRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 
   // Initial Values 
@@ -71,6 +72,7 @@ export default function SignUp() {
     password: "",
     confirmPassword: ""
   }
+
   // Validation Schema
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().required("This field is required"),

@@ -11,7 +11,6 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 
-
 import { getUserPropertyList } from "../../api/property";
 import UserPropertyCard from "../../components/UserPropertyCard";
 
@@ -47,6 +46,7 @@ function a11yProps(index) {
         'aria-controls': `simple-tabpanel-${index}`,
     };
 }
+
 function UserDetailTab() {
     const userData = JSON.parse(localStorage.user);
 
@@ -148,6 +148,7 @@ const UserProfileTabs = () => {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
     return (
         <Box sx={{ width: '100%' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -161,7 +162,7 @@ const UserProfileTabs = () => {
           <UserDetailTab/>
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
-          Item Two
+          <h1>No Spaces Booked</h1>
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
           <RegisteredSpaces />

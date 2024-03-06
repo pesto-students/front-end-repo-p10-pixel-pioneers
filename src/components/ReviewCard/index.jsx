@@ -14,8 +14,24 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
+import { makeStyles } from "@material-ui/core/styles";
 
 import { purple } from "@mui/material/colors";
+
+const LINES_TO_SHOW = 5;
+
+const useStyles = makeStyles({
+  container: {
+    maxWidth: 500,
+  },
+  multiLineEllipsis: {
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    display: "-webkit-box",
+    "-webkit-line-clamp": LINES_TO_SHOW,
+    "-webkit-box-orient": "vertical",
+  },
+});
 
 const CARD_PROPERTY = {
     borderRadius: 3,
@@ -37,6 +53,8 @@ const CARD_PROPERTY = {
 */}
 
 const ReviewCard = ({name, description, date}) => {
+    const classes = useStyles();
+
     return (
         <Card sx={CARD_PROPERTY}>
             <CardHeader
@@ -64,7 +82,7 @@ const ReviewCard = ({name, description, date}) => {
                 subheader={ date || "September 14, 2016"}
             />
             <CardContent sx={{ p: 3 }}>
-                <Typography variant="body1" color="black" sx={{ mb: 3 }}>
+                <Typography variant="body1" color="black" sx={{ mb: 3 }} className={classes.multiLineEllipsis}>
                     {
                         description ||
 

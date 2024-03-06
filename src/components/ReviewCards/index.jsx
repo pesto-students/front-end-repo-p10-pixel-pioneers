@@ -2,10 +2,7 @@ import React from "react";
 import { Virtual, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "./styles.css";
-import { testimonials } from "../../pages/Home/Components/TestimonialsData";
-
 import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
 
 // Import Swiper styles
 import "swiper/css";
@@ -14,7 +11,7 @@ import "swiper/css/navigation";
 
 import ReviewCard from "../ReviewCard";
 
-const ReviewCards = ({}) => {
+const ReviewCards = ({cards}) => {
   return (
     <Box padding={2}>
       <Swiper
@@ -41,13 +38,12 @@ const ReviewCards = ({}) => {
         navigation={true}
         virtual
       >
-        {Array(20)
-          .fill(true)
-          .map((_, index) => {
+        {cards
+          .map((card, cardIndex) => {
             return (
-              <SwiperSlide key={`review-card-${index}`} virtualIndex={index}>
-                <Box padding={2} style={{ backgroundColor: "#FF4C29" }}>
-                  <ReviewCard />
+              <SwiperSlide key={`review-card-${cardIndex}`} virtualIndex={cardIndex}>
+                <Box padding={2} style={{ backgroundColor: "#f0f0f0" }}>
+                  <ReviewCard name={card.name} description={card.description} date={card.date}/>
                 </Box>
               </SwiperSlide>
             );

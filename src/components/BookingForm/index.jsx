@@ -1,14 +1,24 @@
-import React, { useState } from "react"
-import "./bookingForm.css"
-import {
-  Grid
-} from "@material-ui/core"
+import React, { useState } from 'react';
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Alert from '@mui/material/Alert';
+import { Link } from "react-router-dom";
+import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
+import { register } from "../../api/login";
+
+// Formik
 import { Formik, Form, Field } from "formik";
-import Button from "@mui/material/Button"
 import * as Yup from "yup";
-import { TextField } from "formik-material-ui";
+
 import dayjs from "dayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -18,7 +28,7 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import bookingRequest from "../../api/booking";
 
-
+const defaultTheme = createTheme();
 
 // Booking Form Initial data
 const initialValues = {
@@ -39,10 +49,13 @@ let validationSchema = Yup.object().shape({
   phoneNumber: Yup.string()
     .matches(mobileRegExp, 'Mobile number is not valid')
     .min(10, 'Mobile number must have 10 digits')
-    .max(10, 'Mobile number must have 10 digits'),
+    .max(10, 'Mobile number must have 10 digits')
+    .required("Required"),
   totalSeats: Yup.number("Seats must be a Number")
     .required("Required")
     .positive("Must be a positive Integer")
+    .min(1, "Seats must be atleast 1")
+    .max(50, "Seats cannot be more than 50")
     .integer("Seats must be Integer"),
   start: Yup.date()
     .required("Start Date Required"),
@@ -55,162 +68,178 @@ let validationSchema = Yup.object().shape({
           .typeError('End Date is required')
       }
     }),
-})
+});
 
 const onSubmit = async (values) => {
-  await  bookingRequest(values);
-}
+  await bookingRequest(values);
+};
 
 const BookingForm = () => {
 
+  const [hasError, setError] = useState(false);
+  const [message, setMessage] = useState("");
+
   return (
-    <>
-      <h1 style={{ textAlign: "center" }}>Booking Form</h1>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={onSubmit}>
-          {({ dirty, isValid, values, setFieldValue, handleChange, handleBlur, errors, touched, setFieldTouched }) => {
-
-            return (
-              <Form>
-                {/* <pre style={{border:"1px solid red"}}>{JSON.stringify({...values,errors,touched},null,"\n")}</pre> */}
-                <Grid item container spacing={1} >
-                  {/* Name Field */}
-                  <Grid item xs={12} sm={6} md={6}>
-                    <Field
-                      label="Full Name"
-                      variant="outlined"
-                      fullWidth
-                      name="fullName"
-                      value={values.fullName}
-                      component={TextField}
-                    />
-                  </Grid>
-
-                  {/* Phone Number */}
-                  <Grid item xs={12} sm={6} md={6}>
-                    <Field
-                      label="Phone Number"
-                      variant="outlined"
-                      fullWidth
-                      name="phoneNumber"
-                      value={values.phoneNumber}
-                      type="number"
-                      component={TextField}
-                      onChange={handleChange}
-                    />
-                  </Grid>
-
-                  {/* Email Field */}
-                  <Grid item xs={12} sm={6} md={6}>
-                    <Field
-                      label="Email"
-                      variant="outlined"
-                      fullWidth
-                      name="email"
-                      value={values.email}
-                      component={TextField}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={6}>
-
-                    {/* Seats Field */}
-                    <Stack direction="row">
-                      <Field
-                        label="Total Seats"
-                        variant="outlined"
-                        type="number"
-                        fullWidth
-                        name="totalSeats"
-                        value={values.totalSeats}
-                        component={TextField}
-                        inputProps={{ min: 0, max: 50, step: 1 }}
-                      />
-                      <Button
-                        onClick={() => {
-                          setFieldValue("totalSeats", values.totalSeats + 1, true)
-                        }}
-                        variant="outlined"
-                        size="small"
-                        style={{ backgroundColor: "#e0e0e0", height: "55px" }}
-                      >
-                        <AddIcon fontSize="small" />
-                      </Button>
-                      <Button
-                        onClick={() => {
-                          if (values.totalSeats > 0) {
-                            setFieldValue("totalSeats", values.totalSeats - 1, true)
-                          }
-                        }}
-                        variant="outlined"
-                        size="small"
-                        style={{ backgroundColor: "#e0e0e0", height: "55px" }}
-                      >
-                        <RemoveIcon fontSize="small" />
-                      </Button>
-                    </Stack>
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={6}>
-                    <Field
-                      component={DatePicker}
-                      name="start"
-                      label="Start Date"
-                      disablePast
-                      value={dayjs(values.start)}
-                      onChange={(value) => {
-                        setFieldTouched("start", true);
-                        setFieldValue("start", value.format(), true);
-                      }}
-                      slotProps={{
-                        textField: {
-                          variant: "outlined",
-                          error: touched.start && Boolean(errors.start),
-                          helperText: touched.start && errors.start
-                        }
-                      }}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={6}>
-                    <Field
-                      component={DatePicker}
-                      name="end"
-                      label="End Date"
-                      disablePast
-                      value={dayjs(values.end)}
-                      onChange={(value) => {
-                        setFieldTouched("end", true);
-                        setFieldValue("end", value.format(), true);
-
-                      }}
-                      slotProps={{
-                        textField: {
-                          variant: "outlined",
-                          error: Boolean(errors.end),
-                          helperText: errors.end
-                        }
-                      }}
-                    />
-                  </Grid>
-                </Grid>
-
-
-                <Button
-                  disabled={!dirty || !isValid}
-                  variant="contained"
-                  color="primary"
-                  type="Submit"
-                >
-                  REGISTER
-                </Button>
-
-              </Form>
-            )
+    <ThemeProvider theme={defaultTheme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 11,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
-        </Formik>
-      </LocalizationProvider>
-    </>
+        >
+          {
+            hasError &&
+            (
+              <Alert severity="error">{message}</Alert>
+            )
+          }
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <Formik
+              initialValues={initialValues}
+              validationSchema={validationSchema}
+              onSubmit={onSubmit}>
+              {({ dirty, isValid, values, setFieldValue, handleChange, handleBlur, errors, touched, setFieldTouched }) => {
+                return (
+                  <Box
+                    sx={{ mt: 3 }}
+                  >
+                    <Form>
+                      <Grid container spacing={2}>
+                        <pre>{JSON.stringify({ values, errors, touched, dirty, isValid }, null, 2)}</pre>
+
+                        {/* Full Name */}
+                        <Grid item xs={12}>
+                          <TextField
+                            name="fullName"
+                            required
+                            fullWidth
+                            value={values.fullName}
+                            error={Boolean(touched.fullName && errors.fullName)}
+                            helperText={touched.fullName && errors.fullName}
+                            id="fullName"
+                            label="Full Name"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                          />
+                        </Grid>
+
+                        {/* Email */}
+                        <Grid item xs={12}>
+                          <TextField
+                            name="email"
+                            required
+                            fullWidth
+                            value={values.email}
+                            error={Boolean(touched.email && errors.email)}
+                            helperText={touched.email && errors.email}
+                            id="email"
+                            label="Email"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                          />
+                        </Grid>
+
+                        {/* Phone Number */}
+                        <Grid item xs={12}>
+                          <TextField
+                            required
+                            fullWidth
+                            value={values.phoneNumber}
+                            error={Boolean(touched.phoneNumber && errors.phoneNumber)}
+                            helperText={touched.phoneNumber && errors.phoneNumber}
+                            name="phoneNumber"
+                            label="Phone Number"
+                            id="phoneNumber"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                          />
+                        </Grid>
+
+                        {/* Total Seats */}
+                        <Grid item xs={12}>
+                          <TextField
+                            required
+                            fullWidth
+                            value={values.totalSeats}
+                            error={Boolean(touched.totalSeats && errors.totalSeats)}
+                            helperText={touched.totalSeats && errors.totalSeats}
+                            name="totalSeats"
+                            label="Total Seats"
+                            type="number"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                          />
+                        </Grid>
+
+                        {/* Start Date */}
+                        <Grid item xs={6} sm={6}>
+                          <Field
+                            component={DatePicker}
+                            name="start"
+                            label="Start Date"
+                            disablePast
+                            value={dayjs(values.start)}
+                            onChange={(value) => {
+                              setFieldTouched("start", true);
+                              setFieldValue("start", value.format(), true);
+                            }}
+                            slotProps={{
+                              textField: {
+                                variant: "outlined",
+                                error: touched.start && Boolean(errors.start),
+                                helperText: touched.start && errors.start
+                              }
+                            }}
+                          />
+                        </Grid>
+
+                        {/* End Date */}
+                        <Grid item xs={6} sm={6}>
+                          <Field
+                            component={DatePicker}
+                            name="end"
+                            label="End Date"
+                            disablePast
+                            value={dayjs(values.end)}
+                            onChange={(value) => {
+                              setFieldTouched("end", true);
+                              setFieldValue("end", value.format(), true);
+
+                            }}
+                            slotProps={{
+                              textField: {
+                                variant: "outlined",
+                                error: Boolean(errors.end),
+                                helperText: errors.end
+                              }
+                            }}
+                          />
+                        </Grid>
+
+
+                      </Grid>
+                      <Button
+                        type="submit"
+                        fullWidth
+                        disabled={!dirty || !isValid}
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                      >
+                        Register
+                      </Button>
+                    </Form>
+                  </Box>
+                )
+              }}
+            </Formik>
+          </LocalizationProvider>
+        </Box>
+      </Container>
+    </ThemeProvider>
   )
 }
 
