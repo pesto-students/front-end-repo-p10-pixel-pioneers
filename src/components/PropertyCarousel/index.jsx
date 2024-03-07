@@ -21,7 +21,7 @@ const PropertyCarousel = ({ images }) => {
                 style={{
                     '--swiper-navigation-color': '#fff',
                     '--swiper-pagination-color': '#fff',
-                    height:"50vh"
+                    height:"42vh"
                 }}
                 spaceBetween={10}
                 navigation={true}

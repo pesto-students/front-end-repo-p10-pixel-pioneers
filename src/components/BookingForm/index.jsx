@@ -85,7 +85,7 @@ const BookingForm = () => {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 11,
+            marginTop: { xs: 0, sm: 4 },
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -109,7 +109,7 @@ const BookingForm = () => {
                   >
                     <Form>
                       <Grid container spacing={2}>
-                        <pre>{JSON.stringify({ values, errors, touched, dirty, isValid }, null, 2)}</pre>
+                        {/* <pre>{JSON.stringify({ values, errors, touched, dirty, isValid }, null, 2)}</pre> */}
 
                         {/* Full Name */}
                         <Grid item xs={12}>

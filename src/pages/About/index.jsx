@@ -12,8 +12,8 @@ const About = () => {
     <div>
       <Content />
       {/* <OurLocations /> */}
-      <Box  marginLeft={10} marginTop={2} marginBottom={4}>
-        <Title text={"Choose from 50+ locations across 5 cities in India"} textAlign={"start"} />
+      <Box marginBottom={4}>
+        <Title text={"Choose from 50+ locations across 5 cities in India"} textAlign={"center"}/>
       </Box>
       <Stack marginBottom={5} direction={"row"} justifyContent={"center"}>
         <IndianMap />

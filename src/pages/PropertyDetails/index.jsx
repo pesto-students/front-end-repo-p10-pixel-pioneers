@@ -9,15 +9,22 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import CircularProgress from "@mui/material/CircularProgress";
 import Icon from '@mui/material/Icon';
+import IconButton from '@mui/material/IconButton';
+import Button from "@mui/material/Button";
+import Dialog from '@mui/material/Dialog';
 
 import PropertyCarousel from "../../components/PropertyCarousel";
 import Title from "../../components/Title";
 import Map from "../../components/Map";
 import Star from "../../components/Star";
+import BookingForm from "../../components/BookingForm"
+
+import dialogBackground from "../../Assets/dialog-background.jpg"
 
 // Icons
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import CloseIcon from '@mui/icons-material/Close';
 
 const capitaliseFirstAlphabet = (text) => {
     const words = text.split(" ");
@@ -28,6 +35,63 @@ const capitaliseFirstAlphabet = (text) => {
     return capitalisedWords.join(" ");
 };
 
+const BookingFormDialog = ({ open, handleClose, propertyDetails }) => {
+    console.log(propertyDetails)
+    const propertyImage = propertyDetails.images.data[0].attributes?.url;
+    return (
+        <Dialog
+            fullScreen
+            open={open}
+            onClose={handleClose}
+            PaperProps={{
+                style: {
+                    backgroundImage: `url(${dialogBackground})`,
+                    backgroundSize: "contain"
+                }
+            }}
+
+        >
+            <Stack margin={1} direction={"row"} justifyContent={"flex-end"}>
+                <Button
+                    variant="text"
+                    aria-label="close"
+                    onClick={handleClose}
+                    style={{ maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px' }}
+                >
+                    <CloseIcon color="action" />
+                </Button>
+            </Stack>
+            <Box
+                margin={2}
+                sx={{
+                    marginTop: { xs: 0, sm: 2 },
+                    marginLeft: { xs: 0, sm: 6 },
+                }}>
+                <Title text={propertyDetails.name} textAlign={"start"} />
+            </Box>
+            <Grid container>
+                <Grid item xs={12} sm={6}>
+                    <Box
+                        sx={{
+                            marginLeft: { xs: 0, sm: 6 },
+                            marginTop: { xs: 0, sm: 10 },
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                        }}>
+                        <PropertyCarousel images={propertyDetails.images.data} />
+                    </Box>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <Box margin={2}>
+                        <BookingForm />
+                    </Box>
+                </Grid>
+            </Grid>
+        </Dialog>
+    )
+}
+
 const PropertyDetails = () => {
     const { propertyID, propertyName } = useParams();
     // const name = capitaliseFirstAlphabet(propertyName.replace("-", " "));
@@ -36,6 +100,16 @@ const PropertyDetails = () => {
     const [error, setError] = useState("");
     const [hasError, setHasError] = useState(false);
     const [openEnquiryModal, setOpenEnquiryModal] = useState(false);
+
+    const [openBookingFormDialog, setOpenBookingFormDialog] = useState(false);
+
+    const handleClickOpen = () => {
+        setOpenBookingFormDialog(true);
+    };
+
+    const handleClose = () => {
+        setOpenBookingFormDialog(false);
+    };
 
     const fetchData = async () => {
         let res = await getProperty(propertyID);
@@ -79,8 +153,8 @@ const PropertyDetails = () => {
     return (
         <>
             <Box sx={{
-                marginLeft: { xs: 5, sm: 5, md: 15, lg: 15, xl: 15 },
-                marginRight: { xs: 5, sm: 5, md: 15, lg: 15, xl: 15 },
+                marginLeft: { xs: 2, sm: 5, md: 15, lg: 15, xl: 15 },
+                marginRight: { xs: 2, sm: 5, md: 15, lg: 15, xl: 15 },
             }}
                 marginTop={10}
                 marginBottom={5}
@@ -96,7 +170,7 @@ const PropertyDetails = () => {
                             </Stack>
                             {/* Building City and Pincode */}
 
-                            <Stack gap={1 / 2} direction={"row"} marginTop={3 / 2} justifyContent={"flex-start"} alignContent={"center"} alignItems={"center"}>
+                            <Stack gap={1 / 2} direction={"row"} marginTop={3 / 2} marginBottom={1} justifyContent={"flex-start"} alignContent={"center"} alignItems={"center"}>
                                 <LocationOnIcon fontSize="small" color="primary" />
                                 <Typography
                                     sx={{
@@ -106,6 +180,11 @@ const PropertyDetails = () => {
                                 >
                                     {propertyDetails.city}, {propertyDetails.pincode}
                                 </Typography>
+                            </Stack>
+
+                            <Stack direction={{ xs: "row", sm: "row" }} gap={1}>
+                                <Button variant="contained" size="small" onClick={handleClickOpen} >Book now</Button>
+                                <Button variant="outlined" size="small">Enquire Now</Button>
                             </Stack>
                             {/* Google Map Link */}
                             {/* <Box>
@@ -166,14 +245,14 @@ const PropertyDetails = () => {
                                             }}
                                             marginBottom={1}
                                         >
-                                            Amenities
+                                            Amenities at {propertyDetails.name}
                                         </Typography>
                                         <Grid container columns={12}>
                                             {
                                                 Object.keys(propertyDetails.amenities).map((amenity, amenityIndex) => {
                                                     return (
-                                                        <Grid marginTop={1 / 2} item key={`amenity-${amenityIndex}`} xs={6}>
-                                                            <Stack gap={1} direction={"row"} justifyContent={"flex-start"} alignContent={"center"} alignItems={"center"}>
+                                                        <Grid marginTop={1 / 2} item key={`amenity-${amenityIndex}`} xs={12} sm={6}>
+                                                            <Stack gap={4} direction={"row"} justifyContent={"flex-start"} alignContent={"center"} alignItems={"center"}>
                                                                 <Icon fontSize="small">{propertyDetails.amenities[amenity].icon || "open_in_new_icon"}</Icon>
                                                                 <Typography variant="body1">
                                                                     {amenity}
@@ -224,10 +303,12 @@ const PropertyDetails = () => {
                                     country={propertyDetails.country}
                                 />
                             </Box>
+                            <BookingFormDialog open={openBookingFormDialog} handleClose={handleClose} propertyDetails={propertyDetails} />
                         </>
                     )
                 }
             </Box>
+
         </>
     )
 }

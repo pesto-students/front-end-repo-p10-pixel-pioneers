@@ -1,6 +1,8 @@
 import React from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
+import { Box } from "@mui/material"
+
 function MultipleMarkers() {
   const locations = [
     // {
@@ -61,7 +63,9 @@ const IndianMap = () => {
       scrollWheelZoom={true}
       style={{
         height: "60vh",
-        width: "60vw",
+        width: "80vw",
+        maxHeight: "600px",
+        maxWidth: "900px",
         borderRadius: "10px",
         border: "5px solid #C9D7DD",
       }}
