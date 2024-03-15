@@ -72,14 +72,17 @@ function Testimonials() {
       </Box>
 
       {/* Card section */}
-      <ReviewCards cards={cardDetails}/>
+      <ReviewCards cards={cardDetails} />
 
       {/* Gallery */}
       <Box>
         <Title text={"Solutions that delight"} textAlign={"center"} />
-        <Typography variant="body1" textAlign={"center"} marginTop={2}>A one-stop software solution that optimises your space management,</Typography>
-        <Typography variant="body1" textAlign={"center"}>provides data-driven insights for cost savings on real estate, and</Typography>
-        <Typography variant="body1" textAlign={"center"}>elevates employee experience.</Typography>
+        <p style={{ textAlign: "center" }}>
+          A one-stop software solution that optimises your space management,
+          provides data-driven insights for cost savings on real estate, and
+          elevates employee experience.
+        </p>
+
         <Carousel2 />
       </Box>
     </Box>

@@ -16,7 +16,8 @@ const ReviewCards = ({cards}) => {
     <Box padding={2}>
       <Swiper
         modules={[Virtual, Navigation, Pagination]}
-        slidesPerView={1}
+        // loop={true}
+        // slidesPerView={1}
         centeredSlides={true}
         breakpoints={{
           640: {
