@@ -36,20 +36,20 @@ const capitaliseFirstAlphabet = (text) => {
 };
 
 const BookingFormDialog = ({ open, handleClose, propertyDetails }) => {
-    console.log(propertyDetails)
     const propertyImage = propertyDetails.images.data[0].attributes?.url;
     return (
         <Dialog
             fullScreen
             open={open}
             onClose={handleClose}
+            /*
             PaperProps={{
                 style: {
                     backgroundImage: `url(${dialogBackground})`,
                     backgroundSize: "contain"
                 }
             }}
-
+            */
         >
             <Stack margin={1} direction={"row"} justifyContent={"flex-end"}>
                 <Button
@@ -184,7 +184,7 @@ const PropertyDetails = () => {
 
                             <Stack direction={{ xs: "row", sm: "row" }} gap={1}>
                                 <Button variant="contained" size="small" onClick={handleClickOpen} >Book now</Button>
-                                <Button variant="outlined" size="small">Enquire Now</Button>
+                                <Button component="a" href={"/contact"} variant="outlined" size="small">Contact Us</Button>
                             </Stack>
                             {/* Google Map Link */}
                             {/* <Box>
