@@ -42,14 +42,14 @@ const BookingFormDialog = ({ open, handleClose, propertyDetails }) => {
             fullScreen
             open={open}
             onClose={handleClose}
-            /*
-            PaperProps={{
-                style: {
-                    backgroundImage: `url(${dialogBackground})`,
-                    backgroundSize: "contain"
-                }
-            }}
-            */
+        /*
+        PaperProps={{
+            style: {
+                backgroundImage: `url(${dialogBackground})`,
+                backgroundSize: "contain"
+            }
+        }}
+        */
         >
             <Stack margin={1} direction={"row"} justifyContent={"flex-end"}>
                 <Button
@@ -168,8 +168,7 @@ const PropertyDetails = () => {
                                 <Title text={propertyDetails.name} />
                                 <Star marked={true} rating={propertyDetails.rating} />
                             </Stack>
-                            {/* Building City and Pincode */}
-
+                            {/* Building City and Pincode 
                             <Stack gap={1 / 2} direction={"row"} marginTop={3 / 2} marginBottom={1} justifyContent={"flex-start"} alignContent={"center"} alignItems={"center"}>
                                 <LocationOnIcon fontSize="small" color="primary" />
                                 <Typography
@@ -181,8 +180,9 @@ const PropertyDetails = () => {
                                     {propertyDetails.city}, {propertyDetails.pincode}
                                 </Typography>
                             </Stack>
+*/}
 
-                            <Stack direction={{ xs: "row", sm: "row" }} gap={1}>
+                            <Stack marginTop={2} marginBottom={1} direction={{ xs: "row", sm: "row" }} gap={1}>
                                 <Button variant="contained" size="small" onClick={handleClickOpen} >Book now</Button>
                                 <Button component="a" href={"/contact"} variant="outlined" size="small">Contact Us</Button>
                             </Stack>
