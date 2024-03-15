@@ -37,7 +37,7 @@ const cardDetails = [
     name: "Pradnya Kasar",
     description: `Eledeco Center: Strength in Collaboration - A welcoming coworking space where individuals come together to share ideas, skills, and experiences.`,
     date: "June 5, 2022",
-    avatar: "https://randomuser.me/api/portraits/women/47.jpg"
+    avatar: "https://randomuser.me/api/portraits/thumb/women/35.jpg"
   },
   {
     name: "Albert Pinto",

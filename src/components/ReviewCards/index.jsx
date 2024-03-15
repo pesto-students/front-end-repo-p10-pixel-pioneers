@@ -1,6 +1,6 @@
 import React from "react";
-import { Virtual, Navigation, Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Virtual, Navigation, Pagination } from "swiper/modules";
+import {  Swiper, SwiperSlide } from "swiper/react";
 import "./styles.css";
 import Box from "@mui/material/Box";
 
@@ -8,17 +8,22 @@ import Box from "@mui/material/Box";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import "swiper/css/autoplay";
 
 import ReviewCard from "../ReviewCard";
 
-const ReviewCards = ({cards}) => {
+const ReviewCards = ({ cards }) => {
   return (
     <Box padding={2}>
       <Swiper
-        modules={[Virtual, Navigation, Pagination]}
+        modules={[Autoplay, Virtual, Navigation, Pagination]}
         // loop={true}
         // slidesPerView={1}
         centeredSlides={true}
+        autoplay={{
+          delay: 2000,
+          disableOnInteraction: false,
+        }}
         breakpoints={{
           640: {
             slidesPerView: 2,
@@ -44,7 +49,7 @@ const ReviewCards = ({cards}) => {
             return (
               <SwiperSlide key={`review-card-${cardIndex}`} virtualIndex={cardIndex}>
                 <Box padding={2} style={{ backgroundColor: "#f0f0f0" }}>
-                  <ReviewCard name={card.name} description={card.description} date={card.date} avatar={card.avatar}/>
+                  <ReviewCard name={card.name} description={card.description} date={card.date} avatar={card.avatar} />
                 </Box>
               </SwiperSlide>
             );
