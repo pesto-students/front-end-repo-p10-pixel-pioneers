@@ -298,9 +298,11 @@ const PropertyDetails = () => {
                                 {/* Property Map */}
                                 <Map
                                     center={[propertyDetails.latitude, propertyDetails.longitude]}
+                                    name= {propertyDetails.name}
                                     address={propertyDetails.address}
                                     city={propertyDetails.city}
                                     country={propertyDetails.country}
+                                    image={propertyDetails.images.data[0].attributes.url}
                                 />
                             </Box>
                             <BookingFormDialog open={openBookingFormDialog} handleClose={handleClose} propertyDetails={propertyDetails} />
