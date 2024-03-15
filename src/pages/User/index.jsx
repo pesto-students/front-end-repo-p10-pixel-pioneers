@@ -7,12 +7,30 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Link from '@mui/material/Link';
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
+import CardContent from "@mui/material/CardContent";
+import dayjs from "dayjs";
 
+// Icon
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+
+//API
 import { getUserPropertyList } from "../../api/property";
+// import { getUserBookings } from "../../api/booking";
+
 import UserPropertyCard from "../../components/UserPropertyCard";
+import UserInfo from "../../components/UserInfo";
+
+const CARD_PROPERTY = {
+    width: 345,
+    borderRadius: 3,
+    boxShadow: 0,
+};
+
+const getDate = (date) => {
+    return dayjs(date).format("MMM DD, YY");
+};
 
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -48,32 +66,11 @@ function a11yProps(index) {
 }
 
 function UserDetailTab() {
-    const userData = JSON.parse(localStorage.user);
-
+    // User Info
+    const user = JSON.parse(localStorage.user);
     return (
         <>
-            <Box
-                sx={{
-                    margin: "auto",
-                    width: "50%",
-                }}
-            >
-                <Typography variant="h6" component="div">
-                    First Name: {userData.firstName}
-                </Typography>
-                <Typography variant="h6" component="div">
-                    Last Name: {userData.lastName}
-                </Typography>
-                <Typography variant="h6" component="div">
-                    Username: {userData.username}
-                </Typography>
-                <Typography variant="h6" component="div">
-                    Email: {userData.email}
-                </Typography>
-                <Typography variant="h6" component="div">
-                    Phone Number: {userData.phoneNumber}
-                </Typography>
-            </Box>
+            <UserInfo user={user} />
         </>
     );
 }
