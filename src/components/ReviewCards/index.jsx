@@ -44,7 +44,7 @@ const ReviewCards = ({cards}) => {
             return (
               <SwiperSlide key={`review-card-${cardIndex}`} virtualIndex={cardIndex}>
                 <Box padding={2} style={{ backgroundColor: "#f0f0f0" }}>
-                  <ReviewCard name={card.name} description={card.description} date={card.date}/>
+                  <ReviewCard name={card.name} description={card.description} date={card.date} avatar={card.avatar}/>
                 </Box>
               </SwiperSlide>
             );

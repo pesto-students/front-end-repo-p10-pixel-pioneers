@@ -52,7 +52,7 @@ const CARD_PROPERTY = {
         </Link>
 */}
 
-const ReviewCard = ({name, description, date}) => {
+const ReviewCard = ({name, description, date, avatar}) => {
     const classes = useStyles();
 
     return (
@@ -63,7 +63,8 @@ const ReviewCard = ({name, description, date}) => {
                     <Avatar
                         sx={{ bgcolor: purple[500], width: 50, height: 50 }}
                         aria-label="recipe"
-                        src="https://randomuser.me/api/portraits/women/47.jpg"
+                        // src="https://randomuser.me/api/portraits/women/47.jpg"
+                        src= {avatar || "https://randomuser.me/api/?nat=IN"}
                     >
                         E
                     </Avatar>

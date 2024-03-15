@@ -56,7 +56,7 @@ export const Carousel2 = () => {
       justifyContent="center"
       alignItems="center"
       sx={{
-        py: 8,
+        py: 2,
         px: 2,
         display: { xs: "flex" },
       }}
