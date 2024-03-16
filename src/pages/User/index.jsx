@@ -201,7 +201,8 @@ function BookedSpaces() {
                     margin={10}
                 >
                     <CircularProgress />
-                </Box>):(<h1>No Bookings Found</h1>)
+                </Box>
+                ):(<h1>No Bookings Found</h1>)
             }
         </ Stack>
     );
