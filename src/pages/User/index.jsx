@@ -10,6 +10,8 @@ import Link from '@mui/material/Link';
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
+import Divider from '@mui/material/Divider';
+
 import dayjs from "dayjs";
 
 // Icon
@@ -30,6 +32,139 @@ const CARD_PROPERTY = {
 
 const getDate = (date) => {
     return dayjs(date).format("MMM DD, YY");
+};
+
+function oldBookingCard({ booking }) {
+    return (
+        <Box margin={2}>
+            <Card sx={CARD_PROPERTY} >
+                <Box padding={2}>
+                    <Stack direction={"row"} justifyContent={"space-between"}>
+                        <Typography variant="body1" fontWeight={"600"}>
+                            {booking.fullName}
+                        </Typography>
+                        <Typography variant="body1" fontWeight={"600"}>
+                            {`₹ ${booking.amount.toLocaleString("en-IN")}`}
+                        </Typography>
+                    </Stack>
+
+                    {/** Booked On */}
+                    <Stack gap={5} direction={"row"} justifyContent={"space-between"} alignContent={"center"} alignItems={"center"}>
+                        <Typography variant="body2" fontWeight={"600"}>
+                            Booked On
+                        </Typography>
+                        <Stack gap={1 / 2} direction={"row"} justifyContent={"flex-start"} alignContent={"center"} alignItems={"center"}>
+                            <CalendarMonthIcon />
+                            <Typography variant="body2">
+                                {getDate(booking.bookedOn)}
+                            </Typography>
+                        </Stack>
+                    </ Stack>
+
+                    <Stack direction={"row"} gap={2} justifyContent={"space-between"}>
+                        {/** Booking Start */}
+                        <Typography variant="body2" fontWeight={"600"}>
+                            Check In
+                        </Typography>
+                        <Stack gap={1 / 2} direction={"row"} justifyContent={"flex-start"} alignContent={"center"} alignItems={"center"}>
+                            <CalendarMonthIcon />
+                            <Typography variant="body2">
+                                {getDate(booking.start)}
+                            </Typography>
+                        </ Stack>
+                    </ Stack>
+                    <Stack direction={"row"} gap={2} justifyContent={"space-between"}>
+                        {/** Booking End */}
+                        <Typography variant="body2" fontWeight={"600"}>
+                            Check Out
+                        </Typography>
+                        <Stack gap={1 / 2} direction={"row"} justifyContent={"flex-start"} alignContent={"center"} alignItems={"center"}>
+                            <CalendarMonthIcon />
+                            <Typography variant="body2">
+                                {getDate(booking.end)}
+                            </Typography>
+                        </ Stack>
+                    </Stack>
+                    <Stack direction={"row"} justifyContent={"space-between"}>
+                        <Typography variant="body2">
+                            {booking.email}
+                        </Typography>
+                        <Typography variant="body2">
+                            {booking.phoneNumber}
+                        </Typography>
+                    </Stack>
+                </Box>
+            </Card>
+        </Box>
+    )
+};
+
+function BookingCard({ booking }) {
+    return (
+        <Box margin={2}>
+            <Card sx={CARD_PROPERTY} >
+                <Box padding={2}>
+                    <Box>
+                        <Typography variant="body2" fontWeight={"bold"} gutterBottom>Booking Details</Typography>
+                    </Box>
+                    <Divider />
+                    <Box marginTop={1}>
+                        <Typography variant="body2" fontWeight={"bold"} gutterBottom>{booking.propertyDetails.name}</Typography>
+                        <Typography variant="body2" color="darkslategray" gutterBottom>{booking.propertyDetails.address}</Typography>
+                    </Box>
+                    <Divider />
+                    <Box marginTop={1}>
+                        {/** Booked On */}
+                        <Stack direction={"row"} justifyContent={"space-between"}>
+                            <Typography variant="body2" fontWeight={"bold"} gutterBottom>Booked On</Typography>
+                            <Stack direction={"row"} gap={1} justifyContent={"space-between"} alignContent={"center"} alignItems={"stretch"}>
+                                <CalendarMonthIcon fontSize="small" />
+                                <Typography variant="body2" gutterBottom>{getDate(booking.bookedOn)}</Typography>
+                            </Stack>
+                        </Stack>
+
+                        {/** Check-In */}
+                        <Stack direction={"row"} justifyContent={"space-between"}>
+                            <Typography variant="body2" fontWeight={"bold"} gutterBottom>Check-In</Typography>
+                            <Stack direction={"row"} gap={1} justifyContent={"space-between"} alignContent={"center"} alignItems={"stretch"}>
+                                <CalendarMonthIcon fontSize="small" />
+                                <Typography variant="body2" gutterBottom>{getDate(booking.start)}</Typography>
+                            </Stack>
+                        </Stack>
+
+                        {/** Check-Out */}
+                        <Stack direction={"row"} justifyContent={"space-between"}>
+                            <Typography variant="body2" fontWeight={"bold"} gutterBottom>Check-Out</Typography>
+                            <Stack direction={"row"} gap={1} justifyContent={"space-between"} alignContent={"center"} alignItems={"stretch"}>
+                                <CalendarMonthIcon fontSize="small" />
+                                <Typography variant="body2" gutterBottom>{getDate(booking.end)}</Typography>
+                            </Stack>
+                        </Stack>
+
+                    </Box>
+                    <Divider />
+                    <Box marginTop={1}>
+                        <Typography variant="body2" fontWeight={"bold"} gutterBottom>User</Typography>
+                        {/** User Name*/}
+                        <Stack direction={"row"} justifyContent={"space-between"}>
+                            <Typography variant="body2" fontWeight={"bold"} gutterBottom>Booking for</Typography>
+                            <Typography variant="body2" gutterBottom>{booking.fullName}</Typography>
+                        </Stack>
+                        {/** User Email */}
+                        <Stack direction={"row"} justifyContent={"space-between"}>
+                            <Typography variant="body2" fontWeight={"bold"} gutterBottom>Email</Typography>
+                            <Typography variant="body2" gutterBottom>{booking.email}</Typography>
+                        </Stack>
+                        {/** User Phone Number */}
+                        <Stack direction={"row"} justifyContent={"space-between"}>
+                            <Typography variant="body2" fontWeight={"bold"} gutterBottom>Phone Number</Typography>
+                            <Typography variant="body2" gutterBottom>{booking.phoneNumber}</Typography>
+                        </Stack>
+                    </Box>
+                </Box>
+            </Card>
+        </Box>
+    )
 };
 
 function CustomTabPanel(props) {
@@ -131,68 +266,9 @@ function BookedSpaces() {
             </Typography> */}
             {(bookings.length !== 0) ?
                 bookings.map((booking, index) => (
-                    <Box margin={2} key={`booking-${index}`}>
-                        <Card sx={CARD_PROPERTY} >
-                            <Box padding={2}>
-                                <Stack direction={"row"} justifyContent={"space-between"}>
-                                    <Typography variant="body1" fontWeight={"600"}>
-                                        {booking.fullName}
-                                    </Typography>
-                                    <Typography variant="body1" fontWeight={"600"}>
-                                        {`₹ ${booking.amount.toLocaleString("en-IN")}`}
-                                    </Typography>
-                                </Stack>
-
-                                {/** Booked On */}
-                                <Stack gap={5} direction={"row"} justifyContent={"space-between"} alignContent={"center"} alignItems={"center"}>
-                                    <Typography variant="body2" fontWeight={"600"}>
-                                        Booked On
-                                    </Typography>
-                                    <Stack gap={1 / 2} direction={"row"} justifyContent={"flex-start"} alignContent={"center"} alignItems={"center"}>
-                                        <CalendarMonthIcon />
-                                        <Typography variant="body2">
-                                            {getDate(booking.bookedOn)}
-                                        </Typography>
-                                    </Stack>
-                                </ Stack>
-
-                                <Stack direction={"row"} gap={2} justifyContent={"space-between"}>
-                                    {/** Booking Start */}
-                                    <Typography variant="body2" fontWeight={"600"}>
-                                        Check In
-                                    </Typography>
-                                    <Stack gap={1 / 2} direction={"row"} justifyContent={"flex-start"} alignContent={"center"} alignItems={"center"}>
-                                        <CalendarMonthIcon />
-                                        <Typography variant="body2">
-                                            {getDate(booking.start)}
-                                        </Typography>
-                                    </ Stack>
-                                </ Stack>
-                                <Stack direction={"row"} gap={2} justifyContent={"space-between"}>
-                                    {/** Booking End */}
-                                    <Typography variant="body2" fontWeight={"600"}>
-                                        Check Out
-                                    </Typography>
-                                    <Stack gap={1 / 2} direction={"row"} justifyContent={"flex-start"} alignContent={"center"} alignItems={"center"}>
-                                        <CalendarMonthIcon />
-                                        <Typography variant="body2">
-                                            {getDate(booking.end)}
-                                        </Typography>
-                                    </ Stack>
-                                </Stack>
-                                <Stack direction={"row"} justifyContent={"space-between"}>
-                                    <Typography variant="body2">
-                                        {booking.email}
-                                    </Typography>
-                                    <Typography variant="body2">
-                                        {booking.phoneNumber}
-                                    </Typography>
-                                </Stack>
-                            </Box>
-                        </Card>
-                    </Box>
+                    <BookingCard booking={booking} key={`booking-${index}`} />
                 ))
-                : (loading)?(<Box
+                : (loading) ? (<Box
                     sx={{
                         display: "flex",
                         justifyContent: "center",
@@ -202,7 +278,7 @@ function BookedSpaces() {
                 >
                     <CircularProgress />
                 </Box>
-                ):(<h1>No Bookings Found</h1>)
+                ) : (<h1>No Bookings Found</h1>)
             }
         </ Stack>
     );
@@ -281,26 +357,26 @@ const UserProfileTabs = () => {
 
     return (
         <Box sx={{ width: '100%' }}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
-            <Tab label="Profile" {...a11yProps(0)} />
-            <Tab label="Your Bookings" {...a11yProps(1)} />
-            <Tab label="Registered Spaces" {...a11yProps(2)} />
-          </Tabs>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
+                    <Tab label="Profile" {...a11yProps(0)} />
+                    <Tab label="Your Bookings" {...a11yProps(1)} />
+                    <Tab label="Registered Spaces" {...a11yProps(2)} />
+                </Tabs>
+            </Box>
+            {/* User Info */}
+            <CustomTabPanel value={value} index={0}>
+                <UserDetailTab />
+            </CustomTabPanel>
+            {/* User Bookings */}
+            <CustomTabPanel value={value} index={1}>
+                <BookedSpaces />
+            </CustomTabPanel>
+            {/* Spaces Registered By User */}
+            <CustomTabPanel value={value} index={2}>
+                <RegisteredSpaces />
+            </CustomTabPanel>
         </Box>
-        {/* User Info */}
-        <CustomTabPanel value={value} index={0}>
-          <UserDetailTab/>
-        </CustomTabPanel>
-        {/* User Bookings */}
-        <CustomTabPanel value={value} index={1}>
-          <BookedSpaces/>
-        </CustomTabPanel>
-        {/* Spaces Registered By User */}
-        <CustomTabPanel value={value} index={2}>
-          <RegisteredSpaces />
-        </CustomTabPanel>
-      </Box>
     )
 }
 
