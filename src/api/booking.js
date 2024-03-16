@@ -22,3 +22,18 @@ export default async function booking(payload) {
         }
     }
 }
+
+export async function getUserBookings(id) {
+    try {
+        let res = await axiosInstance.get(`/bookings/user/${id}`);
+        return {
+            success: true,
+            data: res.data.data,
+        }
+    } catch (error) {
+        return {
+            success: false,
+            message: `Request failed due to ${error.message}`
+        } 
+    }
+}

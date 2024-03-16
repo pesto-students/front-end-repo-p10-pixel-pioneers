@@ -17,7 +17,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 //API
 import { getUserPropertyList } from "../../api/property";
-// import { getUserBookings } from "../../api/booking";
+import { getUserBookings } from "../../api/booking";
 
 import UserPropertyCard from "../../components/UserPropertyCard";
 import UserInfo from "../../components/UserInfo";
@@ -72,6 +72,138 @@ function UserDetailTab() {
         <>
             <UserInfo user={user} />
         </>
+    );
+}
+
+function BookedSpaces() {
+    const [bookings, setBookings] = useState([]);
+    const [error, setError] = useState("");
+    const [hasError, setHasError] = useState(false);
+    const [loading, setLoading] = useState(false);
+    // User Info
+    const user = JSON.parse(localStorage.user);
+    useEffect(() => {
+        setLoading(true);
+        (async () => {
+            let bookingResponse = await getUserBookings(user.id);
+            if (bookingResponse.success) {
+                setBookings(prev => bookingResponse.data);
+                setLoading(false);
+            } else {
+                setError(prev => true)
+                setHasError(bookingResponse.message);
+                setLoading(false);
+            }
+        })();
+    }, []);
+
+    {/* Loader */ }
+    if (loading) {
+        return <Box
+            sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignContent: "center",
+            }}
+            margin={10}
+        >
+            <CircularProgress />
+        </Box>
+    }
+
+    {/* Error Component */ }
+    if (error) {
+        return <div>error</div>
+    }
+
+    return (
+        <Stack
+            margin={3}
+            direction={{ xs: "column", md: "row" }}
+            gap={1}
+            justifyContent={"center"}
+            alignContent={"center"}
+            flexWrap={"wrap"}
+        >
+
+            {/* <Typography variant="h5" gutterBottom>
+                Your Bookings
+            </Typography> */}
+            {(bookings.length !== 0) ?
+                bookings.map((booking, index) => (
+                    <Box margin={2} key={`booking-${index}`}>
+                        <Card sx={CARD_PROPERTY} >
+                            <Box padding={2}>
+                                <Stack direction={"row"} justifyContent={"space-between"}>
+                                    <Typography variant="body1" fontWeight={"600"}>
+                                        {booking.fullName}
+                                    </Typography>
+                                    <Typography variant="body1" fontWeight={"600"}>
+                                        {`₹ ${booking.amount.toLocaleString("en-IN")}`}
+                                    </Typography>
+                                </Stack>
+
+                                {/** Booked On */}
+                                <Stack gap={5} direction={"row"} justifyContent={"space-between"} alignContent={"center"} alignItems={"center"}>
+                                    <Typography variant="body2" fontWeight={"600"}>
+                                        Booked On
+                                    </Typography>
+                                    <Stack gap={1 / 2} direction={"row"} justifyContent={"flex-start"} alignContent={"center"} alignItems={"center"}>
+                                        <CalendarMonthIcon />
+                                        <Typography variant="body2">
+                                            {getDate(booking.bookedOn)}
+                                        </Typography>
+                                    </Stack>
+                                </ Stack>
+
+                                <Stack direction={"row"} gap={2} justifyContent={"space-between"}>
+                                    {/** Booking Start */}
+                                    <Typography variant="body2" fontWeight={"600"}>
+                                        Check In
+                                    </Typography>
+                                    <Stack gap={1 / 2} direction={"row"} justifyContent={"flex-start"} alignContent={"center"} alignItems={"center"}>
+                                        <CalendarMonthIcon />
+                                        <Typography variant="body2">
+                                            {getDate(booking.start)}
+                                        </Typography>
+                                    </ Stack>
+                                </ Stack>
+                                <Stack direction={"row"} gap={2} justifyContent={"space-between"}>
+                                    {/** Booking End */}
+                                    <Typography variant="body2" fontWeight={"600"}>
+                                        Check Out
+                                    </Typography>
+                                    <Stack gap={1 / 2} direction={"row"} justifyContent={"flex-start"} alignContent={"center"} alignItems={"center"}>
+                                        <CalendarMonthIcon />
+                                        <Typography variant="body2">
+                                            {getDate(booking.end)}
+                                        </Typography>
+                                    </ Stack>
+                                </Stack>
+                                <Stack direction={"row"} justifyContent={"space-between"}>
+                                    <Typography variant="body2">
+                                        {booking.email}
+                                    </Typography>
+                                    <Typography variant="body2">
+                                        {booking.phoneNumber}
+                                    </Typography>
+                                </Stack>
+                            </Box>
+                        </Card>
+                    </Box>
+                ))
+                : (loading)?(<Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignContent: "center",
+                    }}
+                    margin={10}
+                >
+                    <CircularProgress />
+                </Box>):(<h1>No Bookings Found</h1>)
+            }
+        </ Stack>
     );
 }
 
@@ -150,17 +282,20 @@ const UserProfileTabs = () => {
         <Box sx={{ width: '100%' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
-            <Tab label="User Profile" {...a11yProps(0)} />
-            <Tab label="Past Booking" {...a11yProps(1)} />
+            <Tab label="Profile" {...a11yProps(0)} />
+            <Tab label="Your Bookings" {...a11yProps(1)} />
             <Tab label="Registered Spaces" {...a11yProps(2)} />
           </Tabs>
         </Box>
+        {/* User Info */}
         <CustomTabPanel value={value} index={0}>
           <UserDetailTab/>
         </CustomTabPanel>
+        {/* User Bookings */}
         <CustomTabPanel value={value} index={1}>
-          <h1>No Spaces Booked</h1>
+          <BookedSpaces/>
         </CustomTabPanel>
+        {/* Spaces Registered By User */}
         <CustomTabPanel value={value} index={2}>
           <RegisteredSpaces />
         </CustomTabPanel>
