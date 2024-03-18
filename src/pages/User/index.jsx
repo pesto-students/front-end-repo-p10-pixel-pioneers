@@ -144,7 +144,7 @@ function BookingCard({ booking }) {
                     </Box>
                     <Divider />
                     <Box marginTop={1}>
-                        <Typography variant="body2" fontWeight={"bold"} gutterBottom>User</Typography>
+                        {/* <Typography variant="body2" fontWeight={"bold"} gutterBottom>User</Typography> */}
                         {/** User Name*/}
                         <Stack direction={"row"} justifyContent={"space-between"}>
                             <Typography variant="body2" fontWeight={"bold"} gutterBottom>Booking for</Typography>
@@ -159,6 +159,19 @@ function BookingCard({ booking }) {
                         <Stack direction={"row"} justifyContent={"space-between"}>
                             <Typography variant="body2" fontWeight={"bold"} gutterBottom>Phone Number</Typography>
                             <Typography variant="body2" gutterBottom>{booking.phoneNumber}</Typography>
+                        </Stack>
+                    </Box>
+                    <Divider />
+                    <Box marginTop={1}>
+                        {/** Seats */}
+                        <Stack direction={"row"} justifyContent={"space-between"}>
+                            <Typography variant="body2" fontWeight={"bold"} gutterBottom>Total Seats</Typography>
+                            <Typography variant="body2" fontWeight={"500"} gutterBottom>{booking.totalSeats}</Typography>
+                        </Stack>
+                        {/** Amount */}
+                        <Stack direction={"row"} justifyContent={"space-between"}>
+                            <Typography variant="body2" fontWeight={"bold"} gutterBottom>Amount</Typography>
+                            <Typography variant="body2" fontWeight={"500"} gutterBottom><span style={{ color: "black", fontWeight: "bold" }}>₹</span>{` ${booking.amount.toLocaleString("en-IN")}`}</Typography>
                         </Stack>
                     </Box>
                 </Box>
