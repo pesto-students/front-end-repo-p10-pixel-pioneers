@@ -168,34 +168,12 @@ const PropertyDetails = () => {
                                 <Title text={propertyDetails.name} />
                                 <Star marked={true} rating={propertyDetails.rating} />
                             </Stack>
-                            {/* Building City and Pincode 
-                            <Stack gap={1 / 2} direction={"row"} marginTop={3 / 2} marginBottom={1} justifyContent={"flex-start"} alignContent={"center"} alignItems={"center"}>
-                                <LocationOnIcon fontSize="small" color="primary" />
-                                <Typography
-                                    sx={{
-                                        typography: { sm: 'body1', xs: 'body2' },
-                                        fontWeight: '100',
-                                    }}
-                                >
-                                    {propertyDetails.city}, {propertyDetails.pincode}
-                                </Typography>
-                            </Stack>
-*/}
-
+                            
                             <Stack marginTop={2} marginBottom={1} direction={{ xs: "row", sm: "row" }} gap={1}>
-                                <Button variant="contained" size="small" onClick={handleClickOpen} >Book now</Button>
-                                <Button component={Link} to={"/contact"} variant="outlined" size="small">Contact Us</Button>
+                                <Button variant="contained" size="small" onClick={handleClickOpen} sx={{backgroundColor: "#2C4C54"}}>Book now</Button>
+                                <Button component={Link} to={"/contact"} variant="outlined" size="small" sx={{color: "#2C4C54", borderColor: "#2C4C54"}}>Contact Us</Button>
                             </Stack>
-                            {/* Google Map Link */}
-                            {/* <Box>
-                                <Link href={`https://www.google.com/maps/search/?api=1&query=${propertyDetails.latitude},${propertyDetails.longitude}`} target="_blank" variant="body2">
-                                    <Stack direction={"row"} gap={.2} alignItems={"center"}>
-                                        Get directions
-                                        <OpenInNewIcon sx={{ fontSize: 17 }} />
-                                    </Stack>
-                                </Link>
-                            </Box> */}
-
+                          
                             {/* Property Images */}
                             <PropertyCarousel images={propertyDetails.images.data} />
 
