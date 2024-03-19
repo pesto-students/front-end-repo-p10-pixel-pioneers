@@ -26,7 +26,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import bookingRequest from "../../api/booking";
+import { booking } from "../../api/booking";
 
 const defaultTheme = createTheme();
 
@@ -36,15 +36,16 @@ const initialValues = {
   email: "",
   phoneNumber: "",
   totalSeats: 1,
-  start: new Date().toISOString(),
-  end: new Date().toISOString(),
+  start: new Date(new Date().setHours(0, 0, 0, 0)).toISOString(),
+  end: new Date(new Date().setHours(24, 0, 0, 0)).toISOString(),
 }
 
 const mobileRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+const nameRegExp = /^[a-zA-Z" "]+$/
 
 //validation schema
 let validationSchema = Yup.object().shape({
-  fullName: Yup.string().required("Required"),
+  fullName: Yup.string().matches(nameRegExp, "Name should not contain number or special characters").required("Required"),
   email: Yup.string().email("Invalid email").required("Required"),
   phoneNumber: Yup.string()
     .matches(mobileRegExp, 'Mobile number is not valid')
@@ -70,15 +71,44 @@ let validationSchema = Yup.object().shape({
     }),
 });
 
-const onSubmit = async (values) => {
-  await bookingRequest(values);
+const handlePrice = (values) => {
+  const endDate = values.end;
+  const startDate = values.start;
+  const totalDays = endDate.diff(startDate, "days") || 1;
+  if (values.totalSeats > 0 && values.totalSeats < 50 && totalDays > 0) {
+    const amount = parseInt((values.totalSeats || 0) * values.cost * (totalDays / 30));
+    return amount;
+  }
+  return 0;
 };
 
-const BookingForm = () => {
+const BookingForm = ({ propertyDetails, handleBooking }) => {
 
   const [hasError, setError] = useState(false);
   const [message, setMessage] = useState("");
+  const [amount, setAmount] = useState(handlePrice({
+    cost: propertyDetails.cost,
+    totalSeats: parseInt(initialValues.totalSeats),
+    start: dayjs(initialValues.start),
+    end: dayjs(initialValues.end),
+  }));
 
+  const onSubmit = async (values) => {
+    const start = dayjs(values.start);
+    const end = dayjs(values.end);
+
+    const days = end.diff(start, "day");
+    values.amount = values.totalSeats * propertyDetails.cost * (days / 30);
+    values.bookedOn = new Date().toISOString();
+
+    const user = JSON.parse(localStorage.user);
+    values.userID = String(user.id);
+    values.propertyID = String(propertyDetails.id);
+
+    const resp = await booking(values);
+handleBooking(resp);
+  };
+  
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
@@ -170,7 +200,18 @@ const BookingForm = () => {
                             name="totalSeats"
                             label="Total Seats"
                             type="number"
-                            onChange={handleChange}
+                            onChange={(e) => {
+                              handleChange(e);
+                              setAmount(prev => {
+                                return handlePrice({
+                                  cost: propertyDetails.cost,
+                                  totalSeats: parseInt(e.target.value),
+                                  start: dayjs(values.start),
+                                  end: dayjs(values.end),
+                                });
+                              });
+
+                            }}
                             onBlur={handleBlur}
                           />
                         </Grid>
@@ -186,6 +227,14 @@ const BookingForm = () => {
                             onChange={(value) => {
                               setFieldTouched("start", true);
                               setFieldValue("start", value.format(), true);
+                              setAmount(prev => {
+                                return handlePrice({
+                                  cost: propertyDetails.cost,
+                                  totalSeats: parseInt(values.totalSeats),
+                                  start: dayjs(value.format()),
+                                  end: dayjs(values.end),
+                                });
+                              });
                             }}
                             slotProps={{
                               textField: {
@@ -208,7 +257,14 @@ const BookingForm = () => {
                             onChange={(value) => {
                               setFieldTouched("end", true);
                               setFieldValue("end", value.format(), true);
-
+                              setAmount(prev => {
+                                return handlePrice({
+                                  cost: propertyDetails.cost,
+                                  totalSeats: parseInt(values.totalSeats),
+                                  start: dayjs(values.start),
+                                  end: dayjs(value.format()),
+                                });
+                              });
                             }}
                             slotProps={{
                               textField: {
@@ -229,7 +285,9 @@ const BookingForm = () => {
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
                       >
-                        Register
+                        {
+                          (amount === 0) ? `PAY` : `PAY ₹${amount}`
+                        }
                       </Button>
                     </Form>
                   </Box>

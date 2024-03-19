@@ -158,7 +158,7 @@ function DrawerAppBar(props) {
             >
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt={`${JSON.parse(localStorage.user).username}`} />
+                  <Avatar alt={`${JSON.parse(localStorage.user).username}`} src="/static/images/avatar/2.jpg" />
                 </IconButton>
               </Tooltip>
               <Menu

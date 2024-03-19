@@ -1,17 +1,12 @@
 import axios from "axios";
 import axiosInstance from "./axiosInstance";
 
-export default async function booking(payload) {
-    // TODO Add the following fields to payload
-    payload.bookedOn = new Date().toISOString()
-    payload.userID="2";
-    payload.propertyID="8";
-    payload.amount= Number(payload.totalSeats) * 30000
-    // console.log(`Payload`, payload)
+export async function booking(payload) {
     try {
-        let res = axiosInstance.post("/bookings", payload);
+        let res = await axiosInstance.post("/bookings", payload);
         return {
             success: true,
+            data: res.data.data,
             message: "Your booking is saved",
         }
     } catch (error) {

@@ -22,7 +22,8 @@ import BookingForm from "../../components/BookingForm"
 import dialogBackground from "../../Assets/dialog-background.jpg"
 
 // Icons
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import CancelIcon from '@mui/icons-material/Cancel';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -37,6 +38,37 @@ const capitaliseFirstAlphabet = (text) => {
 
 const BookingFormDialog = ({ open, handleClose, propertyDetails }) => {
     const propertyImage = propertyDetails.images.data[0].attributes?.url;
+
+    const [bookingInitiated, setBookingInitiated] = useState(false);
+    const [bookingSuccessful, setBookingSuccessful] = useState(false);
+    const [bookingDetails, setBookingDetails] = useState({});
+
+    const handleBooking = (payload) => {
+        setBookingInitiated(true);
+        setBookingDetails(prev => payload.data)
+        if (payload.success) {
+            setBookingSuccessful(true);
+        }
+    }
+
+    // if (bookingInitiated) {
+    //     return (
+    //         <Stack justifyContent={"center"} alignContent={"center"} alignItems={"center"}>
+    //             <CheckCircleOutlineIcon
+    //                 color={"success"}
+    //                 sx={{ fontSize: "xxx-large" }}
+    //             />
+    //             <Typography variant="h5" fontWeight={"bold"} margin={1}>
+    //                 Payment Success
+    //             </Typography>
+    //             <Typography variant="body1" margin={1}>
+    //                 Yor payment of <strong>{`${bookingDetails.amount}`}</strong> was successfully completed
+    //             </Typography>
+    //             <Button variant="contained" sx={{ backgroundColor: "black" }} >Done </ Button>
+    //         </Stack>
+    //     )
+    // }
+
     return (
         <Dialog
             fullScreen
@@ -69,7 +101,10 @@ const BookingFormDialog = ({ open, handleClose, propertyDetails }) => {
                 }}>
                 <Title text={propertyDetails.name} textAlign={"start"} />
             </Box>
-            <Grid container>
+
+
+            {/**Initial Dialog */}
+            < Grid container>
                 <Grid item xs={12} sm={6}>
                     <Box
                         sx={{
@@ -83,12 +118,53 @@ const BookingFormDialog = ({ open, handleClose, propertyDetails }) => {
                     </Box>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <Box margin={2}>
-                        <BookingForm />
-                    </Box>
+                    {
+                        (bookingInitiated)
+                            ? (
+                                (bookingSuccessful)
+                                ?(
+                                    <Stack marginTop={{ xs: 1, sm: 18 }} justifyContent={"center"} alignContent={"center"} alignItems={"center"}>
+                                    <CheckCircleOutlineIcon
+                                        color={"success"}
+                                        sx={{ fontSize: "xxx-large" }}
+                                    />
+                                    <Typography variant="h5" fontWeight={"bold"} margin={1}>
+                                        Payment Success
+                                    </Typography>
+                                    <Typography variant="body1" margin={1} textAlign={"center"}>
+                                        Your payment of <strong>{`${bookingDetails.amount}`}</strong>  for <strong>{`${propertyDetails.name}`}</strong> was successfully completed
+                                    </Typography>
+                                    <Button variant="contained" sx={{ backgroundColor: "black" }} >Done </ Button>
+                                </Stack>
+                                )
+                                :(
+                                    <Stack marginTop={{ xs: 1, sm: 18 }} justifyContent={"center"} alignContent={"center"} alignItems={"center"}>
+                                    <CancelIcon
+                                        color={"error"}
+                                        sx={{ fontSize: "xxx-large" }}
+                                    />
+                                    <Typography variant="h5" fontWeight={"bold"} margin={1}>
+                                        Payment Failure
+                                    </Typography>
+                                    <Typography variant="body1" margin={1} textAlign={"center"}>
+                                        Your payment of <strong>{`${bookingDetails.amount}`}</strong>  for <strong>{`${propertyDetails.name}`}</strong> was unsuccessful
+                                    </Typography>
+                                    <Button variant="contained" color={"error"}>Done </ Button>
+                                </Stack>
+                                )
+                               
+                            ) : (
+                                <Box margin={2}>
+                                    <BookingForm propertyDetails={propertyDetails} handleBooking={handleBooking} />
+                                </Box>
+                            )
+                    }
                 </Grid>
             </Grid>
-        </Dialog>
+
+
+
+        </Dialog >
     )
 }
 
@@ -168,12 +244,12 @@ const PropertyDetails = () => {
                                 <Title text={propertyDetails.name} />
                                 <Star marked={true} rating={propertyDetails.rating} />
                             </Stack>
-                            
+
                             <Stack marginTop={2} marginBottom={1} direction={{ xs: "row", sm: "row" }} gap={1}>
-                                <Button variant="contained" size="small" onClick={handleClickOpen} sx={{backgroundColor: "#2C4C54"}}>Book now</Button>
-                                <Button component={Link} to={"/contact"} variant="outlined" size="small" sx={{color: "#2C4C54", borderColor: "#2C4C54"}}>Contact Us</Button>
+                                <Button variant="contained" size="small" onClick={handleClickOpen} sx={{ backgroundColor: "#2C4C54" }}>Book now</Button>
+                                <Button component={Link} to={"/contact"} variant="outlined" size="small" sx={{ color: "#2C4C54", borderColor: "#2C4C54" }}>Contact Us</Button>
                             </Stack>
-                          
+
                             {/* Property Images */}
                             <PropertyCarousel images={propertyDetails.images.data} />
 
@@ -276,7 +352,7 @@ const PropertyDetails = () => {
                                 {/* Property Map */}
                                 <Map
                                     center={[propertyDetails.latitude, propertyDetails.longitude]}
-                                    name= {propertyDetails.name}
+                                    name={propertyDetails.name}
                                     address={propertyDetails.address}
                                     city={propertyDetails.city}
                                     country={propertyDetails.country}

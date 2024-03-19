@@ -38,16 +38,16 @@ const EnquiryForm = ({ property }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      name: data.get("name"),
-      email: data.get("email"),
-      phoneNumber: data.get("phoneNumber"),
-      numberOfSeats: data.get("numberOfSeats"),
-      date: data.get("checkIn"),
-      propertyID: property.id,
-      propertyName: property.name,
-    });
-   let res = await enquire({
+    // console.log({
+    //   name: data.get("name"),
+    //   email: data.get("email"),
+    //   phoneNumber: data.get("phoneNumber"),
+    //   numberOfSeats: data.get("numberOfSeats"),
+    //   date: data.get("checkIn"),
+    //   propertyID: property.id,
+    //   propertyName: property.name,
+    // });
+    let res = await enquire({
       data: {
         name: data.get("name"),
         email: data.get("email"),
@@ -70,8 +70,8 @@ const EnquiryForm = ({ property }) => {
         draggable: true,
         progress: undefined,
         theme: "dark",
-        });
-    navigate("/properties");
+      });
+      navigate("/properties");
     } else {
       toast.error('Unable to save enquiry', {
         position: "top-right",
@@ -82,84 +82,53 @@ const EnquiryForm = ({ property }) => {
         draggable: true,
         progress: undefined,
         theme: "dark",
-        });
+      });
     }
   };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "30px" }}>
-      {/* <h1>Get in Touch</h1> */}
-      <Button
-        mb={5}
-        onClick={functionopenpopup}
-        size={"large"}
-        color="primary"
-        variant="contained"
-        className="EnquireBtn"
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <Stack
+        component="form"
+        noValidate
+        onSubmit={handleSubmit}
+        spacing={2}
+        margin={2}
       >
-        Enquire Now
-      </Button>
-      <Dialog
-        // fullScreen
-        open={open}
-        onClose={closepopup}
-        fullWidth
-        maxWidth="sm"
-      >
-        <DialogTitle>
-          Private Office{" "}
-          <IconButton onClick={closepopup} style={{ float: "right" }}>
-            <CloseIcon color="primary"></CloseIcon>
-          </IconButton>{" "}
-        </DialogTitle>
-        <DialogContent>
-          {/* <DialogContentText>Do you want remove this user?</DialogContentText> */}
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <Stack
-              component="form"
-              noValidate
-              onSubmit={handleSubmit}
-              spacing={2}
-              margin={2}
-            >
-              <TextField
-                name="name"
-                variant="outlined"
-                label="Full Name*"
-              ></TextField>
-              <TextField
-                name="email"
-                variant="outlined"
-                label="Email*"
-              ></TextField>
-              <TextField
-                name="phoneNumber"
-                variant="outlined"
-                label="Phone Number*"
-              ></TextField>
-              <TextField
-                name="numberOfSeats"
-                variant="outlined"
-                label="No of people"
-                type="number"
-                inputProps={{ min: 0, max: 50, step: 1 }}
-              ></TextField>
-              <DatePicker
-                name="checkIn"
-                disablePast
-                label="Select Date*"
-                value={value}
-                onChange={(newValue) => setValue(newValue)}
-              />
-              <Button color="primary" type="submit" variant="contained">
-                Enquire Now
-              </Button>
-            </Stack>
-          </LocalizationProvider>
-        </DialogContent>
-        <DialogActions></DialogActions>
-      </Dialog>
-    </div>
+        <TextField
+          name="name"
+          variant="outlined"
+          label="Full Name*"
+        ></TextField>
+        <TextField
+          name="email"
+          variant="outlined"
+          label="Email*"
+        ></TextField>
+        <TextField
+          name="phoneNumber"
+          variant="outlined"
+          label="Phone Number*"
+        ></TextField>
+        <TextField
+          name="numberOfSeats"
+          variant="outlined"
+          label="No of people"
+          type="number"
+          inputProps={{ min: 0, max: 50, step: 1 }}
+        ></TextField>
+        <DatePicker
+          name="checkIn"
+          disablePast
+          label="Select Date*"
+          value={value}
+          onChange={(newValue) => setValue(newValue)}
+        />
+        <Button color="primary" type="submit" variant="contained">
+          Enquire Now
+        </Button>
+      </Stack>
+    </LocalizationProvider>
   );
 };
 export default EnquiryForm;
