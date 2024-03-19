@@ -97,7 +97,9 @@ const UserInfo = ({ user }) => {
                           label="First Name"
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          disabled
+                          InputProps={{
+                            readOnly: true
+                          }}
                         />
                       </Grid>
 
@@ -114,7 +116,9 @@ const UserInfo = ({ user }) => {
                           name="lastName"
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          disabled
+                          InputProps={{
+                            readOnly: true
+                          }}
                         />
                       </Grid>
 
@@ -131,7 +135,9 @@ const UserInfo = ({ user }) => {
                           name="username"
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          disabled
+                          InputProps={{
+                            readOnly: true
+                          }}
                         />
                       </Grid>
 
@@ -148,7 +154,9 @@ const UserInfo = ({ user }) => {
                           name="phoneNumber"
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          disabled
+                          InputProps={{
+                            readOnly: true
+                          }}
                         />
                       </Grid>
 
@@ -165,7 +173,9 @@ const UserInfo = ({ user }) => {
                           name="email"
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          disabled
+                          InputProps={{
+                            readOnly: true
+                          }}
                         />
                       </Grid>
                     </Grid>

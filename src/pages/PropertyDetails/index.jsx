@@ -6,7 +6,7 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
+import { Link } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import Icon from '@mui/material/Icon';
 import IconButton from '@mui/material/IconButton';
@@ -184,7 +184,7 @@ const PropertyDetails = () => {
 
                             <Stack marginTop={2} marginBottom={1} direction={{ xs: "row", sm: "row" }} gap={1}>
                                 <Button variant="contained" size="small" onClick={handleClickOpen} >Book now</Button>
-                                <Button component="a" href={"/contact"} variant="outlined" size="small">Contact Us</Button>
+                                <Button component={Link} to={"/contact"} variant="outlined" size="small">Contact Us</Button>
                             </Stack>
                             {/* Google Map Link */}
                             {/* <Box>

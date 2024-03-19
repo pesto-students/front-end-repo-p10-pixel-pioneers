@@ -7,7 +7,7 @@ export default async function booking(payload) {
     payload.userID="2";
     payload.propertyID="8";
     payload.amount= Number(payload.totalSeats) * 30000
-    console.log(`Payload`, payload)
+    // console.log(`Payload`, payload)
     try {
         let res = axiosInstance.post("/bookings", payload);
         return {

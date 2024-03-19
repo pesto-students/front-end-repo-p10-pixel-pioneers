@@ -25,7 +25,7 @@ export async function login({email, password}) {
 
 export async function register(payload) {
   try {
-    console.log("Register:-", payload);
+    // console.log("Register:-", payload);
     const response = await axiosInstance.post(
       "/auth/local/register",
       payload

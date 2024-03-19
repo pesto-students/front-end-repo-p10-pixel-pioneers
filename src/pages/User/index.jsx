@@ -105,7 +105,7 @@ function BookingCard({ booking }) {
             <Card sx={CARD_PROPERTY} >
                 <Box padding={2}>
                     <Box>
-                        <Typography variant="body2" fontWeight={"bold"} gutterBottom>Booking Details</Typography>
+                        <Typography variant="body1" fontWeight={"bold"} gutterBottom>Booking Details</Typography>
                     </Box>
                     <Divider />
                     <Box marginTop={1}>
@@ -117,27 +117,27 @@ function BookingCard({ booking }) {
                         {/** Booked On */}
                         <Stack direction={"row"} justifyContent={"space-between"}>
                             <Typography variant="body2" fontWeight={"bold"} gutterBottom>Booked On</Typography>
-                            <Stack direction={"row"} gap={1} justifyContent={"space-between"} alignContent={"center"} alignItems={"stretch"}>
+                            <Stack direction={"row"} justifyContent={"space-between"} alignContent={"center"} alignItems={"stretch"}>
                                 <CalendarMonthIcon fontSize="small" />
-                                <Typography variant="body2" gutterBottom>{getDate(booking.bookedOn)}</Typography>
+                                <Typography variant="body2" gutterBottom sx={{width: "75px", textAlign: "right"}}>{getDate(booking.bookedOn)}</Typography>
                             </Stack>
                         </Stack>
 
                         {/** Check-In */}
                         <Stack direction={"row"} justifyContent={"space-between"}>
                             <Typography variant="body2" fontWeight={"bold"} gutterBottom>Check-In</Typography>
-                            <Stack direction={"row"} gap={1} justifyContent={"space-between"} alignContent={"center"} alignItems={"stretch"}>
+                            <Stack direction={"row"} justifyContent={"space-between"} alignContent={"center"} alignItems={"stretch"}>
                                 <CalendarMonthIcon fontSize="small" />
-                                <Typography variant="body2" gutterBottom>{getDate(booking.start)}</Typography>
+                                <Typography variant="body2" gutterBottom sx={{width: "75px", textAlign: "right"}}>{getDate(booking.start)}</Typography>
                             </Stack>
                         </Stack>
 
                         {/** Check-Out */}
                         <Stack direction={"row"} justifyContent={"space-between"}>
                             <Typography variant="body2" fontWeight={"bold"} gutterBottom>Check-Out</Typography>
-                            <Stack direction={"row"} gap={1} justifyContent={"space-between"} alignContent={"center"} alignItems={"stretch"}>
+                            <Stack direction={"row"} justifyContent={"space-between"} alignContent={"center"} alignItems={"stretch"}>
                                 <CalendarMonthIcon fontSize="small" />
-                                <Typography variant="body2" gutterBottom>{getDate(booking.end)}</Typography>
+                                <Typography variant="body2" gutterBottom sx={{width: "75px", textAlign: "right"}}>{getDate(booking.end)}</Typography>
                             </Stack>
                         </Stack>
 

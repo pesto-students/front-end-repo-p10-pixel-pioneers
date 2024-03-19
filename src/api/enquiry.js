@@ -4,7 +4,7 @@ import axiosInstance from "./axiosInstance";
 export async function enquire(payload) {
     try {
         let res = axiosInstance.post("/enquiries", payload);
-        console.log(`Enquiry Resp:-`, res);
+        // console.log(`Enquiry Resp:-`, res);
         return {
             success: true,
             message: "Your enquiry is saved",
