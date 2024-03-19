@@ -44,6 +44,7 @@ const BookingFormDialog = ({ open, handleClose, propertyDetails }) => {
     const [bookingDetails, setBookingDetails] = useState({});
 
     const handleBooking = (payload) => {
+        console.log(payload);
         setBookingInitiated(true);
         setBookingDetails(prev => payload.data)
         if (payload.success) {
@@ -134,7 +135,7 @@ const BookingFormDialog = ({ open, handleClose, propertyDetails }) => {
                                     <Typography variant="body1" margin={1} textAlign={"center"}>
                                         Your payment of <strong>{`${bookingDetails.amount}`}</strong>  for <strong>{`${propertyDetails.name}`}</strong> was successfully completed
                                     </Typography>
-                                    <Button variant="contained" sx={{ backgroundColor: "black" }} >Done </ Button>
+                                    <Button variant="contained" sx={{ backgroundColor: "black" }} onClick={handleClose} >Done </ Button>
                                 </Stack>
                                 )
                                 :(
@@ -147,9 +148,9 @@ const BookingFormDialog = ({ open, handleClose, propertyDetails }) => {
                                         Payment Failure
                                     </Typography>
                                     <Typography variant="body1" margin={1} textAlign={"center"}>
-                                        Your payment of <strong>{`${bookingDetails.amount}`}</strong>  for <strong>{`${propertyDetails.name}`}</strong> was unsuccessful
+                                        Unable to book <strong>{`${propertyDetails.name}`}</strong>
                                     </Typography>
-                                    <Button variant="contained" color={"error"}>Done </ Button>
+                                    <Button variant="contained" color={"error"} onClick={handleClose}>Done</ Button>
                                 </Stack>
                                 )
                                
@@ -246,7 +247,7 @@ const PropertyDetails = () => {
                             </Stack>
 
                             <Stack marginTop={2} marginBottom={1} direction={{ xs: "row", sm: "row" }} gap={1}>
-                                <Button variant="contained" size="small" onClick={handleClickOpen} sx={{ backgroundColor: "#2C4C54" }}>Book now</Button>
+                                <Button variant="contained" size="small" onClick={handleClickOpen} sx={{ backgroundColor: "#2C4C54" }} disabled={(!localStorage.user)?true: false}>Book now</Button>
                                 <Button component={Link} to={"/contact"} variant="outlined" size="small" sx={{ color: "#2C4C54", borderColor: "#2C4C54" }}>Contact Us</Button>
                             </Stack>
 

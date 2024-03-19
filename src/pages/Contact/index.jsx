@@ -41,7 +41,6 @@ const Contact = () => {
     const handleSubmit = async (values, formikBag) => {
         // event.preventDefault();
         // const data = new FormData(event.currentTarget);
-        console.log(values);
         let res = await enquire({
             data: values
         });

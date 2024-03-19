@@ -172,6 +172,8 @@ const initialValues = {
   phoneNumber: "",
   cost: 0,
   images: null,
+  latitude: 0,
+  longitude: 0,
 }
 
 const mobileRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
@@ -187,6 +189,8 @@ let validationSchema = Yup.object().shape({
   city: Yup.string().required("Required"),
   state: Yup.string().required("Required"),
   country: Yup.string().required("Required"),
+  latitude: Yup.number().required("Required"),
+  longitude: Yup.number().required("Required"),
   phoneNumber: Yup.string()
     .matches(mobileRegExp, 'Mobile number is not valid')
     .min(10, 'Mobile number must have 10 digits')
@@ -194,10 +198,6 @@ let validationSchema = Yup.object().shape({
     .required("Required"),
   cost: Yup.number().required("Required"),
 })
-
-const onSubmit = () => {
-console.log("Onsubmit")
-}
 
 const AddPropertyDetails = () => {
 
@@ -419,7 +419,40 @@ const AddPropertyDetails = () => {
                     />
                   </Grid>
 
-                  {/* Cost */}
+                   {/* latitude */}
+                   <Grid item xs={12} sm={6}>
+                    <TextField
+                      required
+                      fullWidth
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      id="latitude"
+                      label="Latitude"
+                      name="latitude"
+                      value={values.latitude}
+                      error={Boolean(touched.latitude && errors.latitude)}
+                      helperText={touched.latitude && errors.latitude}
+                    />
+                  </Grid>
+
+                  {/* longitude */}
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      type="number"
+                      required
+                      fullWidth
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      name="longitude"
+                      label="Longitude"
+                      id="longitude"
+                      value={values.longitude}
+                      error={Boolean(touched.longitude && errors.longitude)}
+                      helperText={touched.longitude && errors.longitude}
+                    />
+                  </Grid>
+
+                  {/* Rent of Property */}
                   <Grid item xs={12}>
                     <TextField
                       type="number"
