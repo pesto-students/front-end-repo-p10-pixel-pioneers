@@ -215,9 +215,9 @@ const AddPropertyDetails = () => {
 
       let res = await addProperty(values);
 
-      // if (res.success) {
-      //   navigate(`/property-details/${res.data.id}`);
-      // }
+      if (res.success) {
+        navigate(`/property-details/${res.data.id}`);
+      }
     } else {
       navigate('/login')
     }

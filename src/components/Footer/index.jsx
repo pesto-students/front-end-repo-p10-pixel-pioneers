@@ -36,8 +36,8 @@ const Footer = () => {
                     </Grid>
                     <Grid item xs={12}>
                         <Stack alignItems={"center"}>
-                            <Link href="/about" style={{ color: "#fff" }} display="block">About Us</Link>
-                            <Link href="/contact" style={{ color: "#fff" }} display="block">Contact Us</Link>
+                            <RouterLink to="/about" style={{ color: "#fff" }} display="block">About Us</RouterLink>
+                            <RouterLink to="/contact" style={{ color: "#fff" }} display="block">Contact Us</RouterLink>
                         </Stack>
                     </Grid>
                     <Grid item xs={12}>
