@@ -1,0 +1,253 @@
+import React, { useState, useEffect } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import { Button, Card, CardContent } from "@material-ui/core";
+import { getUserPropertyList } from "../../api/property";
+import UserPropertyCard from "../../components/UserPropertyCard";
+import { Stack } from "@mui/material";
+import { Avatar } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
+
+const useStyles = makeStyles({
+  customUser: {
+    margin: "auto",
+  },
+  container: {
+    paddingRight: 15,
+    paddingLeft: 15,
+    marginRight: "auto",
+    marginLeft: "auto",
+
+    // // Full width for (xs, extra-small: 0px or larger) and (sm, small: 600px or larger)
+    // [theme.breakpoints.up("md")]: {
+    //   // medium: 960px or larger
+    //   width: 920,
+    // },
+    // [theme.breakpoints.up("lg")]: {
+    //   // large: 1280px or larger
+    //   width: 1170,
+    // },
+    // [theme.breakpoints.up("xl")]: {
+    //   // extra-large: 1920px or larger
+    //   width: 1366,
+    // },
+  },
+  root: {
+    // flexGrow: 1,
+  },
+  tabContent: {
+    marginTop: 2,
+  },
+  card: {
+    marginBottom: 2,
+  },
+  RegisteredSpaceTab: {
+    backgroundColor: "#FAF0E6",
+  },
+});
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`tabpanel-${index}`}
+      aria-labelledby={`tabpanel-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={3}>
+          <Typography component="div">{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+function UserDetailTab() {
+  const userData = JSON.parse(localStorage.user);
+  return (
+    <>
+      <Box
+        sx={{
+          margin: "auto",
+          width: "50%",
+        }}
+      // className={classes.UserTab}
+      >
+        {/* <div className={classes.container}> */}
+        {/* <Typography variant="h5" gutterBottom> */}
+        {/* User Profile */}
+        {/* </Typography> */}
+        {/* Replace these fields with user data */}
+
+        <Typography variant="h6" component="div">
+          First Name: {userData.firstName}
+        </Typography>
+        <Typography variant="h6" component="div">
+          Last Name: {userData.lastName}
+        </Typography>
+        <Typography variant="h6" component="div">
+          Username: {userData.username}
+        </Typography>
+        <Typography variant="h6" component="div">
+          Email: {userData.email}
+        </Typography>
+        <Typography variant="h6" component="div">
+          Phone Number: {userData.phoneNumber}
+        </Typography>
+        {/* <Typography>City: {}</Typography> */}
+        {/* </div> */}
+      </Box>
+    </>
+  );
+}
+
+function PastBookingTab() {
+  const classes = useStyles();
+
+  const bookings = [
+    {
+      id: "1",
+      location: "Pune",
+      address:
+        "Kharadi, Tower 5, World Trade Center , Kharadi, MIDC Knowledge Park, Pune, MH 411014",
+      date: "2023-01-15",
+      amountPaid: "15000",
+    },
+    {
+      id: "2",
+      location: "Mumbai",
+      address: "some virtual address",
+      date: "2023-02-20",
+      amountPaid: "20,000",
+    },
+    // Add more booking data as needed
+  ];
+
+  return (
+    <div className={classes.container}>
+      <Typography variant="h5" gutterBottom>
+        Your Tickets
+      </Typography>
+      {bookings.map((booking, index) => (
+        <Card key={index} className={classes.card}>
+          <CardContent>
+            <Typography variant="body1">Booking ID: {booking.id}</Typography>
+            <Typography variant="h6">Location: {booking.location}</Typography>
+            <Typography variant="body1"> Address: {booking.address}</Typography>
+            <Typography>Date: {booking.date}</Typography>
+            <Button variant="outlined" color="primary">
+              View
+            </Button>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
+  );
+}
+
+function RegisteredSpacesDetails() {
+  const [properties, setProperties] = useState([]);
+  const [error, setError] = useState("");
+  const [hasError, setHasError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  
+  useEffect(() => {
+    setLoading(true);
+    (async () => {
+      let res = await getUserPropertyList(JSON.parse(localStorage.user).id);
+      if (res.success) {
+        setProperties(res.data);
+        setLoading(false);
+      } else {
+        setError(prev=>true)
+        setHasError(res.data.message);
+        setLoading(false);
+      }
+    })();
+  }, []);
+
+  {/* Loader */ }
+  if (loading) {
+    return <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignContent: "center",
+      }}
+      margin={10}
+    >
+      <CircularProgress />
+    </Box>
+  }
+
+  {/* Error Component */ }
+  if (error) {
+    return <div>error</div>
+  }
+
+  return (
+    <Stack
+      margin={2}
+      direction={{ xs: "column", md: "row" }}
+      gap={1}
+      justifyContent={"center"}
+      alignContent={"center"}
+      flexWrap={"wrap"}
+    >
+      {(properties.length !== 0) ?
+        properties.map((property, propertyIndex) => (
+          <UserPropertyCard
+            propertyDetails={property}
+            key={`property-${propertyIndex}`}
+          />
+        )) : (
+          <h1>No Spaces Registered</h1>
+        )
+
+      }
+    </Stack>
+  );
+}
+
+export default function UserProfileTabs() {
+  const classes = useStyles();
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  return (
+    <div className={classes.root}>
+      <Tabs
+        value={value}
+        onChange={handleChange}
+        indicatorColor="primary"
+        textColor="primary"
+        centered
+      >
+        <Tab label="User Profile" />
+        <Tab label="Past Booking" />
+        <Tab label="Registered spaces" />
+        {/* Add more tabs here if needed */}
+      </Tabs>
+      <TabPanel value={value} index={0} className={classes.tabContent}>
+        <UserDetailTab />
+      </TabPanel>
+      <TabPanel value={value} index={1} className={classes.tabContent}>
+        <PastBookingTab />
+      </TabPanel>
+
+      <TabPanel value={value} index={2} className={classes.tabContent}>
+        <RegisteredSpacesDetails />
+      </TabPanel>
+    </div>
+  );
+}
